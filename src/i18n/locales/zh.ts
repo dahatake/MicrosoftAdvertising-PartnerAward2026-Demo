@@ -13,4 +13,13 @@ export const zh: Messages = {
   'app1.lead': '按使用场景，清晰地介绍产品的价值。',
   'app2.heading': '广告素材管理',
   'app2.lead': '在一个地方查看活动、方案、报价、素材和委托。',
+  'narration.heading': '旁白',
+  'narration.play': '播放',
+  'narration.stop': '停止',
+  'narration.playing': '播放中',
+  'narration.stopped': '已停止',
+  'narration.showTranscript': '显示字幕',
+  'narration.hideTranscript': '隐藏字幕',
+  'narration.fallback': '无法使用 Azure Speech，正在用浏览器语音合成播放。',
+  'narration.unavailable': '无法播放语音。您可以通过字幕阅读旁白内容。',
 };

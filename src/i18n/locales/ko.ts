@@ -13,4 +13,13 @@ export const ko: Messages = {
   'app1.lead': '이용 장면에 맞춰 제품의 가치를 쉽게 소개합니다.',
   'app2.heading': '광고 소재 관리',
   'app2.lead': '캠페인, 기획, 견적, 소재, 발주를 한곳에서 확인합니다.',
+  'narration.heading': '내레이션',
+  'narration.play': '재생',
+  'narration.stop': '정지',
+  'narration.playing': '재생 중',
+  'narration.stopped': '정지됨',
+  'narration.showTranscript': '자막 표시',
+  'narration.hideTranscript': '자막 숨기기',
+  'narration.fallback': 'Azure Speech를 사용할 수 없어 브라우저 음성 합성으로 재생하고 있습니다.',
+  'narration.unavailable': '음성을 재생할 수 없습니다. 자막으로 내레이션 내용을 확인할 수 있습니다.',
 };
