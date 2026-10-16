@@ -1,8 +1,8 @@
 import { defineConfig } from '@playwright/test';
 
-// System Test は tests/system の spec を、build 済みの成果物を preview（port 4173）で配信して実行する。
-// 既定は port 4173・BASE_URL=http://localhost:4173。他のプロセスが 4173 を使っているときは PREVIEW_PORT で変える。
-const port = Number(process.env.PREVIEW_PORT ?? 4173);
+// System Test は tests/system の spec を、build 済みの成果物を preview（port 4317）で配信して実行する。
+// 既定は port 4317・BASE_URL=http://localhost:4317。他のプロセスが 4317 を使っているときは PREVIEW_PORT で変える。
+const port = Number(process.env.PREVIEW_PORT ?? 4317);
 process.env.BASE_URL ??= `http://localhost:${port}`;
 
 export default defineConfig({
