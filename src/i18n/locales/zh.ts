@@ -45,4 +45,13 @@ export const zh: Messages = {
   'cmd.viewMethod': '显示方式：',
   'cmd.layoutReset': '布局：全部恢复默认',
   'cmd.open': '命令搜索（Ctrl+K）',
+  'narration.heading': '旁白',
+  'narration.play': '播放',
+  'narration.stop': '停止',
+  'narration.playing': '播放中',
+  'narration.stopped': '已停止',
+  'narration.showTranscript': '显示字幕',
+  'narration.hideTranscript': '隐藏字幕',
+  'narration.fallback': '无法使用 Azure Speech，正在用浏览器语音合成播放。',
+  'narration.unavailable': '无法播放语音。您可以通过字幕阅读旁白内容。',
 };

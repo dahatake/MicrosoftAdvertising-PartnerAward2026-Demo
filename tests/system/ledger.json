@@ -200,9 +200,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 2D の初期表示\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "b61779d",
-      "last_run_at": "2026-10-16T13:58:31+09:00",
-      "evidence": "work/runs/202610161311/logs/system-test/E2E-007-202610161357.log",
+      "last_commit": "a0cb808",
+      "last_run_at": "2026-10-16T14:22:19+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-007-202610161421.log",
       "history": [
         {
           "at": "2026-10-16T13:28:37+09:00",
@@ -250,9 +250,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-001\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "b61779d",
-      "last_run_at": "2026-10-16T13:58:31+09:00",
-      "evidence": "work/runs/202610161311/logs/system-test/E2E-009-202610161358.log",
+      "last_commit": "a0cb808",
+      "last_run_at": "2026-10-16T14:22:19+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-009-202610161421.log",
       "history": [
         {
           "at": "2026-10-16T13:29:00+09:00",
@@ -281,9 +281,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-002\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "b61779d",
-      "last_run_at": "2026-10-16T13:58:31+09:00",
-      "evidence": "work/runs/202610161311/logs/system-test/E2E-010-202610161358.log",
+      "last_commit": "a0cb808",
+      "last_run_at": "2026-10-16T14:22:19+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-010-202610161421.log",
       "history": [
         {
           "at": "2026-10-16T13:29:02+09:00",
@@ -312,9 +312,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-002 AC-003\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "b61779d",
-      "last_run_at": "2026-10-16T13:58:31+09:00",
-      "evidence": "work/runs/202610161311/logs/system-test/E2E-011-202610161358.log",
+      "last_commit": "a0cb808",
+      "last_run_at": "2026-10-16T14:22:19+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-011-202610161421.log",
       "history": [
         {
           "at": "2026-10-16T13:29:05+09:00",
@@ -497,10 +497,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-006 AC-015\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "a0cb808",
+      "last_run_at": "2026-10-16T14:22:19+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-017-202610161421.log",
       "history": [
         {
           "at": "2026-10-16T13:29:19+09:00",
@@ -559,10 +559,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"NFR-A11Y-003 AC-058\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "a0cb808",
+      "last_run_at": "2026-10-16T14:22:19+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-019-202610161422.log",
       "history": [
         {
           "at": "2026-10-16T13:29:23+09:00",
@@ -580,7 +580,7 @@
       "ac_ids": [
         "AC-023"
       ],
-      "title": "2D→3D で同一 ID 集合・選択保持",
+      "title": "2D→3D で同一 ID 集合・選択保持（App2 の DualView 例）",
       "layer": "e2e",
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\"",
       "canary": false,
@@ -600,6 +600,12 @@
           "by": "test-designer",
           "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-008 AC-023'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\"'",
           "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
+        },
+        {
+          "at": "2026-10-16T14:22:56+09:00",
+          "by": "test-designer",
+          "change": "title: '2D→3D で同一 ID 集合・選択保持' -> '2D→3D で同一 ID 集合・選択保持（App2 の DualView 例）'",
+          "reason": "AC-023 は App1 のペルソナを前提にしない。App1 未実装でも通るよう App2 の項目で検証"
         }
       ]
     },

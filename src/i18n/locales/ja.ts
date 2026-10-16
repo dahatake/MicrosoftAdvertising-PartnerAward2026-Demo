@@ -46,6 +46,15 @@ export const ja = {
   'cmd.viewMethod': '表示方法:',
   'cmd.layoutReset': 'レイアウト: すべて既定に戻す',
   'cmd.open': 'コマンドの検索（Ctrl+K）',
+  'narration.heading': 'ナレーション',
+  'narration.play': '再生',
+  'narration.stop': '停止',
+  'narration.playing': '再生中',
+  'narration.stopped': '停止中',
+  'narration.showTranscript': '字幕を表示',
+  'narration.hideTranscript': '字幕を隠す',
+  'narration.fallback': 'Azure Speech を使えないため、ブラウザの音声合成で再生しています。',
+  'narration.unavailable': '音声を再生できません。字幕でナレーションの内容を確認できます。',
 } as const;
 
 export type MessageKey = keyof typeof ja;

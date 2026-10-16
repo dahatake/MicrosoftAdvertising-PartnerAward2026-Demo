@@ -160,7 +160,8 @@ test('FR-005 AC-013 3D を選ぶと空でない 3D ビューが描画され、�
 // ---------- FR-008 ----------
 test('FR-008 AC-023 2D→3D で同じ ID 集合の項目が表示され、選択・絞り込みが保たれる', async ({ page }) => {
   await goto(page);
-  await T(page, 'persona-select-p2').click();
+  // AC-023 は App1 のペルソナを指定しない。シェルのトグルで App2 の DualView 例を使う。
+  await T(page, 'app-toggle-app2').click();
   const ids = () => page.locator('[data-item-id]').evaluateAll(es => es.map(e => e.getAttribute('data-item-id')).sort());
   const before = await ids();
   expect(before.length).toBeGreaterThan(0);

@@ -13,8 +13,8 @@
 | FR-003 | 価値説明・公式サイト誘導・公式動画 | 承認済み | 未実装 | 未実装 | - |
 | FR-004 | 利用シーンとペルソナ別全画面プレゼンテーション | 承認済み | 未実装 | 未実装 | - |
 | FR-005 | 製品の 3D/CG 表現 | 承認済み | 未実装 | 未実装 | - |
-| FR-006 | ナレーション（Azure Speech とフォールバック） | 承認済み | 未実装 | 未実装 | - |
-| FR-007 | Speech トークン発行バックエンド | 承認済み | 未実装 | 未実装 | - |
+| FR-006 | ナレーション（Azure Speech とフォールバック） | 承認済み | src/narration/Narration.tsx, src/narration/speech.ts, src/narration/scripts.ts, src/apps/App1.tsx, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | src/narration/Narration.test.tsx, tests/system/narration-app2.spec.ts | ナレーション部品, ナレーション台本辞書, Speech トークンサーバー, i18n 辞書 |
+| FR-007 | Speech トークン発行バックエンド | 承認済み | server/speech.js, server/index.js, vite.config.ts, package.json | server/speech.test.ts | Speech トークンサーバー |
 | FR-008 | 2D/3D の表示方法の切替（共通） | 承認済み | src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts, src/shell/Shell.tsx | src/view/view.test.tsx, tests/system/shell-app1.spec.ts | 表示方法, 設定ストア, デザイン基盤, i18n 辞書 |
 | FR-009 | カメラワーク選択 | 承認済み | 未実装 | 未実装 | - |
 | FR-010 | ワークスペースのレイアウト変更（共通） | 承認済み | src/layout/model.ts, src/layout/store.ts, src/layout/Workspace.tsx, src/commands/registry.ts, src/commands/CommandPalette.tsx, src/commands/shellCommands.ts, src/apps/App2.tsx | src/layout/layout.test.ts, tests/system/shell-app1.spec.ts | ワークスペース, コマンドの検索, デザイン基盤, i18n 辞書 |
@@ -28,10 +28,10 @@
 | FR-018 | ペルソナ別の既定の情報表現と表現の切替（App2） | 承認済み | 未実装 | 未実装 | - |
 | NFR-A11Y-001 | キーボード操作と代替手段 | 承認済み | 未実装 | 未実装 | - |
 | NFR-A11Y-002 | 動きの軽減（reduced-motion） | 承認済み | 未実装 | 未実装 | - |
-| NFR-A11Y-003 | ナレーションの字幕・トランスクリプト | 承認済み | 未実装 | 未実装 | - |
+| NFR-A11Y-003 | ナレーションの字幕・トランスクリプト | 承認済み | src/narration/Narration.tsx, src/narration/scripts.ts | src/narration/Narration.test.tsx, tests/system/narration-app2.spec.ts | ナレーション部品, ナレーション台本辞書 |
 | NFR-PERF-001 | 初期表示と描画の性能 | 承認済み | 未実装 | 未実装 | - |
 | NFR-PERF-002 | 低性能端末のフォールバック | 承認済み | 未実装 | 未実装 | - |
-| NFR-SEC-001 | Speech キーの保護 | 承認済み | 未実装 | 未実装 | - |
+| NFR-SEC-001 | Speech キーの保護 | 承認済み | .gitignore, .env.example, server/speech.js | server/speech.test.ts | Speech トークンサーバー |
 | NFR-UX-001 | 画面サイズ・設定への追従 | 承認済み | 未実装 | 未実装 | - |
 | NFR-UX-002 | 状態表示とエラーからの復旧 | 承認済み | 未実装 | 未実装 | - |
 | NFR-UX-003 | 用語と操作の一貫性 | 承認済み | src/i18n/locales/ja.ts | src/i18n/terminology.test.ts | i18n 辞書 |
@@ -52,9 +52,12 @@
 | 部品名 | ファイル | 用途 | 使っている要求 ID |
 |---|---|---|---|
 | デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン（kindPalette: 種類の色）。以降の画面はこれを再利用する | FR-001, FR-008, FR-010 |
-| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-008, FR-010, NFR-UX-003 |
+| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-006, FR-008, FR-010, NFR-UX-003 |
 | 設定ストア | src/settings/store.ts | 言語・表示方法・アプリを持ち localStorage（lang, viewMethod）に保存。useSettings()/updateSettings() | FR-001, FR-002, FR-008 |
 | アプリ登録簿 | src/apps/registry.ts | シェルのトグルと画面の対応。新しいアプリはここに 1 行足す | FR-001 |
 | 表示方法 | src/view/index.ts, src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts | DualView（items・kinds・selectedId・onSelect。同じ項目を 2D 一覧/3D 空間配置＋共通の凡例で表示）、useViewMode()（既定 2D・3D 不可なら 2D 固定）、ViewModeSwitch、set3dSupport()。three/R3F は遅延読み込み | FR-008 |
 | ワークスペース | src/layout/index.ts, src/layout/model.ts, src/layout/store.ts, src/layout/Workspace.tsx | Workspace（screenId・panels[{id,title,content}]・defaults）。移動・方向・サイズ・タブ・表示/非表示・最大化、localStorage（layout:<screenId>）保存・復元・既定に戻す。panel の data-testid は layout-panel-<id>/layout-menu-<id> | FR-010 |
 | コマンドの検索 | src/commands/registry.ts, src/commands/CommandPalette.tsx, src/commands/shellCommands.ts | registerCommands(owner, [{id,label,keywords,run}])で画面がコマンドを登録。Ctrl+K で開く | FR-010 |
+| Speech トークンサーバー | server/speech.js, server/index.js | `npm run server`（既定 :8787、vite の proxy が /api を中継）。env: SPEECH_KEY, SPEECH_REGION。POST /api/speech/token → 200 {token, region, expiresInSeconds:600} / 503 {error:SPEECH_KEY_MISSING} / 429 {error:RATE_LIMITED}（30 回/分/接続元）/ 502 {error:SPEECH_UPSTREAM_ERROR} / 405 | FR-006, FR-007, NFR-SEC-001 |
+| ナレーション部品 | src/narration/Narration.tsx, src/narration/speech.ts | `<Narration script={...} lang={...} />`（台本と言語を受け取る）。再生/停止・Azure Speech（POST /api/speech/token）→ ブラウザ SpeechSynthesis へのフォールバックと通知・字幕（transcript）の開閉。言語変更・アンマウント・pagehide で停止。data-testid: narration-play/stop/status/transcript/transcript-toggle/notice | FR-006, NFR-A11Y-003 |
+| ナレーション台本辞書 | src/narration/scripts.ts | 台本の追加: ScriptId に ID を足し、narrationScripts に ja/en/zh/ko の 4 言語を同時に足す（型と単体テストで欠落を検出）。使う側は getScript(id, lang) | FR-006, NFR-A11Y-003 |

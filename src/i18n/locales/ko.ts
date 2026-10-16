@@ -45,4 +45,13 @@ export const ko: Messages = {
   'cmd.viewMethod': '표시 방법:',
   'cmd.layoutReset': '레이아웃: 모두 기본값으로',
   'cmd.open': '명령 검색 (Ctrl+K)',
+  'narration.heading': '내레이션',
+  'narration.play': '재생',
+  'narration.stop': '정지',
+  'narration.playing': '재생 중',
+  'narration.stopped': '정지됨',
+  'narration.showTranscript': '자막 표시',
+  'narration.hideTranscript': '자막 숨기기',
+  'narration.fallback': 'Azure Speech를 사용할 수 없어 브라우저 음성 합성으로 재생하고 있습니다.',
+  'narration.unavailable': '음성을 재생할 수 없습니다. 자막으로 내레이션 내용을 확인할 수 있습니다.',
 };
