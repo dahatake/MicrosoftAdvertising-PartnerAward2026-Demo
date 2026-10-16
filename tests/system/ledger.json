@@ -496,7 +496,7 @@
       "title": "ナレーションの再生・停止と言語対応",
       "layer": "e2e",
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-006 AC-015\"",
-      "canary": true,
+      "canary": false,
       "status": "not_run",
       "last_commit": null,
       "last_run_at": null,
@@ -507,6 +507,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:57:28+09:00",
+          "by": "test-designer",
+          "change": "canary: True -> False",
+          "reason": "実装前は canary にしない。実装された時点で戻す"
         }
       ]
     },
