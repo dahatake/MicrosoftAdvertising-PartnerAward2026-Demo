@@ -1,5 +1,210 @@
 {
   "version": 1,
-  "ac_digests": {},
-  "cases": []
+  "ac_digests": {
+    "AC-055": "sha256:9f691ea58788e93e",
+    "AC-057": "sha256:f0c0913dfe8fdf3f",
+    "AC-059": "sha256:f8b0ba49f1b8c6d0"
+  },
+  "cases": [
+    {
+      "id": "E2E-001",
+      "requirement_ids": [
+        "NFR-A11Y-001"
+      ],
+      "ac_ids": [
+        "AC-055"
+      ],
+      "title": "キーボードで主要操作に到達・フォーカス可視",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 キーボードだけで主要操作に到達\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:28:24+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-002",
+      "requirement_ids": [
+        "NFR-A11Y-001"
+      ],
+      "ac_ids": [
+        "AC-055"
+      ],
+      "title": "言語切替・アプリ切替をキーボードで完了",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 言語切替とアプリ切替\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:28:26+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-003",
+      "requirement_ids": [
+        "NFR-A11Y-001"
+      ],
+      "ac_ids": [
+        "AC-055"
+      ],
+      "title": "異常系: Escでダイアログを閉じ、トラップなし",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 異常系\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:28:28+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-004",
+      "requirement_ids": [
+        "NFR-A11Y-001"
+      ],
+      "ac_ids": [
+        "AC-055"
+      ],
+      "title": "ナレーション・レイアウト操作をキーボードで完了",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 ナレーション・レイアウト\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:28:30+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-005",
+      "requirement_ids": [
+        "NFR-A11Y-002"
+      ],
+      "ac_ids": [
+        "AC-057"
+      ],
+      "title": "reduced-motion で CSS 動きが 0ms",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-057 動きを減らす設定で CSS\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:28:33+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-006",
+      "requirement_ids": [
+        "NFR-A11Y-002"
+      ],
+      "ac_ids": [
+        "AC-057"
+      ],
+      "title": "reduced-motion でカメラワークが静止し情報・操作は保たれる",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-057 動きを減らす設定でカメラワーク\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:28:35+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-007",
+      "requirement_ids": [
+        "NFR-PERF-001"
+      ],
+      "ac_ids": [
+        "AC-059"
+      ],
+      "title": "2D 初期表示が 2.5 秒以内",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 2D の初期表示\"",
+      "canary": true,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:28:37+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-008",
+      "requirement_ids": [
+        "NFR-PERF-001"
+      ],
+      "ac_ids": [
+        "AC-059"
+      ],
+      "title": "異常系: API が遅くても 2.5 秒以内に骨格表示",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 異常系\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:28:40+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    }
+  ]
 }
