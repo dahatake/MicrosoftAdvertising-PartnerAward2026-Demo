@@ -3,7 +3,38 @@
   "ac_digests": {
     "AC-055": "sha256:9f691ea58788e93e",
     "AC-057": "sha256:f0c0913dfe8fdf3f",
-    "AC-059": "sha256:f8b0ba49f1b8c6d0"
+    "AC-059": "sha256:f8b0ba49f1b8c6d0",
+    "AC-001": "sha256:22d51ed646a6657a",
+    "AC-002": "sha256:c6c56520580f049f",
+    "AC-003": "sha256:2b184259dceec878",
+    "AC-007": "sha256:f2b1cce257e56684",
+    "AC-010": "sha256:b735f8648c77aeb7",
+    "AC-067": "sha256:cc10c95c91f14bec",
+    "AC-011": "sha256:ed953505d3897807",
+    "AC-012": "sha256:3b7d874e5e5fae3e",
+    "AC-015": "sha256:029378e0aa41b628",
+    "AC-013": "sha256:5a8b88cf561a97b3",
+    "AC-058": "sha256:ddbcb7ae05e3f5d5",
+    "AC-023": "sha256:e4adf14c563057ea",
+    "AC-041": "sha256:7206a0dbf18c481c",
+    "AC-026": "sha256:b3a1c24b6ede8298",
+    "AC-042": "sha256:6d3015578e4b306d",
+    "AC-027": "sha256:1fa75361b532caf6",
+    "AC-043": "sha256:2b8387f974cd0b5a",
+    "AC-030": "sha256:cf19058ad273030f",
+    "AC-045": "sha256:876b24f5b9338d9f",
+    "AC-033": "sha256:1dc40b92aada7dac",
+    "AC-047": "sha256:1be32b557f550f1e",
+    "AC-034": "sha256:0b3047d36a3f777f",
+    "AC-049": "sha256:6edc1a05a4399cac",
+    "AC-035": "sha256:fb63220025a9f96c",
+    "AC-051": "sha256:20eff4903ccbde09",
+    "AC-053": "sha256:521893259bb16af0",
+    "AC-037": "sha256:bbf8f6fa25a637ac",
+    "AC-054": "sha256:bf72e681d41ab20c",
+    "AC-038": "sha256:905826614576eaa3",
+    "AC-070": "sha256:74e4181ce8261160",
+    "AC-071": "sha256:22724e26b927a33f"
   },
   "cases": [
     {
@@ -200,6 +231,781 @@
       "history": [
         {
           "at": "2026-10-16T13:28:40+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-009",
+      "requirement_ids": [
+        "FR-001"
+      ],
+      "ac_ids": [
+        "AC-001"
+      ],
+      "title": "App2/App1 切替・言語と表示方法保持",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-001 AC-001'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:00+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-010",
+      "requirement_ids": [
+        "FR-001"
+      ],
+      "ac_ids": [
+        "AC-002"
+      ],
+      "title": "初回 App1・ログイン要素なし（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-001 AC-002'",
+      "canary": true,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:02+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-011",
+      "requirement_ids": [
+        "FR-002"
+      ],
+      "ac_ids": [
+        "AC-003"
+      ],
+      "title": "ブラウザ言語 ja/en/zh/ko で初回表示",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-002 AC-003'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:05+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-012",
+      "requirement_ids": [
+        "FR-003"
+      ],
+      "ac_ids": [
+        "AC-007"
+      ],
+      "title": "CTA で公式サイトが新タブ",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-003 AC-007'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:07+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-013",
+      "requirement_ids": [
+        "FR-004"
+      ],
+      "ac_ids": [
+        "AC-010"
+      ],
+      "title": "ペルソナ別全画面プレゼン",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-010'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:10+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-014",
+      "requirement_ids": [
+        "FR-004"
+      ],
+      "ac_ids": [
+        "AC-067"
+      ],
+      "title": "P-1 既定 2D→3D／P-2 説明+2D構成図",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-067'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:12+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-015",
+      "requirement_ids": [
+        "FR-004"
+      ],
+      "ac_ids": [
+        "AC-011"
+      ],
+      "title": "Esc で復帰し状態保持",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-011'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:14+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-016",
+      "requirement_ids": [
+        "FR-004"
+      ],
+      "ac_ids": [
+        "AC-012"
+      ],
+      "title": "キーボードだけで前へ・次へ・停止",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-012'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:17+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-017",
+      "requirement_ids": [
+        "FR-006"
+      ],
+      "ac_ids": [
+        "AC-015"
+      ],
+      "title": "ナレーションの再生・停止と言語対応",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-006 AC-015\"",
+      "canary": true,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:19+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-018",
+      "requirement_ids": [
+        "FR-005"
+      ],
+      "ac_ids": [
+        "AC-013"
+      ],
+      "title": "3D ビュー描画と回転",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-005 AC-013'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:21+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-019",
+      "requirement_ids": [
+        "NFR-A11Y-003"
+      ],
+      "ac_ids": [
+        "AC-058"
+      ],
+      "title": "台本の字幕・トランスクリプト表示",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"NFR-A11Y-003 AC-058\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:23+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-020",
+      "requirement_ids": [
+        "FR-008"
+      ],
+      "ac_ids": [
+        "AC-023"
+      ],
+      "title": "2D→3D で同一 ID 集合・選択保持",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-008 AC-023'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:25+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-021",
+      "requirement_ids": [
+        "FR-012"
+      ],
+      "ac_ids": [
+        "AC-041"
+      ],
+      "title": "キャンペーン選択の関係図",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-041\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:27+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-022",
+      "requirement_ids": [
+        "FR-009"
+      ],
+      "ac_ids": [
+        "AC-026"
+      ],
+      "title": "かんたん選択 9 プリセット",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-026'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:29+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-023",
+      "requirement_ids": [
+        "FR-012"
+      ],
+      "ac_ids": [
+        "AC-042"
+      ],
+      "title": "3D でも同じノードと選択保持",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-042\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:31+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-024",
+      "requirement_ids": [
+        "FR-009"
+      ],
+      "ac_ids": [
+        "AC-027"
+      ],
+      "title": "くわしく選択 4 要素",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-027'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:33+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-025",
+      "requirement_ids": [
+        "FR-013"
+      ],
+      "ac_ids": [
+        "AC-043"
+      ],
+      "title": "制作プロジェクトの進捗・予算・成果物・KPI",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-013 AC-043\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:35+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-026",
+      "requirement_ids": [
+        "FR-009"
+      ],
+      "ac_ids": [
+        "AC-030"
+      ],
+      "title": "動きを減らす設定で静止（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-030'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:37+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-027",
+      "requirement_ids": [
+        "FR-014"
+      ],
+      "ac_ids": [
+        "AC-045"
+      ],
+      "title": "企画・見積の編集と版履歴",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-014 AC-045\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:39+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-028",
+      "requirement_ids": [
+        "FR-010"
+      ],
+      "ac_ids": [
+        "AC-033"
+      ],
+      "title": "パネル操作の即反映",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-033'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:41+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-029",
+      "requirement_ids": [
+        "FR-015"
+      ],
+      "ac_ids": [
+        "AC-047"
+      ],
+      "title": "what-if 試算",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-015 AC-047\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:43+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-030",
+      "requirement_ids": [
+        "FR-010"
+      ],
+      "ac_ids": [
+        "AC-034"
+      ],
+      "title": "レイアウト保存・復元・既定に戻す",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-034'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:46+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-031",
+      "requirement_ids": [
+        "FR-016"
+      ],
+      "ac_ids": [
+        "AC-049"
+      ],
+      "title": "素材の登録・プレビュー・チャネル紐付け",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-016 AC-049\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:48+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-032",
+      "requirement_ids": [
+        "FR-010"
+      ],
+      "ac_ids": [
+        "AC-035"
+      ],
+      "title": "キーボード/メニューでも同結果",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-035'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:50+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-033",
+      "requirement_ids": [
+        "FR-017"
+      ],
+      "ac_ids": [
+        "AC-051"
+      ],
+      "title": "発注の登録と状態の前進",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-017 AC-051\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:52+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-034",
+      "requirement_ids": [
+        "FR-018"
+      ],
+      "ac_ids": [
+        "AC-053"
+      ],
+      "title": "ペルソナ別既定表現と切替",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-053\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:55+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-035",
+      "requirement_ids": [
+        "FR-010"
+      ],
+      "ac_ids": [
+        "AC-037"
+      ],
+      "title": "レイアウト変更で入力保持",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-037'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:57+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-036",
+      "requirement_ids": [
+        "FR-018"
+      ],
+      "ac_ids": [
+        "AC-054"
+      ],
+      "title": "視覚表現の代替と色だけで示さない",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-054\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:29:59+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-037",
+      "requirement_ids": [
+        "FR-010"
+      ],
+      "ac_ids": [
+        "AC-038"
+      ],
+      "title": "コマンドパレットで到達",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-038'",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:30:01+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-038",
+      "requirement_ids": [
+        "FR-019"
+      ],
+      "ac_ids": [
+        "AC-070"
+      ],
+      "title": "素材の展開とアーカイブ",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-070\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:30:05+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-039",
+      "requirement_ids": [
+        "FR-019"
+      ],
+      "ac_ids": [
+        "AC-071"
+      ],
+      "title": "利用状況・KPI 目標の登録と反映",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-071\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-16T13:30:08+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
