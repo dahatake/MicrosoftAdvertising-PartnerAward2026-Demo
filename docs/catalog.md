@@ -18,8 +18,8 @@
 | FR-008 | 2D/3D の表示方法の切替（共通） | 承認済み | src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts, src/shell/Shell.tsx | src/view/view.test.tsx, tests/system/shell-app1.spec.ts | 表示方法, 設定ストア, デザイン基盤, i18n 辞書 |
 | FR-009 | カメラワーク選択 | 承認済み | src/camera/model.ts, src/camera/store.ts, src/camera/labels.ts, src/camera/useCameraWork.ts, src/camera/CameraSettings.tsx, src/camera/CameraRig3D.tsx, src/camera/index.ts, src/view/Scene3D.tsx, src/apps/App2.tsx | src/camera/camera.test.tsx, tests/system/shell-app1.spec.ts | カメラワーク, 表示方法, 設定ストア, デザイン基盤 |
 | FR-010 | ワークスペースのレイアウト変更（共通） | 承認済み | src/layout/model.ts, src/layout/store.ts, src/layout/Workspace.tsx, src/commands/registry.ts, src/commands/CommandPalette.tsx, src/commands/shellCommands.ts, src/apps/App2.tsx | src/layout/layout.test.ts, tests/system/shell-app1.spec.ts | ワークスペース, コマンドの検索, デザイン基盤, i18n 辞書 |
-| FR-011 | App2 のデータモデルとシードデータ | 承認済み | 未実装 | 未実装 | - |
-| FR-012 | エンティティの関連の可視化 | 承認済み | 未実装 | 未実装 | - |
+| FR-011 | App2 のデータモデルとシードデータ | 承認済み | src/app2/types.ts, src/app2/data/seed.json, src/app2/validate.ts, src/app2/store.ts, src/app2/AssetThumb.tsx, src/app2/index.ts | src/app2/app2.test.tsx | App2 データモデル, App2 データストア, 素材サムネイル |
+| FR-012 | エンティティの関連の可視化 | 承認済み | src/app2/relations.ts, src/app2/kinds.ts, src/app2/RelationView.tsx, src/app2/NodeDetail.tsx, src/app2/CampaignRelations.tsx, src/apps/App2.tsx, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | src/app2/app2.test.tsx, tests/system/narration-app2.spec.ts | 関係図, App2 データストア, 表示方法, ワークスペース, デザイン基盤, i18n 辞書 |
 | FR-013 | 制作プロジェクトの進捗・予算・成果物・KPI の可視化 | 承認済み | 未実装 | 未実装 | - |
 | FR-014 | 企画・見積の変更と版の履歴 | 承認済み | 未実装 | 未実装 | - |
 | FR-015 | KPI/OKR の what-if シミュレーション | 承認済み | 未実装 | 未実装 | - |
@@ -46,19 +46,24 @@
 
 | テーブル名 | 定義ファイル | 正本のシステム | 関連する要求 ID |
 |---|---|---|---|
+| App2 データセット（顧客・キャンペーン・企画・見積・制作プロジェクト・発注先・発注・素材・チャネル・展開・KPI・利用状況） | src/app2/types.ts, src/app2/data/seed.json | ブラウザ（localStorage キー app2:data。シード JSON が初期値） | FR-011, FR-012 |
 
 ## 共通部品
 
 | 部品名 | ファイル | 用途 | 使っている要求 ID |
 |---|---|---|---|
-| デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン（kindPalette: 種類の色）。以降の画面はこれを再利用する | FR-001, FR-008, FR-009, FR-010 |
-| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-006, FR-008, FR-010, NFR-UX-003 |
+| デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン（kindPalette: 種類の色）。以降の画面はこれを再利用する | FR-001, FR-008, FR-009, FR-010, FR-012 |
+| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-006, FR-008, FR-010, FR-012, NFR-UX-003 |
 | 設定ストア | src/settings/store.ts | 言語・表示方法・アプリを持ち localStorage（lang, viewMethod）に保存。useSettings()/updateSettings() | FR-001, FR-002, FR-008, FR-009 |
 | アプリ登録簿 | src/apps/registry.ts | シェルのトグルと画面の対応。新しいアプリはここに 1 行足す | FR-001 |
-| 表示方法 | src/view/index.ts, src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts | DualView（items・kinds・selectedId・onSelect。同じ項目を 2D 一覧/3D 空間配置＋共通の凡例で表示）、useViewMode()（既定 2D・3D 不可なら 2D 固定）、ViewModeSwitch、set3dSupport()。three/R3F は遅延読み込み | FR-008, FR-009 |
-| ワークスペース | src/layout/index.ts, src/layout/model.ts, src/layout/store.ts, src/layout/Workspace.tsx | Workspace（screenId・panels[{id,title,content}]・defaults）。移動・方向・サイズ・タブ・表示/非表示・最大化、localStorage（layout:<screenId>）保存・復元・既定に戻す。panel の data-testid は layout-panel-<id>/layout-menu-<id> | FR-010 |
+| 表示方法 | src/view/index.ts, src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts | DualView（items・kinds・selectedId・onSelect。同じ項目を 2D 一覧/3D 空間配置＋共通の凡例で表示）、useViewMode()（既定 2D・3D 不可なら 2D 固定）、ViewModeSwitch、set3dSupport()。three/R3F は遅延読み込み | FR-008, FR-009, FR-012 |
+| ワークスペース | src/layout/index.ts, src/layout/model.ts, src/layout/store.ts, src/layout/Workspace.tsx | Workspace（screenId・panels[{id,title,content}]・defaults）。移動・方向・サイズ・タブ・表示/非表示・最大化、localStorage（layout:<screenId>）保存・復元・既定に戻す。panel の data-testid は layout-panel-<id>/layout-menu-<id> | FR-010, FR-012 |
 | カメラワーク | src/camera/index.ts, src/camera/CameraSettings.tsx, src/camera/useCameraWork.ts, src/camera/CameraRig3D.tsx, src/camera/model.ts, src/camera/store.ts, src/camera/labels.ts | `<CameraSettings />`（かんたん選択=スライダー+9 プリセット+ミニプレビュー、くわしく選択=4 要素、2D 不可はグレーアウト+理由）。`useCameraWork()` → {combo, key, preset, method, reducedMotion, maxDurationMs（動きを減らすで 0・PARAM-007）, now, effective, animation2d{keyframes,options}, camera3d, selectPreset, setPart}。2D は useCameraAnimation2d(ref, combo, reduced) でズーム/パン/傾きの近似、3D は CameraRig3D（Canvas 内）が実カメラを動かす（Scene3D に組込み済み）。localStorage: cameraWork。文言は labels.ts（日/英/中/韓。専門名は TECH_NAMES をツールチップのみ）。data-testid: camera-simple-slider/camera-preset-<n>/camera-mini-preview/camera-now/camera-detail-<part>/camera-combo | FR-009 |
 | コマンドの検索 | src/commands/registry.ts, src/commands/CommandPalette.tsx, src/commands/shellCommands.ts | registerCommands(owner, [{id,label,keywords,run}])で画面がコマンドを登録。Ctrl+K で開く | FR-010 |
 | Speech トークンサーバー | server/speech.js, server/index.js | `npm run server`（既定 :8787、vite の proxy が /api を中継）。env: SPEECH_KEY, SPEECH_REGION。POST /api/speech/token → 200 {token, region, expiresInSeconds:600} / 503 {error:SPEECH_KEY_MISSING} / 429 {error:RATE_LIMITED}（30 回/分/接続元）/ 502 {error:SPEECH_UPSTREAM_ERROR} / 405 | FR-006, FR-007, NFR-SEC-001 |
 | ナレーション部品 | src/narration/Narration.tsx, src/narration/speech.ts | `<Narration script={...} lang={...} />`（台本と言語を受け取る）。再生/停止・Azure Speech（POST /api/speech/token）→ ブラウザ SpeechSynthesis へのフォールバックと通知・字幕（transcript）の開閉。言語変更・アンマウント・pagehide で停止。data-testid: narration-play/stop/status/transcript/transcript-toggle/notice | FR-006, NFR-A11Y-003 |
 | ナレーション台本辞書 | src/narration/scripts.ts | 台本の追加: ScriptId に ID を足し、narrationScripts に ja/en/zh/ko の 4 言語を同時に足す（型と単体テストで欠落を検出）。使う側は getScript(id, lang) | FR-006, NFR-A11Y-003 |
+| App2 データモデル | src/app2/types.ts, src/app2/validate.ts, src/app2/data/seed.json | Dataset 型・コレクション・参照の定義、validateDataset()（必須・重複・参照切れ）、シード JSON（PARAM-006 の規模） | FR-011 |
+| App2 データストア | src/app2/store.ts | getDataset/useDataset、updateDataset(fn)・upsertEntity・removeEntity・resetDataset、getRevision（版管理の拡張点）、localStorage 保存（app2:data。壊れたらシード） | FR-011, FR-012 |
+| 素材サムネイル | src/app2/AssetThumb.tsx | 画像がない・読めないときの仮置き表示（asset-placeholder） | FR-011 |
+| 関係図 | src/app2/relations.ts, src/app2/RelationView.tsx, src/app2/NodeDetail.tsx, src/app2/CampaignRelations.tsx, src/app2/kinds.ts | buildRelations(data, campaignId)、RelationView（2D 既定の SVG、3D で DualView を加える）、NodeDetail、CampaignList/CampaignRelationPanel。選択は呼び出し側が持つ | FR-012 |
