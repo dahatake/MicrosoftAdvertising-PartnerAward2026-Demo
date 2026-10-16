@@ -66,6 +66,7 @@ export const zh: Messages = {
   'layout.vertical': '纵向排列',
   'layout.resize': '调整宽度',
   'layout.drag': '拖动以移动',
+  'app1.panel.visual': '产品视图·架构图',
   'cmd.title': '命令搜索',
   'cmd.placeholder': '输入命令（例如 layout、3D、language）',
   'cmd.empty': '没有匹配的命令。',

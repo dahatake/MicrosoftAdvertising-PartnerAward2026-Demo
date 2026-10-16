@@ -12,6 +12,7 @@ import {
   PlanQuotePanel,
   DEFAULT_REPRESENTATION,
   PersonaBar,
+  PERSONA_LAYOUT,
   ProjectDetail,
   ProjectList,
   RepresentationPanel,
@@ -62,6 +63,8 @@ export function App2() {
       <CameraSettings />
       <Workspace
         screenId="app2"
+        persona={persona}
+        personaDefaults={PERSONA_LAYOUT}
         panels={[
           {
             id: '1',

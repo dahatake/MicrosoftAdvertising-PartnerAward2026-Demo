@@ -67,6 +67,7 @@ export const ja = {
   'layout.vertical': '縦に並べる',
   'layout.resize': '幅の変更',
   'layout.drag': 'ドラッグで移動',
+  'app1.panel.visual': '製品ビュー・構成図',
   'cmd.title': 'コマンドの検索',
   'cmd.placeholder': 'コマンドを入力（例: layout, 3D, language）',
   'cmd.empty': '該当するコマンドがありません。',
