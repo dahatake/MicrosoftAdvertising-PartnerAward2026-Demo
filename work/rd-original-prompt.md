@@ -275,3 +275,10 @@
 
 - Game Trailer:
   `Wide + Low Angle + FPV Tracking + Hyperdynamic`
+
+
+---
+
+# 追加Prompt 2(2D/3Dの扱い)全文
+
+2D/3Dは、単なる表示方法の切り替えなので、独立したセクションは作らないでくだし。情報デザイン高額に基づいた表現方法で行うようにします。
