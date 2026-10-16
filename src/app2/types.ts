@@ -27,6 +27,8 @@ export interface Plan {
   title: string;
   version: number;
   state: string;
+  /** 「改訂中」に入る前の状態（変更を取り消したときの戻し先） */
+  prevState?: string;
 }
 export interface Quote {
   id: string;
@@ -36,6 +38,7 @@ export interface Quote {
   amount: number;
   version: number;
   state: string;
+  prevState?: string;
 }
 export interface Project {
   id: string;
@@ -71,6 +74,8 @@ export interface Asset {
   /** 画像・動画の場所。無いときは仮置き（AssetThumb が表示する） */
   imageUrl: string | null;
   state: string;
+  /** 紐付けたチャネルの ID（FR-016）。展開（Deployment）とは別 */
+  channelIds?: string[];
 }
 export interface Channel {
   id: string;
@@ -96,6 +101,24 @@ export interface Usage {
   deploymentId: string;
   impressions: number;
   clicks: number;
+  /** 登録した利用状況の値（FR-019） */
+  actual?: number;
+}
+
+/** 企画・見積の版の履歴の 1 行（FR-014）。snapshot はその版の内容 */
+export interface VersionRecord {
+  entityId: string;
+  kind: 'plan' | 'quote';
+  version: number;
+  /** ISO 8601 の日時 */
+  at: string;
+  /** 変更点（項目と前後の値）。初版は空 */
+  changes: Array<{ field: 'title' | 'amount'; from: string | number; to: string | number }>;
+  /** 戻した版（旧版に戻したときだけ） */
+  restoredFrom?: number;
+  /** この版を作る間の状態の流れ（例: 承認済み → 改訂中 → 提出済み） */
+  states: string[];
+  snapshot: { title?: string; amount?: number };
 }
 
 /** データセット全体（シード JSON と localStorage 保存の形） */

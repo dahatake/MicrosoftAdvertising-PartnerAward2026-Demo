@@ -74,8 +74,8 @@ describe('FR-013 AC-043 プロジェクトの詳細', () => {
     expect(screen.getByTestId('project-kpi-actual').textContent).toMatch(/\d/);
   });
   it('データの状態値を「計画中・制作中・レビュー中・完了」に対応づける', () => {
-    expect(projectStatusKey('未着手')).toBe('app2.status.planning');
-    expect(projectStatusKey('進行中')).toBe('app2.status.production');
+    expect(projectStatusKey('計画中')).toBe('app2.status.planning');
+    expect(projectStatusKey('制作中')).toBe('app2.status.production');
     expect(projectStatusKey('レビュー中')).toBe('app2.status.review');
     expect(projectStatusKey('完了')).toBe('app2.status.done');
     expect(projectStatusKey('不明')).toBeNull();
@@ -153,7 +153,7 @@ describe('FR-018 表現の切替', () => {
     for (const r of ['relation', 'gantt', 'graph'] as Representation[]) {
       const { unmount } = wrap(<RepresentationPanel representation={r} campaignId={seedDataset.campaigns[0].id} />);
       expect(screen.getByTestId('data-table-alternative').textContent!.trim().length).toBeGreaterThan(0);
-      for (const b of screen.getAllByTestId('state-badge')) expect(b.textContent!.trim().length).toBeGreaterThan(0);
+      for (const b of screen.getAllByTestId('project-state-badge')) expect(b.textContent!.trim().length).toBeGreaterThan(0);
       unmount();
     }
   });

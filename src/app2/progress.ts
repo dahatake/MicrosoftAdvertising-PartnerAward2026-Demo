@@ -2,12 +2,10 @@
 import type { MessageKey } from '../i18n';
 import type { Dataset, Kpi, Project } from './types';
 
-/** データの状態値 → 状態の文言キー。シードの「未着手・進行中」は「計画中・制作中」として表示する */
+/** データの状態値 → 状態の文言キー。状態値は要求定義書の語（計画中・制作中・レビュー中・完了）をそのまま保存する */
 const STATUS_KEYS: Record<string, MessageKey> = {
   計画中: 'app2.status.planning',
-  未着手: 'app2.status.planning',
   制作中: 'app2.status.production',
-  進行中: 'app2.status.production',
   レビュー中: 'app2.status.review',
   完了: 'app2.status.done',
 };
