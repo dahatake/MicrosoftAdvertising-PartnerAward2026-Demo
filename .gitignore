@@ -7,5 +7,11 @@ test-results/
 playwright-report/
 *.tsbuildinfo
 
+# 秘密情報（Speech キー）は絶対にコミットしない
+.env
+.env.*
+!.env.example
+AzureSpeech.txt
+
 __pycache__/
 *.pyc
