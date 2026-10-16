@@ -24,7 +24,7 @@ export const PERSONA_STORAGE_KEY = 'app2:persona';
  */
 export const PERSONA_LAYOUT: Record<PersonaId, LayoutDefaults> = {
   // グラフ大・版履歴（企画・見積）・what-if
-  'P-3': { order: ['7', '8', '6', '1', '3', '4', '5', '2'], sizes: { '7': 3, '8': 1.5, '6': 1.5 }, hidden: ['9', '10', '11'] },
+  'P-3': { order: ['7', '8', '6', '1', '3', '4', '5', '2'], sizes: { '7': 3, '8': 1.5, '6': 1.5 } },
   // ガント大・発注一覧・素材一覧
   'P-4': { order: ['7', '5', '11', '9', '1', '10', '2', '3', '4'], sizes: { '7': 3, '5': 1.5, '11': 1.5, '9': 1.5 }, hidden: ['6', '8'] },
   // グラフ大・KPI 概要（展開）・関係図
