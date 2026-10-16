@@ -8,6 +8,7 @@ export default defineConfig({
   server: { proxy: { '/api': `http://localhost:${process.env.PORT ?? 8787}` } },
   test: {
     environment: 'jsdom',
+    setupFiles: ['src/test-setup.ts'],
     include: ['src/**/*.test.{ts,tsx}', 'server/**/*.test.ts'],
   },
 });
