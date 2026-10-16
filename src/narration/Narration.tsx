@@ -102,10 +102,11 @@ export function Narration({ script, lang }: NarrationProps) {
           disabled={state === 'playing'}
           onClick={() => void play()}
           data-testid="narration-play"
+          aria-label={t('narration.playLabel')}
         >
           {t('narration.play')}
         </Button>
-        <Button icon={<Stop24Regular />} onClick={stop} data-testid="narration-stop">
+        <Button icon={<Stop24Regular />} onClick={stop} data-testid="narration-stop" aria-label={t('narration.stopLabel')}>
           {t('narration.stop')}
         </Button>
         <Body1 role="status" data-testid="narration-status" data-state={state} data-lang={lang}>
