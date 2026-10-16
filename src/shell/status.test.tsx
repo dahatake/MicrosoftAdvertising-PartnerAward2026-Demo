@@ -75,7 +75,7 @@ describe('NFR-UX-002 AC-065 AsyncBoundary', () => {
   it('読み込み失敗は alert で原因と次の行動を示し、再試行で復旧する', async () => {
     let fail = true;
     const app = lazyRetry(() =>
-      fail ? Promise.reject(new Error('x')) : Promise.resolve({ default: () => <p>loaded</p> }),
+      fail ? Promise.reject<{ default: () => JSX.Element }>(new Error('x')) : Promise.resolve({ default: () => <p>loaded</p> }),
     );
     vi.spyOn(console, 'error').mockImplementation(() => {});
     render(

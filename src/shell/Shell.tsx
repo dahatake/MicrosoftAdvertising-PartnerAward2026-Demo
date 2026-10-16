@@ -94,7 +94,7 @@ export function Shell() {
             animate={{ opacity: 1 }}
             transition={{ duration: reduce ? 0 : 0.15 }}
           >
-            <AsyncBoundary key={current.id} onRetry={current.reload}>
+            <AsyncBoundary key={current.id}>
               <Current />
             </AsyncBoundary>
           </motion.div>

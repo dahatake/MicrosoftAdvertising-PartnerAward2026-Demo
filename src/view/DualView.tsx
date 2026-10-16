@@ -1,7 +1,9 @@
 // 共通の「表示方法」部品: 同じ情報項目（ViewItem[]）を 2D（既定）と 3D の空間配置で見せる。
 // 項目の一覧（data-item-id・選択・ラベル）と凡例は 2D/3D で同じ要素を使うため、ID の集合・選択・絞り込み・色・形・ラベルが一致する。
 // 絞り込みは呼び出し側が items に反映し、選択は selectedId / onSelect で呼び出し側が持つ（表示方法を切り替えても保たれる）。
-import { lazy, type CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
+import { lazyRetry } from '../apps/lazyRetry';
+import type { Scene3DProps } from './Scene3D';
 import { Body1, Caption1, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
 import { AsyncBoundary } from '../shell/AsyncBoundary';
 import { useT } from '../i18n/useT';
@@ -9,7 +11,8 @@ import { spacing } from '../theme/theme';
 import { resolveKinds, type KindDef, type Shape, type ViewItem } from './kinds';
 import { useViewMode } from './useViewMode';
 
-const Scene3D = lazy(() => import('./Scene3D'));
+const scene3d = lazyRetry<Scene3DProps>(() => import('./Scene3D'));
+const Scene3D = scene3d.Component;
 
 const useStyles = makeStyles({
   root: { display: 'flex', flexDirection: 'column', gap: spacing.m },
@@ -113,7 +116,7 @@ export function DualView({ items, kinds, selectedId, onSelect, label, testIds }:
           aria-label={t('view.canvas3d')}
           data-testid={testIds?.view3d ?? 'dual-view-3d'}
         >
-          <AsyncBoundary errorKey="view.sceneFailed" loadingKey="view.loading">
+          <AsyncBoundary errorKey="view.sceneFailed" loadingKey="view.loading" onRetry={scene3d.reload}>
             <Scene3D items={items} kinds={resolved} selectedId={selectedId} onSelect={onSelect} />
           </AsyncBoundary>
         </div>
