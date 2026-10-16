@@ -14,7 +14,7 @@
 | FR-004 | 利用シーンとペルソナ別全画面プレゼンテーション | 承認済み | 未実装 | 未実装 | - |
 | FR-005 | 製品の 3D/CG 表現 | 承認済み | 未実装 | 未実装 | - |
 | FR-006 | ナレーション（Azure Speech とフォールバック） | 承認済み | 未実装 | 未実装 | - |
-| FR-007 | Speech トークン発行バックエンド | 承認済み | 未実装 | 未実装 | - |
+| FR-007 | Speech トークン発行バックエンド | 承認済み | server/speech.js, server/index.js, vite.config.ts, package.json | server/speech.test.ts | Speech トークンサーバー |
 | FR-008 | 2D/3D の表示方法の切替（共通） | 承認済み | 未実装 | 未実装 | - |
 | FR-009 | カメラワーク選択 | 承認済み | 未実装 | 未実装 | - |
 | FR-010 | ワークスペースのレイアウト変更（共通） | 承認済み | 未実装 | 未実装 | - |
@@ -31,7 +31,7 @@
 | NFR-A11Y-003 | ナレーションの字幕・トランスクリプト | 承認済み | 未実装 | 未実装 | - |
 | NFR-PERF-001 | 初期表示と描画の性能 | 承認済み | 未実装 | 未実装 | - |
 | NFR-PERF-002 | 低性能端末のフォールバック | 承認済み | 未実装 | 未実装 | - |
-| NFR-SEC-001 | Speech キーの保護 | 承認済み | 未実装 | 未実装 | - |
+| NFR-SEC-001 | Speech キーの保護 | 承認済み | .gitignore, .env.example, server/speech.js | server/speech.test.ts | Speech トークンサーバー |
 | NFR-UX-001 | 画面サイズ・設定への追従 | 承認済み | 未実装 | 未実装 | - |
 | NFR-UX-002 | 状態表示とエラーからの復旧 | 承認済み | 未実装 | 未実装 | - |
 | NFR-UX-003 | 用語と操作の一貫性 | 承認済み | src/i18n/locales/ja.ts | src/i18n/terminology.test.ts | i18n 辞書 |
@@ -55,3 +55,4 @@
 | i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, NFR-UX-003 |
 | 設定ストア | src/settings/store.ts | 言語・表示方法・アプリを持ち localStorage（lang, viewMethod）に保存。useSettings()/updateSettings() | FR-001, FR-002 |
 | アプリ登録簿 | src/apps/registry.ts | シェルのトグルと画面の対応。新しいアプリはここに 1 行足す | FR-001 |
+| Speech トークンサーバー | server/speech.js, server/index.js | `npm run server`（既定 :8787、vite の proxy が /api を中継）。env: SPEECH_KEY, SPEECH_REGION。POST /api/speech/token → 200 {token, region, expiresInSeconds:600} / 503 {error:SPEECH_KEY_MISSING} / 429 {error:RATE_LIMITED}（30 回/分/接続元）/ 502 {error:SPEECH_UPSTREAM_ERROR} / 405 | FR-007, NFR-SEC-001 |
