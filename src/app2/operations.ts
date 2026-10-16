@@ -10,6 +10,8 @@ import {
   checkTransition,
   fail,
   ok,
+  type Fail,
+  type PlanQuoteOp,
   type Result,
 } from './states';
 import type { Asset, Dataset, Deployment, Order, VersionRecord } from './types';
@@ -124,6 +126,69 @@ export function restoreVersion(kind: RevisableKind, id: string, version: number,
   const rec = getHistory(id).find((r) => r.version === version);
   if (!rec) return fail('notFound');
   return commitRevision(kind, id, rec.snapshot, now, version);
+}
+
+// ───────── FR-020 企画の確定と見積の提出・承認 ─────────
+
+export type StateOp = 'confirm' | 'submit' | 'approve';
+const PLAN_FLOW = [PLAN_STATES.draft, PLAN_STATES.confirmed] as const;
+const QUOTE_FLOW = [QUOTE_STATES.draft, QUOTE_STATES.submitted, QUOTE_STATES.approved] as const;
+const OP_TARGET: Record<StateOp, { kind: RevisableKind; to: string }> = {
+  confirm: { kind: 'plan', to: PLAN_STATES.confirmed },
+  submit: { kind: 'quote', to: QUOTE_STATES.submitted },
+  approve: { kind: 'quote', to: QUOTE_STATES.approved },
+};
+
+/** いまの状態で受け付ける操作（拒否の理由の表示に使う）。改訂中は「保存」だけ、それ以外は次へ進める操作と「変更」 */
+export function allowedOps(kind: RevisableKind, state: string): PlanQuoteOp[] {
+  if (state === REVISING) return ['save'];
+  if (kind === 'plan') return state === PLAN_STATES.draft ? ['confirm', 'edit'] : ['edit'];
+  if (state === QUOTE_STATES.draft) return ['submit', 'edit'];
+  if (state === QUOTE_STATES.submitted) return ['approve', 'edit'];
+  return ['edit'];
+}
+
+const reject = (code: Fail['code'], kind: RevisableKind, state: string): Fail => ({ ...fail(code), state, allowed: allowedOps(kind, state) });
+
+/** 状態の操作の検証（データは変えない）。逆戻り・飛び越し・同じ状態・改訂中は、現在の状態と可能な操作つきで拒否する */
+export function checkStateOp(kind: RevisableKind, state: string, op: StateOp | 'draft'): Result {
+  if (op !== 'draft' && OP_TARGET[op].kind !== kind) return reject('unknown', kind, state);
+  if (state === REVISING) return reject('revising', kind, state);
+  const to = op === 'draft' ? DRAFT : OP_TARGET[op as StateOp].to;
+  const r = checkTransition(kind === 'plan' ? PLAN_FLOW : QUOTE_FLOW, state, to);
+  return r.ok ? r : reject(r.code, kind, state);
+}
+
+/** 状態を 1 つ進める操作を行う。成功すると状態が変わり、版の履歴に操作名・遷移前後の状態・日時が記録される。拒否したときは何も変えない */
+export function applyStateOp(kind: RevisableKind, id: string, op: StateOp, now: Date = new Date()): Result<VersionRecord> {
+  const e = findRevisable(getDataset(), kind, id);
+  if (!e) return fail('notFound');
+  const c = checkStateOp(kind, e.state, op);
+  if (!c.ok) return c;
+  const to = OP_TARGET[op].to;
+  const version = latestVersion(kind, id, e.version) + 1;
+  const record: VersionRecord = {
+    entityId: id,
+    kind,
+    version,
+    at: now.toISOString(),
+    changes: [],
+    states: [e.state, to],
+    operation: op,
+    snapshot: kind === 'plan' ? { title: (e as { title: string }).title } : { amount: (e as { amount: number }).amount },
+  };
+  updateDataset((d) => patchRevisable(d, kind, id, { version, state: to, prevState: undefined }), [record]);
+  return ok(record);
+}
+export const confirmPlan = (id: string, now?: Date) => applyStateOp('plan', id, 'confirm', now);
+export const submitQuote = (id: string, now?: Date) => applyStateOp('quote', id, 'submit', now);
+export const approveQuote = (id: string, now?: Date) => applyStateOp('quote', id, 'approve', now);
+/** 下書きへの変更。下書きでないものは常に拒否（確定済み・承認済みからの逆戻り）、下書きは「すでにその状態」で拒否する */
+export function toDraft(kind: RevisableKind, id: string): Result {
+  const e = findRevisable(getDataset(), kind, id);
+  if (!e) return fail('notFound');
+  const c = checkStateOp(kind, e.state, 'draft');
+  return c.ok ? reject('unknown', kind, e.state) : c;
 }
 
 // ───────── FR-016 素材管理 ─────────

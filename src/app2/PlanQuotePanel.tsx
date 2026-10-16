@@ -2,12 +2,14 @@
 // 状態は「改訂中」を経て企画は「確定」・見積は「提出済み」に戻る。履歴から旧版に戻せる（戻しも新しい版になる）。
 import { useState } from 'react';
 import { Body1, Button, Caption1, Input, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
+import { ErrorCircle16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
-import { beginRevision, cancelRevision, restoreVersion, saveRevision, type RevisableKind } from './operations';
+import { beginRevision, cancelRevision, restoreVersion, saveRevision, applyStateOp, toDraft, type RevisableKind } from './operations';
 import { entityLabel } from './relations';
 import { StateBadge } from './ProjectBoard';
-import { stateKey } from './states';
+import { stateCode, stateKey, errorKey, type Fail, type PlanQuoteOp } from './states';
+import type { MessageKey } from '../i18n';
 import { useDataset, useHistory } from './store';
 import type { VersionRecord } from './types';
 import { ErrorText, useFailText } from './ui';
@@ -28,6 +30,7 @@ const useStyles = makeStyles({
     border: `1px solid ${tokens.colorNeutralStroke2}`,
   },
   hint: { color: tokens.colorNeutralForeground2 },
+  rejection: { display: 'inline-flex', alignItems: 'center', gap: spacing.xs, color: tokens.colorPaletteRedForeground1 },
 });
 
 interface Sel {
@@ -45,6 +48,7 @@ export function PlanQuotePanel() {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [rejection, setRejection] = useState<Fail | null>(null);
 
   const entity = sel ? (sel.kind === 'plan' ? data.plans.find((p) => p.id === sel.id) : data.quotes.find((q) => q.id === sel.id)) : undefined;
   const contentOf = (kind: RevisableKind, e: NonNullable<typeof entity>) => (kind === 'plan' ? (e as { title: string }).title : String((e as { amount: number }).amount));
@@ -54,6 +58,7 @@ export function PlanQuotePanel() {
     setSel(next);
     setEditing(false);
     setError(null);
+    setRejection(null);
   };
   const start = () => {
     if (!sel || !entity) return;
@@ -81,6 +86,13 @@ export function PlanQuotePanel() {
     const r = restoreVersion(sel.kind, sel.id, version);
     setError(r.ok ? null : failText(r));
   };
+  const runOp = (op: 'confirm' | 'submit' | 'approve' | 'draft') => {
+    if (!sel) return;
+    const r = op === 'draft' ? toDraft(sel.kind, sel.id) : applyStateOp(sel.kind, sel.id, op);
+    setError(null);
+    setRejection(r.ok ? null : r);
+  };
+  const opLabel = (op: PlanQuoteOp) => t(`app2.op.${op}` as MessageKey);
 
   const rows = sel ? history.filter((h) => h.entityId === sel.id) : [];
   const latest = rows.reduce((m, r) => Math.max(m, r.version), 0);
@@ -92,6 +104,7 @@ export function PlanQuotePanel() {
   const describe = (r: VersionRecord) => {
     const parts = r.changes.map((c) => `${c.field === 'title' ? t('app2.title') : t('app2.amount')}: ${fmt(c.from)} → ${fmt(c.to)}`);
     if (r.restoredFrom !== undefined) parts.unshift(`${t('app2.version')} ${r.restoredFrom} ${t('app2.restore')}`);
+    if (r.operation) parts.unshift(`${t('app2.history.operation')}: ${opLabel(r.operation)}`);
     return parts.join('、');
   };
 
@@ -107,6 +120,7 @@ export function PlanQuotePanel() {
             appearance={sel?.id === p.id ? 'primary' : 'subtle'}
             aria-selected={sel?.id === p.id}
             data-testid="plan-item"
+            data-state={stateCode(p.state)}
             data-entity-id={p.id}
             onClick={() => select({ kind: 'plan', id: p.id })}
           >
@@ -124,6 +138,7 @@ export function PlanQuotePanel() {
             appearance={sel?.id === q.id ? 'primary' : 'subtle'}
             aria-selected={sel?.id === q.id}
             data-testid="quote-item"
+            data-state={stateCode(q.state)}
             data-entity-id={q.id}
             onClick={() => select({ kind: 'quote', id: q.id })}
           >
@@ -165,6 +180,40 @@ export function PlanQuotePanel() {
               </Button>
             </div>
           )}
+          <div className={s.row} data-testid="state-ops">
+            {sel.kind === 'plan' ? (
+              <Button onClick={() => runOp('confirm')} data-testid="op-confirm-plan">
+                {t('app2.op.confirm')}
+              </Button>
+            ) : (
+              <>
+                <Button onClick={() => runOp('submit')} data-testid="op-submit-quote">
+                  {t('app2.op.submit')}
+                </Button>
+                <Button onClick={() => runOp('approve')} data-testid="op-approve-quote">
+                  {t('app2.op.approve')}
+                </Button>
+              </>
+            )}
+            <Button onClick={() => runOp('draft')} data-testid="op-to-draft">
+              {t('app2.op.toDraft')}
+            </Button>
+          </div>
+          {rejection && (
+            <span
+              className={s.rejection}
+              role="alert"
+              data-testid="op-rejection"
+              data-current-state={rejection.state ? stateCode(rejection.state) : ''}
+              data-allowed-ops={(rejection.allowed ?? []).join(',')}
+            >
+              <ErrorCircle16Filled aria-hidden />
+              <Body1>
+                {t(errorKey(rejection.code))}　{t('app2.rejection.current')}: {rejection.state ? stateText(rejection.state) : ''}　{t('app2.rejection.allowed')}:{' '}
+                {(rejection.allowed ?? []).map(opLabel).join('、')}
+              </Body1>
+            </span>
+          )}
           <ErrorText message={error} testId="revision-error" />
           <div className={s.group}>
             <Caption1>{t('app2.history')}</Caption1>
@@ -176,7 +225,7 @@ export function PlanQuotePanel() {
                   </strong>
                   <span>{new Date(r.at).toLocaleString('ja-JP')}</span>
                   <span>{r.states.map(stateText).join(' → ')}</span>
-                  <span>{describe(r)}</span>
+                  <span data-testid="version-op" data-operation={r.operation ?? ''}>{describe(r)}</span>
                   {r.version !== latest && (
                     <Button size="small" onClick={() => restore(r.version)} data-testid="version-restore" disabled={editing}>
                       {t('app2.restore')}
