@@ -50,9 +50,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 キーボードだけで主要操作に到達\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-001-202610170118.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-001-202610170200.log",
       "history": [
         {
           "at": "2026-10-16T13:28:24+09:00",
@@ -75,9 +75,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 言語切替とアプリ切替\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-002-202610170119.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-002-202610170201.log",
       "history": [
         {
           "at": "2026-10-16T13:28:26+09:00",
@@ -100,9 +100,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 異常系\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-003-202610170119.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-003-202610170201.log",
       "history": [
         {
           "at": "2026-10-16T13:28:28+09:00",
@@ -125,9 +125,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 ナレーション・レイアウト\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-004-202610170119.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-004-202610170202.log",
       "history": [
         {
           "at": "2026-10-16T13:28:30+09:00",
@@ -150,9 +150,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-057 動きを減らす設定で CSS\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-005-202610170119.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-005-202610170202.log",
       "history": [
         {
           "at": "2026-10-16T13:28:33+09:00",
@@ -175,9 +175,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-057 動きを減らす設定でカメラワーク\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-006-202610170120.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-006-202610170203.log",
       "history": [
         {
           "at": "2026-10-16T13:28:35+09:00",
@@ -200,9 +200,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 2D の初期表示\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "fb40b9e",
-      "last_run_at": "2026-10-17T02:00:01+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-007-202610170159.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-007-202610170200.log",
       "history": [
         {
           "at": "2026-10-16T13:28:37+09:00",
@@ -225,9 +225,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 異常系\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-008-202610170120.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-008-202610170203.log",
       "history": [
         {
           "at": "2026-10-16T13:28:40+09:00",
@@ -250,9 +250,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-001\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-009-202610170120.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-009-202610170203.log",
       "history": [
         {
           "at": "2026-10-16T13:29:00+09:00",
@@ -281,9 +281,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-002\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "fb40b9e",
-      "last_run_at": "2026-10-17T02:00:01+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-010-202610170159.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-010-202610170200.log",
       "history": [
         {
           "at": "2026-10-16T13:29:02+09:00",
@@ -312,9 +312,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-002 AC-003\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-011-202610170120.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-011-202610170204.log",
       "history": [
         {
           "at": "2026-10-16T13:29:05+09:00",
@@ -343,9 +343,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-003 AC-007\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-012-202610170121.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-012-202610170204.log",
       "history": [
         {
           "at": "2026-10-16T13:29:07+09:00",
@@ -374,9 +374,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-010\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-013-202610170121.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-013-202610170204.log",
       "history": [
         {
           "at": "2026-10-16T13:29:10+09:00",
@@ -405,9 +405,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-067\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-014-202610170121.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-014-202610170205.log",
       "history": [
         {
           "at": "2026-10-16T13:29:12+09:00",
@@ -436,9 +436,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-011\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-015-202610170122.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-015-202610170205.log",
       "history": [
         {
           "at": "2026-10-16T13:29:14+09:00",
@@ -467,9 +467,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-012\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-016-202610170122.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-016-202610170205.log",
       "history": [
         {
           "at": "2026-10-16T13:29:17+09:00",
@@ -498,9 +498,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-006 AC-015\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-017-202610170122.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-017-202610170205.log",
       "history": [
         {
           "at": "2026-10-16T13:29:19+09:00",
@@ -528,10 +528,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-005 AC-013\"",
       "canary": false,
-      "status": "fail",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:34:40+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-018-202610170131.log",
+      "status": "pass",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-018-202610170206.log",
       "history": [
         {
           "at": "2026-10-16T13:29:21+09:00",
@@ -560,9 +560,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"NFR-A11Y-003 AC-058\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-019-202610170123.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-019-202610170206.log",
       "history": [
         {
           "at": "2026-10-16T13:29:23+09:00",
@@ -585,9 +585,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-020-202610170123.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-020-202610170208.log",
       "history": [
         {
           "at": "2026-10-16T13:29:25+09:00",
@@ -622,9 +622,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-041\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-021-202610170123.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-021-202610170208.log",
       "history": [
         {
           "at": "2026-10-16T13:29:27+09:00",
@@ -647,9 +647,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-026\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-022-202610170123.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-022-202610170208.log",
       "history": [
         {
           "at": "2026-10-16T13:29:29+09:00",
@@ -678,9 +678,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-042\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-023-202610170124.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-023-202610170208.log",
       "history": [
         {
           "at": "2026-10-16T13:29:31+09:00",
@@ -703,9 +703,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-027\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-024-202610170124.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-024-202610170209.log",
       "history": [
         {
           "at": "2026-10-16T13:29:33+09:00",
@@ -734,9 +734,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-013 AC-043\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-025-202610170124.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-025-202610170210.log",
       "history": [
         {
           "at": "2026-10-16T13:29:35+09:00",
@@ -759,9 +759,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-030\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-026-202610170124.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-026-202610170210.log",
       "history": [
         {
           "at": "2026-10-16T13:29:37+09:00",
@@ -790,9 +790,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-014 AC-045\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-027-202610170125.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-027-202610170210.log",
       "history": [
         {
           "at": "2026-10-16T13:29:39+09:00",
@@ -815,9 +815,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-033\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-028-202610170125.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-028-202610170210.log",
       "history": [
         {
           "at": "2026-10-16T13:29:41+09:00",
@@ -846,9 +846,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-015 AC-047\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-029-202610170125.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-029-202610170211.log",
       "history": [
         {
           "at": "2026-10-16T13:29:43+09:00",
@@ -871,9 +871,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-034\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-030-202610170126.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-030-202610170211.log",
       "history": [
         {
           "at": "2026-10-16T13:29:46+09:00",
@@ -901,10 +901,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-016 AC-049\"",
       "canary": false,
-      "status": "fail",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:34:40+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-031-202610170131.log",
+      "status": "pass",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-031-202610170211.log",
       "history": [
         {
           "at": "2026-10-16T13:29:48+09:00",
@@ -927,9 +927,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-035\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-032-202610170127.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-032-202610170212.log",
       "history": [
         {
           "at": "2026-10-16T13:29:50+09:00",
@@ -957,10 +957,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-017 AC-051\"",
       "canary": false,
-      "status": "fail",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:34:40+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-033-202610170132.log",
+      "status": "pass",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-033-202610170212.log",
       "history": [
         {
           "at": "2026-10-16T13:29:52+09:00",
@@ -983,9 +983,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-053\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-034-202610170128.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-034-202610170212.log",
       "history": [
         {
           "at": "2026-10-16T13:29:55+09:00",
@@ -1008,9 +1008,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-037\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-035-202610170128.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-035-202610170213.log",
       "history": [
         {
           "at": "2026-10-16T13:29:57+09:00",
@@ -1039,9 +1039,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-054\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-036-202610170128.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-036-202610170213.log",
       "history": [
         {
           "at": "2026-10-16T13:29:59+09:00",
@@ -1064,9 +1064,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-038\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:30:42+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-037-202610170128.log",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-037-202610170213.log",
       "history": [
         {
           "at": "2026-10-16T13:30:01+09:00",
@@ -1094,10 +1094,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-070\"",
       "canary": false,
-      "status": "fail",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:34:40+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-038-202610170133.log",
+      "status": "pass",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-038-202610170213.log",
       "history": [
         {
           "at": "2026-10-16T13:30:05+09:00",
@@ -1119,10 +1119,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-071\"",
       "canary": false,
-      "status": "fail",
-      "last_commit": "e547564",
-      "last_run_at": "2026-10-17T01:34:40+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-039-202610170133.log",
+      "status": "pass",
+      "last_commit": "70f7945",
+      "last_run_at": "2026-10-17T02:14:16+09:00",
+      "evidence": "work/runs/202610170001/logs/system-test/E2E-039-202610170214.log",
       "history": [
         {
           "at": "2026-10-16T13:30:08+09:00",
