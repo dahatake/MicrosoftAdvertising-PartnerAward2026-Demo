@@ -16,10 +16,12 @@ import { spacing } from '../theme/theme';
 
 const useStyles = makeStyles({
   root: { display: 'flex', flexDirection: 'column', gap: spacing.xl },
+  // 製品ビューは最初の画面（スクロールなし）に収める: 左に見出し・CTA・ペルソナ、右に製品ビュー（P-1）または構成図（P-2）
   hero: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: spacing.m,
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gap: spacing.l,
+    alignItems: 'start',
     padding: `${spacing.xl} ${spacing.l}`,
     borderRadius: tokens.borderRadiusXLarge,
     color: '#ffffff',
@@ -28,6 +30,13 @@ const useStyles = makeStyles({
   heroTitle: { color: '#ffffff' },
   heroLead: { color: '#e6edf7', maxWidth: '40em' },
   hint: { color: '#c3cfe0' },
+  heroText: { display: 'flex', flexDirection: 'column', gap: spacing.m },
+  heroVisual: {
+    padding: spacing.m,
+    borderRadius: tokens.borderRadiusLarge,
+    backgroundColor: tokens.colorNeutralBackground1,
+    color: tokens.colorNeutralForeground1,
+  },
   values: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: spacing.m },
   section: { display: 'flex', flexDirection: 'column', gap: spacing.m },
   personas: { display: 'flex', flexWrap: 'wrap', gap: spacing.s, alignItems: 'center' },
@@ -53,28 +62,53 @@ export function App1() {
   return (
     <section className={s.root} data-testid="app-root-app1" aria-labelledby="app1-heading">
       <div className={s.hero}>
-        <Title1 as="h2" id="app1-heading" className={s.heroTitle}>
-          {text.heroHeading}
-        </Title1>
-        <Body1 as="p" className={s.heroLead}>
-          {text.heroLead}
-        </Body1>
-        <div>
-          <Button
-            as="a"
-            appearance="primary"
-            size="large"
-            icon={<Open24Regular />}
-            iconPosition="after"
-            href={OFFICIAL_SITE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="cta-official-site"
-          >
-            {text.cta}
-          </Button>
+        <div className={s.heroText}>
+          <Title1 as="h2" id="app1-heading" className={s.heroTitle}>
+            {text.heroHeading}
+          </Title1>
+          <Body1 as="p" className={s.heroLead}>
+            {text.heroLead}
+          </Body1>
+          <div>
+            <Button
+              as="a"
+              appearance="primary"
+              size="large"
+              icon={<Open24Regular />}
+              iconPosition="after"
+              href={OFFICIAL_SITE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="cta-official-site"
+            >
+              {text.cta}
+            </Button>
+          </div>
+          <Body1 className={s.hint}>{text.ctaHint}</Body1>
+          <Title3 as="h3" id="app1-persona" className={s.heroTitle}>
+            {text.personaHeading}
+          </Title3>
+          <div className={s.personas} role="group" aria-labelledby="app1-persona">
+            {PERSONAS.map((p) => (
+              <Button
+                key={p}
+                appearance={persona === p ? 'primary' : 'secondary'}
+                aria-pressed={persona === p}
+                data-testid={`persona-select-${p}`}
+                onClick={() => setPersona(p)}
+              >
+                {text.personaLabel[p]}
+              </Button>
+            ))}
+            <Button ref={startRef} icon={<Play24Regular />} data-testid="presentation-start" onClick={() => setPresenting(true)}>
+              {text.start}
+            </Button>
+          </div>
+          <Body1 as="p" className={s.heroLead}>
+            {text.personaDesc[persona]}
+          </Body1>
         </div>
-        <Body1 className={s.hint}>{text.ctaHint}</Body1>
+        <div className={s.heroVisual}>{persona === 'p1' ? <ProductView /> : <Architecture2D />}</div>
       </div>
 
       <section className={s.section} aria-labelledby="app1-value">
@@ -92,45 +126,20 @@ export function App1() {
         <Body1 as="p">{t('app1.lead')}</Body1>
       </section>
 
-      <section className={s.section} aria-labelledby="app1-persona">
-        <Title3 as="h3" id="app1-persona">
-          {text.personaHeading}
+      <section className={s.section} aria-labelledby="app1-scenes">
+        <Title3 as="h3" id="app1-scenes">
+          {text.scenesHeading}: {text.personaLabel[persona]}
         </Title3>
-        <div className={s.personas} role="group" aria-labelledby="app1-persona">
-          {PERSONAS.map((p) => (
-            <Button
-              key={p}
-              appearance={persona === p ? 'primary' : 'secondary'}
-              aria-pressed={persona === p}
-              data-testid={`persona-select-${p}`}
-              onClick={() => setPersona(p)}
-            >
-              {text.personaLabel[p]}
-            </Button>
-          ))}
-          <Button ref={startRef} icon={<Play24Regular />} data-testid="presentation-start" onClick={() => setPresenting(true)}>
-            {text.start}
-          </Button>
-        </div>
-        <Body1 as="p">{text.personaDesc[persona]}</Body1>
-        <Title3 as="h4">{text.scenesHeading}</Title3>
         <ol className={s.scenes} data-testid="scene-list">
           {text.scenes[persona].map((sc) => (
             <li key={sc.title}>
               <Card>
-                <Subtitle1 as="h5">{sc.title}</Subtitle1>
+                <Subtitle1 as="h4">{sc.title}</Subtitle1>
                 <Body1>{sc.body}</Body1>
               </Card>
             </li>
           ))}
         </ol>
-      </section>
-
-      <section className={s.section} aria-labelledby="app1-product">
-        <Title3 as="h3" id="app1-product">
-          {text.productHeading}
-        </Title3>
-        {persona === 'p1' ? <ProductView /> : <Architecture2D />}
       </section>
 
       <VideoSection />
@@ -146,3 +155,4 @@ export function App1() {
     </section>
   );
 }
+
