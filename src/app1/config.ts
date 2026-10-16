@@ -4,8 +4,14 @@
 /** CTA の遷移先（公式サイト）。VITE_OFFICIAL_SITE_URL で差し替える */
 export const OFFICIAL_SITE_URL: string = import.meta.env.VITE_OFFICIAL_SITE_URL || 'https://www.microsoft.com/surface';
 
-/** 公式動画の埋め込み URL。未設定（空）なら動画の節を出さない。VITE_OFFICIAL_VIDEO_URL で設定する */
-export const OFFICIAL_VIDEO_URL: string = import.meta.env.VITE_OFFICIAL_VIDEO_URL || '';
+/** 既定の公式動画（PARAM-010: 公式チャンネル @surface「Surface Laptop Ultra | Stepping into the future」） */
+export const DEFAULT_OFFICIAL_VIDEO_URL = 'https://www.youtube.com/embed/fm6VQgCkj20';
+
+/** 環境変数の値から動画 URL を決める（FR-003 AC-084）: 未指定なら既定、空文字なら空（節を出さない）、それ以外は指定の値 */
+export const resolveVideoUrl = (raw: string | undefined): string => (raw === undefined ? DEFAULT_OFFICIAL_VIDEO_URL : raw.trim());
+
+/** 公式動画の埋め込み URL。VITE_OFFICIAL_VIDEO_URL で差し替える。空文字を指定すると動画の節を出さない */
+export const OFFICIAL_VIDEO_URL: string = resolveVideoUrl(import.meta.env.VITE_OFFICIAL_VIDEO_URL as string | undefined);
 
 const EMBED_HOSTS = ['www.youtube.com', 'www.youtube-nocookie.com'];
 

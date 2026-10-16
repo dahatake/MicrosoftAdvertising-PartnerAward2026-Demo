@@ -9,7 +9,7 @@ import { Presentation } from './Presentation';
 import { VideoSection } from './VideoSection';
 import { Architecture2D } from './Architecture2D';
 import { ProductView } from './ProductView';
-import { isEmbeddableVideoUrl, OFFICIAL_SITE_URL } from './config';
+import { DEFAULT_OFFICIAL_VIDEO_URL, isEmbeddableVideoUrl, OFFICIAL_SITE_URL, resolveVideoUrl } from './config';
 import { app1Text, PERSONAS } from './content';
 import { selectPreset } from '../camera/store';
 
@@ -37,7 +37,7 @@ describe('FR-003 AC-007 CTA', () => {
 
 // FR-003 AC-008 動画は設定されているときだけ表示し、ないときは節・空の枠・壊れたリンクを出さない
 describe('FR-003 AC-008 公式動画', () => {
-  it.each([undefined, '', 'not a url', 'http://www.youtube.com/embed/x', 'https://evil.example/embed/x', 'https://www.youtube.com/watch?v=x'])(
+  it.each(['', 'not a url', 'http://www.youtube.com/embed/x', 'https://evil.example/embed/x', 'https://www.youtube.com/watch?v=x'])(
     '埋め込み先が %j のときは何も出さない',
     (url) => {
       const { container } = wrap(<VideoSection url={url as string} />);
@@ -51,9 +51,17 @@ describe('FR-003 AC-008 公式動画', () => {
     wrap(<VideoSection url="https://www.youtube-nocookie.com/embed/abc" />);
     expect(screen.getByTestId('official-video').getAttribute('src')).toBe('https://www.youtube-nocookie.com/embed/abc');
   });
-  it('既定（未設定）の App1 には動画の節がない', () => {
+  // FR-003 AC-084 環境変数が未指定なら既定の公式動画、指定で差し替え、空なら節なし
+  it('AC-084 未指定は既定の動画、指定は差し替え、空は非表示', () => {
+    expect(resolveVideoUrl(undefined)).toBe('https://www.youtube.com/embed/fm6VQgCkj20');
+    expect(DEFAULT_OFFICIAL_VIDEO_URL).toContain('fm6VQgCkj20');
+    expect(resolveVideoUrl('https://www.youtube.com/embed/abc')).toBe('https://www.youtube.com/embed/abc');
+    expect(resolveVideoUrl('')).toBe('');
+    expect(isEmbeddableVideoUrl(resolveVideoUrl(''))).toBe(false);
+  });
+  it('AC-084 既定の App1 に既定の動画が埋め込まれる', () => {
     wrap(<App1 />);
-    expect(screen.queryByTestId('video-section')).toBeNull();
+    expect(screen.getByTestId('official-video').getAttribute('src')).toBe('https://www.youtube.com/embed/fm6VQgCkj20');
   });
 });
 

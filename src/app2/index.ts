@@ -43,6 +43,7 @@ export {
   errorKey,
   type Fail,
   type FailCode,
+  type PlanQuoteOp,
   type Result,
 } from './states';
 export { migrateDataset } from './migrate';
@@ -52,6 +53,14 @@ export {
   cancelRevision,
   saveRevision,
   restoreVersion,
+  confirmPlan,
+  submitQuote,
+  approveQuote,
+  toDraft,
+  applyStateOp,
+  checkStateOp,
+  allowedOps,
+  type StateOp,
   registerAsset,
   updateAssetMetadata,
   linkChannel,
