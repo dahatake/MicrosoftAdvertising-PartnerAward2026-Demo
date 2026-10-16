@@ -118,6 +118,8 @@ export interface VersionRecord {
   restoredFrom?: number;
   /** この版を作る間の状態の流れ（例: 承認済み → 改訂中 → 提出済み） */
   states: string[];
+  /** 業務操作の履歴のとき、その操作名（FR-020: 確定・提出・承認）。保存による版では付かない */
+  operation?: 'confirm' | 'submit' | 'approve';
   snapshot: { title?: string; amount?: number };
 }
 

@@ -67,6 +67,7 @@ export const ja = {
   'layout.vertical': '縦に並べる',
   'layout.resize': '幅の変更',
   'layout.drag': 'ドラッグで移動',
+  'app1.panel.visual': '製品ビュー・構成図',
   'cmd.title': 'コマンドの検索',
   'cmd.placeholder': 'コマンドを入力（例: layout, 3D, language）',
   'cmd.empty': '該当するコマンドがありません。',
@@ -187,6 +188,16 @@ export const ja = {
   'app2.err.nochange': '変更がありません。内容を変えてから保存してください。',
   'app2.err.number': '0 以上の数で入力してください。',
   'app2.err.notRevisable': 'この状態では変更できません。',
+  'app2.err.revising': '改訂中は「確定」「提出」「承認」「下書きへの変更」はできません。「保存」で改訂を完了してください。',
+  'app2.op.confirm': '確定',
+  'app2.op.submit': '提出',
+  'app2.op.approve': '承認',
+  'app2.op.toDraft': '下書きに変更',
+  'app2.op.save': '保存',
+  'app2.op.edit': '変更',
+  'app2.rejection.current': '現在の状態',
+  'app2.rejection.allowed': '可能な操作',
+  'app2.history.operation': '操作',
 } as const;
 
 export type MessageKey = keyof typeof ja;

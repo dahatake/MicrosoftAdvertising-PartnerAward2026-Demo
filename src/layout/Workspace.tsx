@@ -49,6 +49,10 @@ export interface WorkspaceProps {
   screenId: string;
   panels: readonly WorkspacePanel[];
   defaults?: LayoutDefaults;
+  /** 現在のペルソナ（FR-021）。指定すると、保存・復元・既定に戻すはペルソナ×画面の組ごとになる */
+  persona?: string;
+  /** ペルソナごとの既定のレイアウト（パネルの配置・表示/非表示・順序）。なければ defaults */
+  personaDefaults?: Readonly<Record<string, LayoutDefaults>>;
 }
 
 const NARROW = '@media (max-width: 720px)';
@@ -104,10 +108,13 @@ const useStyles = makeStyles({
 
 const PX_PER_UNIT = 160;
 
-export function Workspace({ screenId, panels, defaults }: WorkspaceProps) {
+export function Workspace({ screenId: baseScreenId, panels, defaults: baseDefaults, persona, personaDefaults }: WorkspaceProps) {
   const s = useStyles();
   const t = useT();
   const ids = panels.map((p) => p.id);
+  // 保存単位は「ペルソナ×画面」（FR-021 AC-081）。ペルソナなしのときは従来どおり画面ごと
+  const screenId = persona ? `${baseScreenId}:${persona}` : baseScreenId;
+  const defaults = persona ? (personaDefaults?.[persona] ?? baseDefaults) : baseDefaults;
   const layout = useLayout(screenId, ids, defaults);
   const dragId = useRef<string | null>(null);
 
@@ -120,12 +127,12 @@ export function Workspace({ screenId, panels, defaults }: WorkspaceProps) {
   // コマンドの検索から、この画面のレイアウトを操作できるようにする（AC-038）
   const titleOf = (id: string) => panels.find((p) => p.id === id)?.title ?? id;
   useEffect(() => {
-    return registerCommands(`layout:${screenId}`, [
-      { id: `layout.${screenId}.reset`, label: `${t('layout.reset')}`, keywords: 'layout reset default', run: () => resetLayout(screenId) },
-      { id: `layout.${screenId}.horizontal`, label: `${t('layout.horizontal')}`, keywords: 'layout horizontal row', run: () => update((l) => setDirection(l, 'row')) },
-      { id: `layout.${screenId}.vertical`, label: `${t('layout.vertical')}`, keywords: 'layout vertical column', run: () => update((l) => setDirection(l, 'column')) },
+    return registerCommands(`layout:${baseScreenId}`, [
+      { id: `layout.${baseScreenId}.reset`, label: `${t('layout.reset')}`, keywords: 'layout reset default', run: () => resetLayout(screenId) },
+      { id: `layout.${baseScreenId}.horizontal`, label: `${t('layout.horizontal')}`, keywords: 'layout horizontal row', run: () => update((l) => setDirection(l, 'row')) },
+      { id: `layout.${baseScreenId}.vertical`, label: `${t('layout.vertical')}`, keywords: 'layout vertical column', run: () => update((l) => setDirection(l, 'column')) },
       ...layout.hidden.map((id) => ({
-        id: `layout.${screenId}.show.${id}`,
+        id: `layout.${baseScreenId}.show.${id}`,
         label: `${t('layout.showPanels')}: ${titleOf(id)}`,
         keywords: 'layout show panel',
         run: () => update((l) => toggleHidden(l, id)),
@@ -156,7 +163,12 @@ export function Workspace({ screenId, panels, defaults }: WorkspaceProps) {
   };
 
   return (
-    <div className={s.root}>
+    <div
+      className={s.root}
+      data-testid="layout-root"
+      data-layout-persona={persona}
+      data-layout-order={layout.order.filter((id) => isShown(layout, id)).join(',')}
+    >
       <div className={s.toolbar}>
         <Button data-testid="layout-reset" appearance="secondary" onClick={() => resetLayout(screenId)}>
           {t('layout.reset')}

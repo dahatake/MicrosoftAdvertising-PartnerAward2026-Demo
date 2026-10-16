@@ -1,6 +1,6 @@
 // 製品ビュー（FR-005）: 既定は 2D（CSS の図とアニメーション）、表示方法が 3D のときは 3D（遅延読み込み）。
 // 説明文は 2D/3D どちらでも同じものを表示し、3D が使えない・描画に失敗したときは 2D と説明文だけになる（AC-014）。
-import { Component, lazy, Suspense, type ReactNode } from 'react';
+import { Component, lazy, Suspense, useEffect, useRef, type ReactNode } from 'react';
 import { Body1, Caption1, makeStyles, tokens } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
 import { useSettings } from '../settings/store';
@@ -94,8 +94,14 @@ export function ProductView({ testIds, showDescription = true }: ProductViewProp
   const id2d = testIds?.view2d ?? 'product-view-2d';
   const id3d = testIds?.view3d ?? 'product-view-3d-canvas';
   const view2d = <Device2D testId={id2d} label={text.product2dLabel} />;
+  // 製品ビューはレイアウトのパネル内にあり、最初の画面の外になることがある。3D を選んだら画面内へ寄せる（FR-005 AC-013）。
+  // 全画面のプレゼンテーション（説明文なし）では動かさない
+  const rootRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (method === '3d' && showDescription) rootRef.current?.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
+  }, [method, showDescription]);
   return (
-    <div className={s.root} data-view-method={method}>
+    <div className={s.root} data-view-method={method} ref={rootRef}>
       {method === '3d' ? (
         <div className={s.stage}>
           <Boundary fallback={view2d}>

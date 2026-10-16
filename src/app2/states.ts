@@ -68,8 +68,11 @@ export type FailCode =
   | 'notFound'
   | 'nochange'
   | 'number'
-  | 'notRevisable';
-export type Fail = { ok: false; code: FailCode; field?: string };
+  | 'notRevisable'
+  | 'revising';
+export type Fail = { ok: false; code: FailCode; field?: string; state?: string; allowed?: PlanQuoteOp[] };
+/** 企画・見積の操作（FR-020）。confirm=確定、submit=提出、approve=承認、save=保存（改訂中からの復帰）、edit=変更 */
+export type PlanQuoteOp = 'confirm' | 'submit' | 'approve' | 'save' | 'edit';
 export type Ok<T = undefined> = { ok: true; value: T };
 export type Result<T = undefined> = Ok<T> | Fail;
 
