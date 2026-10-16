@@ -17,6 +17,7 @@ import { spacing } from '../theme/theme';
 import { CommandPalette } from '../commands/CommandPalette';
 import { useShellCommands } from '../commands/shellCommands';
 import { ViewModeSwitch } from '../view/ViewModeSwitch';
+import { ShellTools } from './ShellTools';
 
 const useStyles = makeStyles({
   header: {
@@ -65,6 +66,7 @@ export function Shell() {
         </TabList>
         <span className={s.spacer} />
         <ViewModeSwitch />
+        <ShellTools />
         <Button appearance="subtle" onClick={() => window.dispatchEvent(new Event('open-command-palette'))}>
           {t('cmd.open')}
         </Button>
