@@ -15,9 +15,9 @@
 | FR-005 | 製品の 3D/CG 表現 | 承認済み | 未実装 | 未実装 | - |
 | FR-006 | ナレーション（Azure Speech とフォールバック） | 承認済み | 未実装 | 未実装 | - |
 | FR-007 | Speech トークン発行バックエンド | 承認済み | 未実装 | 未実装 | - |
-| FR-008 | 2D/3D の表示方法の切替（共通） | 承認済み | 未実装 | 未実装 | - |
+| FR-008 | 2D/3D の表示方法の切替（共通） | 承認済み | src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts, src/shell/Shell.tsx | src/view/view.test.tsx, tests/system/shell-app1.spec.ts | 表示方法, 設定ストア, デザイン基盤, i18n 辞書 |
 | FR-009 | カメラワーク選択 | 承認済み | 未実装 | 未実装 | - |
-| FR-010 | ワークスペースのレイアウト変更（共通） | 承認済み | 未実装 | 未実装 | - |
+| FR-010 | ワークスペースのレイアウト変更（共通） | 承認済み | src/layout/model.ts, src/layout/store.ts, src/layout/Workspace.tsx, src/commands/registry.ts, src/commands/CommandPalette.tsx, src/commands/shellCommands.ts, src/apps/App2.tsx | src/layout/layout.test.ts, tests/system/shell-app1.spec.ts | ワークスペース, コマンドの検索, デザイン基盤, i18n 辞書 |
 | FR-011 | App2 のデータモデルとシードデータ | 承認済み | 未実装 | 未実装 | - |
 | FR-012 | エンティティの関連の可視化 | 承認済み | 未実装 | 未実装 | - |
 | FR-013 | 制作プロジェクトの進捗・予算・成果物・KPI の可視化 | 承認済み | 未実装 | 未実装 | - |
@@ -51,7 +51,10 @@
 
 | 部品名 | ファイル | 用途 | 使っている要求 ID |
 |---|---|---|---|
-| デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン。以降の画面はこれを再利用する | FR-001 |
-| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, NFR-UX-003 |
-| 設定ストア | src/settings/store.ts | 言語・表示方法・アプリを持ち localStorage（lang, viewMethod）に保存。useSettings()/updateSettings() | FR-001, FR-002 |
+| デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン（kindPalette: 種類の色）。以降の画面はこれを再利用する | FR-001, FR-008, FR-010 |
+| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-008, FR-010, NFR-UX-003 |
+| 設定ストア | src/settings/store.ts | 言語・表示方法・アプリを持ち localStorage（lang, viewMethod）に保存。useSettings()/updateSettings() | FR-001, FR-002, FR-008 |
 | アプリ登録簿 | src/apps/registry.ts | シェルのトグルと画面の対応。新しいアプリはここに 1 行足す | FR-001 |
+| 表示方法 | src/view/index.ts, src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts | DualView（items・kinds・selectedId・onSelect。同じ項目を 2D 一覧/3D 空間配置＋共通の凡例で表示）、useViewMode()（既定 2D・3D 不可なら 2D 固定）、ViewModeSwitch、set3dSupport()。three/R3F は遅延読み込み | FR-008 |
+| ワークスペース | src/layout/index.ts, src/layout/model.ts, src/layout/store.ts, src/layout/Workspace.tsx | Workspace（screenId・panels[{id,title,content}]・defaults）。移動・方向・サイズ・タブ・表示/非表示・最大化、localStorage（layout:<screenId>）保存・復元・既定に戻す。panel の data-testid は layout-panel-<id>/layout-menu-<id> | FR-010 |
+| コマンドの検索 | src/commands/registry.ts, src/commands/CommandPalette.tsx, src/commands/shellCommands.ts | registerCommands(owner, [{id,label,keywords,run}])で画面がコマンドを登録。Ctrl+K で開く | FR-010 |
