@@ -3,6 +3,7 @@ import { Body1, Input, Title2 } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
 import { Workspace } from '../layout';
 import { DualView } from '../view';
+import { CameraSettings } from '../camera';
 
 // 後続の項目（App2）が、パネルの中身を実際の画面に置き換える。ここは共通の Workspace・DualView の使い方の最小の例。
 const KINDS = [
@@ -26,6 +27,7 @@ export function App2() {
       <p>
         <Body1>{t('app2.lead')}</Body1>
       </p>
+      <CameraSettings />
       <Workspace
         screenId="app2"
         panels={[
