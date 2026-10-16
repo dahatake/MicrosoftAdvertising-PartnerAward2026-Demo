@@ -13,4 +13,13 @@ export const en: Messages = {
   'app1.lead': 'Discover the value of the product, explained for each usage scene.',
   'app2.heading': 'Ad asset management',
   'app2.lead': 'Review campaigns, plans, quotes, assets and orders in one place.',
+  'narration.heading': 'Narration',
+  'narration.play': 'Play',
+  'narration.stop': 'Stop',
+  'narration.playing': 'Playing',
+  'narration.stopped': 'Stopped',
+  'narration.showTranscript': 'Show captions',
+  'narration.hideTranscript': 'Hide captions',
+  'narration.fallback': 'Azure Speech is unavailable, so the browser speech synthesis is playing the narration.',
+  'narration.unavailable': 'Audio cannot be played. You can read the narration in the captions.',
 };

@@ -14,6 +14,15 @@ export const ja = {
   'app1.lead': '製品の価値を、利用シーンに合わせてわかりやすくご紹介します。',
   'app2.heading': '広告素材管理',
   'app2.lead': 'キャンペーン、企画、見積、素材、発注を一か所で確認できます。',
+  'narration.heading': 'ナレーション',
+  'narration.play': '再生',
+  'narration.stop': '停止',
+  'narration.playing': '再生中',
+  'narration.stopped': '停止中',
+  'narration.showTranscript': '字幕を表示',
+  'narration.hideTranscript': '字幕を隠す',
+  'narration.fallback': 'Azure Speech を使えないため、ブラウザの音声合成で再生しています。',
+  'narration.unavailable': '音声を再生できません。字幕でナレーションの内容を確認できます。',
 } as const;
 
 export type MessageKey = keyof typeof ja;
