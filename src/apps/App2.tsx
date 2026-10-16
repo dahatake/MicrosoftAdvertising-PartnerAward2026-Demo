@@ -3,8 +3,22 @@ import { Body1, Input, Title2 } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
 import { Workspace } from '../layout';
 import { DualView } from '../view';
+import {
+  CampaignList,
+  CampaignRelationPanel,
+  DEFAULT_REPRESENTATION,
+  PersonaBar,
+  ProjectDetail,
+  ProjectList,
+  RepresentationPanel,
+  WhatIfPanel,
+  setPersona,
+  useDataset,
+  usePersona,
+  type PersonaId,
+  type Representation,
+} from '../app2';
 import { CameraSettings } from '../camera';
-import { CampaignList, CampaignRelationPanel } from '../app2';
 
 // 後続の項目（App2）が、パネルの中身を実際の画面に置き換える。ここは共通の Workspace・DualView の使い方の最小の例。
 const KINDS = [
@@ -22,6 +36,16 @@ export function App2() {
   const [selected, setSelected] = useState<string | null>(null);
   const [campaignId, setCampaignId] = useState<string | null>(null);
   const [nodeId, setNodeId] = useState<string | null>(null);
+  const persona = usePersona();
+  const [projectId, setProjectId] = useState<string | null>(null);
+  const [representation, setRepresentation] = useState<Representation>(DEFAULT_REPRESENTATION[persona]);
+  const data = useDataset();
+  // ペルソナを選ぶと、そのペルソナの既定の表現になる。選択中の対象（キャンペーン・プロジェクト）は保つ
+  const onPersona = (p: PersonaId) => {
+    setPersona(p);
+    setRepresentation(DEFAULT_REPRESENTATION[p]);
+  };
+  const projectCampaign = data.projects.find((p) => p.id === projectId)?.campaignId ?? null;
   return (
     <section data-testid="app-root-app2" aria-labelledby="app2-heading">
       <Title2 as="h2" id="app2-heading">
@@ -30,6 +54,7 @@ export function App2() {
       <p>
         <Body1>{t('app2.lead')}</Body1>
       </p>
+      <PersonaBar persona={persona} representation={representation} onPersona={onPersona} onRepresentation={setRepresentation} />
       <CameraSettings />
       <Workspace
         screenId="app2"
@@ -61,6 +86,22 @@ export function App2() {
             id: '4',
             title: t('app2.relation'),
             content: <CampaignRelationPanel campaignId={campaignId} selectedId={nodeId} onSelectNode={setNodeId} />,
+          },
+          {
+            id: '5',
+            title: t('app2.projects'),
+            content: (
+              <>
+                <ProjectList selectedId={projectId} onSelect={setProjectId} />
+                <ProjectDetail projectId={projectId} />
+              </>
+            ),
+          },
+          { id: '6', title: t('app2.whatif'), content: <WhatIfPanel projectId={projectId} /> },
+          {
+            id: '7',
+            title: t('app2.representation'),
+            content: <RepresentationPanel representation={representation} campaignId={campaignId ?? projectCampaign} />,
           },
         ]}
       />

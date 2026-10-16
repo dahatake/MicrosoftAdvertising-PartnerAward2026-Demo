@@ -1,8 +1,10 @@
-// 単体テスト（jsdom）の共通設定: jsdom にない ResizeObserver を何もしない実装で補う（react-three-fiber の Canvas が必要とする）。
+// vitest の共通設定: jsdom には ResizeObserver がなく、3D（react-three-fiber の Canvas）が遅延読み込みで描画されると、
+// テストの実行タイミングによって未捕捉のエラーになる。何もしない代替を置いて、描画の有無に左右されないようにする。
+class ResizeObserverStub {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
 if (typeof globalThis.ResizeObserver === 'undefined') {
-  globalThis.ResizeObserver = class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  } as unknown as typeof ResizeObserver;
+  (globalThis as unknown as { ResizeObserver: typeof ResizeObserverStub }).ResizeObserver = ResizeObserverStub;
 }
