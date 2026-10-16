@@ -1,0 +1,34 @@
+/* 全アプリ共通のグローバル規則（NFR-A11Y-002 AC-057 / NFR-UX-001 AC-064 / NFR-A11Y-001 AC-055） */
+
+/* 画面幅 320px・拡大率 400% でも横スクロールを強いない（リフロー）。長い語は折り返す */
+html,
+body {
+  margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+}
+
+img,
+svg,
+canvas,
+video,
+iframe {
+  max-width: 100%;
+}
+
+/* 「動きを減らす」: 画面の動き・遷移・CG のアニメーションは静止（動きの最大時間 0 ミリ秒: PARAM-007）。
+   Fluent UI は 0.01ms を既定にするため、0s に上書きする。 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-name: none !important;
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
