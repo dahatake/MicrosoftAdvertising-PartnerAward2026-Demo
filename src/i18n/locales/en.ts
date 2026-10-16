@@ -66,6 +66,7 @@ export const en: Messages = {
   'layout.vertical': 'Arrange stacked',
   'layout.resize': 'Resize width',
   'layout.drag': 'Drag to move',
+  'app1.panel.visual': 'Product view / architecture',
   'cmd.title': 'Command search',
   'cmd.placeholder': 'Type a command (e.g. layout, 3D, language)',
   'cmd.empty': 'No matching commands.',

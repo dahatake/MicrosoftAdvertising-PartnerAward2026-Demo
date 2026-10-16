@@ -2,13 +2,15 @@ import { useRef, useState } from 'react';
 import { Body1, Button, Card, Subtitle1, Title1, Title3, makeStyles, tokens } from '@fluentui/react-components';
 import { Open24Regular, Play24Regular } from '@fluentui/react-icons';
 import { Architecture2D } from '../app1/Architecture2D';
-import { OFFICIAL_SITE_URL } from '../app1/config';
+import { isEmbeddableVideoUrl, OFFICIAL_SITE_URL, OFFICIAL_VIDEO_URL } from '../app1/config';
 import { app1Text, PERSONAS, type PersonaId } from '../app1/content';
 import { Presentation } from '../app1/Presentation';
 import { ProductView } from '../app1/ProductView';
 import { VideoSection } from '../app1/VideoSection';
 import { SURFACE_COLORS } from '../app1/brand';
 import { useT } from '../i18n/useT';
+import { Workspace } from '../layout';
+import { PERSONA_LABEL, APP1_PERSONA_LAYOUT } from '../app1/persona-layout';
 import { Narration } from '../narration/Narration';
 import { getScript } from '../narration/scripts';
 import { useSettings } from '../settings/store';
@@ -108,48 +110,59 @@ export function App1() {
             {text.personaDesc[persona]}
           </Body1>
         </div>
-        <div className={s.heroVisual}>{persona === 'p1' ? <ProductView /> : <Architecture2D />}</div>
       </div>
 
-      <section className={s.section} aria-labelledby="app1-value">
-        <Title3 as="h3" id="app1-value">
-          {text.valueHeading}
-        </Title3>
-        <div className={s.values}>
-          {text.valuePoints.map((v) => (
-            <Card key={v.title}>
-              <Subtitle1 as="h4">{v.title}</Subtitle1>
-              <Body1>{v.body}</Body1>
-            </Card>
-          ))}
-        </div>
-        <Body1 as="p">{t('app1.lead')}</Body1>
-      </section>
-
-      <section className={s.section} aria-labelledby="app1-scenes">
-        <Title3 as="h3" id="app1-scenes">
-          {text.scenesHeading}: {text.personaLabel[persona]}
-        </Title3>
-        <ol className={s.scenes} data-testid="scene-list">
-          {text.scenes[persona].map((sc) => (
-            <li key={sc.title}>
-              <Card>
-                <Subtitle1 as="h4">{sc.title}</Subtitle1>
-                <Body1>{sc.body}</Body1>
-              </Card>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <VideoSection />
-
-      <section aria-labelledby="narration-heading" className={s.section}>
-        <Title3 as="h3" id="narration-heading">
-          {t('narration.heading')}
-        </Title3>
-        <Narration script={getScript('valueIntro', lang)} lang={lang} />
-      </section>
+      <Workspace
+        screenId="app1"
+        persona={PERSONA_LABEL[persona]}
+        personaDefaults={APP1_PERSONA_LAYOUT}
+        panels={[
+          {
+            id: 'visual',
+            title: t('app1.panel.visual'),
+            content: <div className={s.heroVisual}>{persona === 'p1' ? <ProductView /> : <Architecture2D />}</div>,
+          },
+          {
+            id: 'scenes',
+            title: `${text.scenesHeading}: ${text.personaLabel[persona]}`,
+            content: (
+              <ol className={s.scenes} data-testid="scene-list">
+                {text.scenes[persona].map((sc) => (
+                  <li key={sc.title}>
+                    <Card>
+                      <Subtitle1 as="h4">{sc.title}</Subtitle1>
+                      <Body1>{sc.body}</Body1>
+                    </Card>
+                  </li>
+                ))}
+              </ol>
+            ),
+          },
+          {
+            id: 'values',
+            title: text.valueHeading,
+            content: (
+              <div className={s.section}>
+                <div className={s.values}>
+                  {text.valuePoints.map((v) => (
+                    <Card key={v.title}>
+                      <Subtitle1 as="h4">{v.title}</Subtitle1>
+                      <Body1>{v.body}</Body1>
+                    </Card>
+                  ))}
+                </div>
+                <Body1 as="p">{t('app1.lead')}</Body1>
+              </div>
+            ),
+          },
+          ...(isEmbeddableVideoUrl(OFFICIAL_VIDEO_URL) ? [{ id: 'video', title: text.videoHeading, content: <VideoSection /> }] : []),
+          {
+            id: 'narration',
+            title: t('narration.heading'),
+            content: <Narration script={getScript('valueIntro', lang)} lang={lang} />,
+          },
+        ]}
+      />
 
       {presenting && <Presentation persona={persona} onClose={close} />}
     </section>

@@ -66,6 +66,7 @@ export const ko: Messages = {
   'layout.vertical': '세로로 배치',
   'layout.resize': '너비 조정',
   'layout.drag': '끌어서 이동',
+  'app1.panel.visual': '제품 보기·구성도',
   'cmd.title': '명령 검색',
   'cmd.placeholder': '명령 입력 (예: layout, 3D, language)',
   'cmd.empty': '일치하는 명령이 없습니다.',

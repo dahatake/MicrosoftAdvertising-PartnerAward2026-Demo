@@ -19,15 +19,22 @@ export const MAX_SIZE = 4;
 
 export interface LayoutDefaults {
   direction?: Direction;
+  /** パネルの並び順の既定（FR-021。列挙されなかったパネルは末尾に元の順で続く） */
+  order?: string[];
   sizes?: Record<string, number>;
   hidden?: string[];
   tabbed?: string[];
 }
 
+function orderWith(ids: readonly string[], first?: readonly string[]): string[] {
+  const head = (first ?? []).filter((i, n, a) => ids.includes(i) && a.indexOf(i) === n);
+  return [...head, ...ids.filter((i) => !head.includes(i))];
+}
+
 export function defaultLayout(ids: readonly string[], d: LayoutDefaults = {}): LayoutState {
   return {
     direction: d.direction ?? 'row',
-    order: [...ids],
+    order: orderWith(ids, d.order),
     hidden: (d.hidden ?? []).filter((i) => ids.includes(i)),
     sizes: Object.fromEntries(ids.map((i) => [i, d.sizes?.[i] ?? 1])),
     tabbed: (d.tabbed ?? []).filter((i) => ids.includes(i)),

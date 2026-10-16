@@ -92,6 +92,7 @@ export {
   REPRESENTATIONS,
   DEFAULT_REPRESENTATION,
   PERSONA_STORAGE_KEY,
+  PERSONA_LAYOUT,
   getPersona,
   setPersona,
   resetPersona,
