@@ -1,5 +1,7 @@
 // 3D の描画（react-three-fiber）。DualView から遅延読み込みされる。
 import { Canvas } from '@react-three/fiber';
+import { CameraRig3D } from '../camera/CameraRig3D';
+import { useCameraWork } from '../camera/useCameraWork';
 import { layout3d, type ResolvedKind, type ViewItem } from './kinds';
 
 export interface Scene3DProps {
@@ -23,10 +25,12 @@ function Geometry({ shape }: { shape: ResolvedKind['shape'] }) {
 }
 
 export default function Scene3D({ items, kinds, selectedId, onSelect }: Scene3DProps) {
+  const cam = useCameraWork().camera3d;
   const pos = new Map(layout3d(items).map((p) => [p.id, p.position]));
   const kindOf = new Map(kinds.map((k) => [k.id, k]));
   return (
     <Canvas camera={{ position: [0, 5, 8], fov: 50 }} dpr={[1, 1.5]} frameloop="demand">
+      <CameraRig3D config={cam} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 6, 4]} intensity={1.2} />
       {items.map((it) => {
