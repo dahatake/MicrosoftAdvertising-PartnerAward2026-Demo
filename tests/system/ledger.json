@@ -199,10 +199,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 2D の初期表示\"",
       "canary": true,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "b61779d",
+      "last_run_at": "2026-10-16T13:58:31+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-007-202610161357.log",
       "history": [
         {
           "at": "2026-10-16T13:28:37+09:00",
@@ -249,10 +249,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-001\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "b61779d",
+      "last_run_at": "2026-10-16T13:58:31+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-009-202610161358.log",
       "history": [
         {
           "at": "2026-10-16T13:29:00+09:00",
@@ -280,10 +280,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-002\"",
       "canary": true,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "b61779d",
+      "last_run_at": "2026-10-16T13:58:31+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-010-202610161358.log",
       "history": [
         {
           "at": "2026-10-16T13:29:02+09:00",
@@ -311,10 +311,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-002 AC-003\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "b61779d",
+      "last_run_at": "2026-10-16T13:58:31+09:00",
+      "evidence": "work/runs/202610161311/logs/system-test/E2E-011-202610161358.log",
       "history": [
         {
           "at": "2026-10-16T13:29:05+09:00",
