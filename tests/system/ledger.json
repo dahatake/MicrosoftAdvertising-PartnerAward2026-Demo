@@ -580,7 +580,7 @@
       "ac_ids": [
         "AC-023"
       ],
-      "title": "2D→3D で同一 ID 集合・選択保持",
+      "title": "2D→3D で同一 ID 集合・選択保持（App2 の DualView 例）",
       "layer": "e2e",
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\"",
       "canary": false,
@@ -600,6 +600,12 @@
           "by": "test-designer",
           "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-008 AC-023'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\"'",
           "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
+        },
+        {
+          "at": "2026-10-16T14:22:56+09:00",
+          "by": "test-designer",
+          "change": "title: '2D→3D で同一 ID 集合・選択保持' -> '2D→3D で同一 ID 集合・選択保持（App2 の DualView 例）'",
+          "reason": "AC-023 は App1 のペルソナを前提にしない。App1 未実装でも通るよう App2 の項目で検証"
         }
       ]
     },
