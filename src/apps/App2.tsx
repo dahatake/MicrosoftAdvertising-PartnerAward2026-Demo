@@ -3,6 +3,7 @@ import { Body1, Input, Title2 } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
 import { Workspace } from '../layout';
 import { DualView } from '../view';
+import { CampaignList, CampaignRelationPanel } from '../app2';
 
 // 後続の項目（App2）が、パネルの中身を実際の画面に置き換える。ここは共通の Workspace・DualView の使い方の最小の例。
 const KINDS = [
@@ -18,6 +19,8 @@ const ITEMS = [
 export function App2() {
   const t = useT();
   const [selected, setSelected] = useState<string | null>(null);
+  const [campaignId, setCampaignId] = useState<string | null>(null);
+  const [nodeId, setNodeId] = useState<string | null>(null);
   return (
     <section data-testid="app-root-app2" aria-labelledby="app2-heading">
       <Title2 as="h2" id="app2-heading">
@@ -38,6 +41,24 @@ export function App2() {
             id: '2',
             title: t('view.items'),
             content: <DualView items={ITEMS} kinds={KINDS} selectedId={selected} onSelect={setSelected} />,
+          },
+          {
+            id: '3',
+            title: t('app2.campaigns'),
+            content: (
+              <CampaignList
+                selectedId={campaignId}
+                onSelect={(id) => {
+                  setCampaignId(id);
+                  setNodeId(null);
+                }}
+              />
+            ),
+          },
+          {
+            id: '4',
+            title: t('app2.relation'),
+            content: <CampaignRelationPanel campaignId={campaignId} selectedId={nodeId} onSelectNode={setNodeId} />,
           },
         ]}
       />
