@@ -17,6 +17,7 @@ import { spacing } from '../theme/theme';
 import { CommandPalette } from '../commands/CommandPalette';
 import { useShellCommands } from '../commands/shellCommands';
 import { ViewModeSwitch } from '../view/ViewModeSwitch';
+import { AsyncBoundary } from './AsyncBoundary';
 import { ShellTools } from './ShellTools';
 
 const useStyles = makeStyles({
@@ -93,7 +94,9 @@ export function Shell() {
             animate={{ opacity: 1 }}
             transition={{ duration: reduce ? 0 : 0.15 }}
           >
-            <Current />
+            <AsyncBoundary key={current.id}>
+              <Current />
+            </AsyncBoundary>
           </motion.div>
       </main>
       <CommandPalette />

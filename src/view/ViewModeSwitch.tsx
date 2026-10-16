@@ -2,6 +2,7 @@ import { Radio, RadioGroup, Caption1, makeStyles, tokens } from '@fluentui/react
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
 import type { ViewMethod } from '../settings/store';
+import { useFpsFallback, useLowPerfNotice } from './perf';
 import { useViewMode } from './useViewMode';
 
 const useStyles = makeStyles({
@@ -14,6 +15,8 @@ export function ViewModeSwitch() {
   const s = useStyles();
   const t = useT();
   const { requested, supported3d, set } = useViewMode();
+  useFpsFallback();
+  const lowPerf = useLowPerfNotice();
   return (
     <div className={s.root}>
       <RadioGroup
@@ -30,6 +33,11 @@ export function ViewModeSwitch() {
           input={{ 'data-testid': 'view-mode-3d' } as object}
         />
       </RadioGroup>
+      {supported3d && lowPerf && requested === '2d' && (
+        <Caption1 className={s.reason} role="status" data-testid="view-mode-lowperf">
+          {t('view.lowPerf')}
+        </Caption1>
+      )}
       {!supported3d && (
         <Caption1 className={s.reason} role="status" data-testid="view-mode-reason">
           {t('view.unsupported')}
