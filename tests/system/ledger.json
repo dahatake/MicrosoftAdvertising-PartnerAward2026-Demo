@@ -247,7 +247,7 @@
       ],
       "title": "App2/App1 切替・言語と表示方法保持",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-001 AC-001'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-001\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -259,6 +259,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:22+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-001 AC-001'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-001\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -272,7 +278,7 @@
       ],
       "title": "初回 App1・ログイン要素なし（異常系）",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-001 AC-002'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-002\"",
       "canary": true,
       "status": "not_run",
       "last_commit": null,
@@ -284,6 +290,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:22+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-001 AC-002'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-002\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -297,7 +309,7 @@
       ],
       "title": "ブラウザ言語 ja/en/zh/ko で初回表示",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-002 AC-003'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-002 AC-003\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -309,6 +321,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:23+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-002 AC-003'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-002 AC-003\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -322,7 +340,7 @@
       ],
       "title": "CTA で公式サイトが新タブ",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-003 AC-007'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-003 AC-007\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -334,6 +352,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:23+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-003 AC-007'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-003 AC-007\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -347,7 +371,7 @@
       ],
       "title": "ペルソナ別全画面プレゼン",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-010'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-010\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -359,6 +383,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:24+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-010'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-010\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -372,7 +402,7 @@
       ],
       "title": "P-1 既定 2D→3D／P-2 説明+2D構成図",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-067'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-067\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -384,6 +414,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:24+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-067'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-067\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -397,7 +433,7 @@
       ],
       "title": "Esc で復帰し状態保持",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-011'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-011\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -409,6 +445,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:25+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-011'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-011\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -422,7 +464,7 @@
       ],
       "title": "キーボードだけで前へ・次へ・停止",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-012'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-012\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -434,6 +476,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:25+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-004 AC-012'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-012\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -472,7 +520,7 @@
       ],
       "title": "3D ビュー描画と回転",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-005 AC-013'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-005 AC-013\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -484,6 +532,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:26+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-005 AC-013'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-005 AC-013\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -522,7 +576,7 @@
       ],
       "title": "2D→3D で同一 ID 集合・選択保持",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-008 AC-023'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -534,6 +588,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:26+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-008 AC-023'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -572,7 +632,7 @@
       ],
       "title": "かんたん選択 9 プリセット",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-026'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-026\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -584,6 +644,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:27+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-026'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-026\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -622,7 +688,7 @@
       ],
       "title": "くわしく選択 4 要素",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-027'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-027\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -634,6 +700,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:27+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-027'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-027\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -672,7 +744,7 @@
       ],
       "title": "動きを減らす設定で静止（異常系）",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-030'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-030\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -684,6 +756,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:27+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-030'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-030\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -722,7 +800,7 @@
       ],
       "title": "パネル操作の即反映",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-033'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-033\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -734,6 +812,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:27+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-033'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-033\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -772,7 +856,7 @@
       ],
       "title": "レイアウト保存・復元・既定に戻す",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-034'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-034\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -784,6 +868,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:28+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-034'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-034\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -822,7 +912,7 @@
       ],
       "title": "キーボード/メニューでも同結果",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-035'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-035\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -834,6 +924,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:28+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-035'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-035\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -897,7 +993,7 @@
       ],
       "title": "レイアウト変更で入力保持",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-037'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-037\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -909,6 +1005,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:29+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-037'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-037\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
@@ -947,7 +1049,7 @@
       ],
       "title": "コマンドパレットで到達",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-038'",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-038\"",
       "canary": false,
       "status": "not_run",
       "last_commit": null,
@@ -959,6 +1061,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-16T13:49:29+09:00",
+          "by": "test-designer",
+          "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-038'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-038\"'",
+          "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
         }
       ]
     },
