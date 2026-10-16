@@ -20,6 +20,14 @@
       {
         "name": "toolkit-unit",
         "run": "python -m pytest -q tests/toolkit/test_clean_work.py"
+      },
+      {
+        "name": "build",
+        "run": "npm run build"
+      },
+      {
+        "name": "unit",
+        "run": "npm test"
       }
     ]
   },

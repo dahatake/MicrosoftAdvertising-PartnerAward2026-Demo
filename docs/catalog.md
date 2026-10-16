@@ -8,8 +8,8 @@
 
 | 要求 ID | 題名 | 決定状態 | 実装ファイル | テスト | 使っている共通部品 |
 |---|---|---|---|---|---|
-| FR-001 | アプリ切替シェル | 承認済み | 未実装 | 未実装 | - |
-| FR-002 | 多言語（ja/en/zh/ko）と言語の切替 | 承認済み | 未実装 | 未実装 | - |
+| FR-001 | アプリ切替シェル | 承認済み | src/shell/Shell.tsx, src/apps/registry.ts, src/apps/App1.tsx, src/apps/App2.tsx | src/i18n/i18n.test.ts, tests/system/shell-app1.spec.ts | デザイン基盤, 設定ストア, アプリ登録簿 |
+| FR-002 | 多言語（ja/en/zh/ko）と言語の切替 | 承認済み | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts, src/shell/Shell.tsx | src/i18n/i18n.test.ts, tests/system/shell-app1.spec.ts | i18n 辞書, 設定ストア |
 | FR-003 | 価値説明・公式サイト誘導・公式動画 | 承認済み | 未実装 | 未実装 | - |
 | FR-004 | 利用シーンとペルソナ別全画面プレゼンテーション | 承認済み | 未実装 | 未実装 | - |
 | FR-005 | 製品の 3D/CG 表現 | 承認済み | 未実装 | 未実装 | - |
@@ -34,7 +34,7 @@
 | NFR-SEC-001 | Speech キーの保護 | 承認済み | 未実装 | 未実装 | - |
 | NFR-UX-001 | 画面サイズ・設定への追従 | 承認済み | 未実装 | 未実装 | - |
 | NFR-UX-002 | 状態表示とエラーからの復旧 | 承認済み | 未実装 | 未実装 | - |
-| NFR-UX-003 | 用語と操作の一貫性 | 承認済み | 未実装 | 未実装 | - |
+| NFR-UX-003 | 用語と操作の一貫性 | 承認済み | src/i18n/locales/ja.ts | src/i18n/terminology.test.ts | i18n 辞書 |
 | FR-019 | 素材の展開と KPI・利用状況の登録・更新 | 承認済み | 未実装 | 未実装 | - |
 
 ## API・イベント
@@ -51,3 +51,7 @@
 
 | 部品名 | ファイル | 用途 | 使っている要求 ID |
 |---|---|---|---|
+| デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン。以降の画面はこれを再利用する | FR-001 |
+| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, NFR-UX-003 |
+| 設定ストア | src/settings/store.ts | 言語・表示方法・アプリを持ち localStorage（lang, viewMethod）に保存。useSettings()/updateSettings() | FR-001, FR-002 |
+| アプリ登録簿 | src/apps/registry.ts | シェルのトグルと画面の対応。新しいアプリはここに 1 行足す | FR-001 |
