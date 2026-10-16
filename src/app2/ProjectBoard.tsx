@@ -4,6 +4,7 @@ import { Warning16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
 import { formatYen, isOverBudget, kpisOfProject, projectStatusKey, spentPercent } from './progress';
+import { stateCode, stateKey } from './states';
 import { useDataset } from './store';
 import type { Project } from './types';
 
@@ -17,12 +18,12 @@ const useStyles = makeStyles({
   plain: { listStyle: 'none', margin: 0, padding: 0 },
 });
 
-/** 状態の表示。色だけでなく文言でも状態を示す（AC-054） */
-export function StateBadge({ status }: { status: string }) {
+/** 状態の表示。色だけでなく文言でも状態を示す（AC-054）。testId は一覧の状態は 'project-state-badge'、企画・見積の詳細は 'state-badge' */
+export function StateBadge({ status, testId = 'state-badge' }: { status: string; testId?: string }) {
   const t = useT();
-  const key = projectStatusKey(status);
+  const key = stateKey(status);
   return (
-    <Badge appearance="tint" color="informative" data-testid="state-badge">
+    <Badge appearance="tint" color="informative" data-testid={testId} data-state={stateCode(status)}>
       {key ? t(key) : status}
     </Badge>
   );
@@ -68,7 +69,7 @@ export function ProjectList({
         >
           <span>{p.name}</span>
           <span className={s.row}>
-            <StateBadge status={p.status} />
+            <StateBadge status={p.status} testId="project-state-badge" />
             <OverrunMark project={p} />
           </span>
         </Button>

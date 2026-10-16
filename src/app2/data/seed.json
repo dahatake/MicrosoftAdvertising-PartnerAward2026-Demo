@@ -88,42 +88,42 @@
       "campaignId": "cmp-1",
       "title": "Surface Ultra 春の新生活キャンペーン 企画書",
       "version": 1,
-      "state": "承認済み"
+      "state": "確定"
     },
     {
       "id": "pln-2",
       "campaignId": "cmp-2",
       "title": "Surface Ultra 法人向け買い替えキャンペーン 企画書",
       "version": 1,
-      "state": "承認待ち"
+      "state": "下書き"
     },
     {
       "id": "pln-3",
       "campaignId": "cmp-3",
       "title": "Surface Ultra 学生応援キャンペーン 企画書",
       "version": 1,
-      "state": "承認済み"
+      "state": "確定"
     },
     {
       "id": "pln-4",
       "campaignId": "cmp-4",
       "title": "Surface Ultra 5G 同時購入キャンペーン 企画書",
       "version": 1,
-      "state": "承認待ち"
+      "state": "下書き"
     },
     {
       "id": "pln-5",
       "campaignId": "cmp-5",
       "title": "Surface Ultra 教室導入キャンペーン 企画書",
       "version": 1,
-      "state": "承認済み"
+      "state": "確定"
     },
     {
       "id": "pln-6",
       "campaignId": "cmp-6",
       "title": "Surface Ultra 先生のはじめて応援キャンペーン 企画書",
       "version": 1,
-      "state": "承認待ち"
+      "state": "下書き"
     }
   ],
   "quotes": [
@@ -133,7 +133,7 @@
       "campaignId": "cmp-1",
       "amount": 10800000,
       "version": 1,
-      "state": "下書き"
+      "state": "承認済み"
     },
     {
       "id": "qte-2",
@@ -141,7 +141,7 @@
       "campaignId": "cmp-2",
       "amount": 8100000,
       "version": 1,
-      "state": "承認待ち"
+      "state": "提出済み"
     },
     {
       "id": "qte-3",
@@ -165,7 +165,7 @@
       "campaignId": "cmp-5",
       "amount": 6750000,
       "version": 1,
-      "state": "承認待ち"
+      "state": "提出済み"
     },
     {
       "id": "qte-6",
@@ -196,7 +196,7 @@
       "campaignId": "cmp-1",
       "name": "紹介動画",
       "progressPercent": 80,
-      "status": "進行中",
+      "status": "制作中",
       "budget": 1600000,
       "spent": 1216000,
       "dueDate": "2026-03-11",
@@ -210,7 +210,7 @@
       "campaignId": "cmp-2",
       "name": "ランディングページ",
       "progressPercent": 60,
-      "status": "進行中",
+      "status": "制作中",
       "budget": 1700000,
       "spent": 969000,
       "dueDate": "2026-04-12",
@@ -224,7 +224,7 @@
       "campaignId": "cmp-2",
       "name": "店頭 POP",
       "progressPercent": 30,
-      "status": "進行中",
+      "status": "制作中",
       "budget": 1800000,
       "spent": 513000,
       "dueDate": "2026-04-13",
@@ -252,7 +252,7 @@
       "campaignId": "cmp-3",
       "name": "SNS 投稿シリーズ",
       "progressPercent": 45,
-      "status": "進行中",
+      "status": "制作中",
       "budget": 1500000,
       "spent": 641250,
       "dueDate": "2026-05-15",
@@ -266,7 +266,7 @@
       "campaignId": "cmp-4",
       "name": "セミナー告知物",
       "progressPercent": 10,
-      "status": "進行中",
+      "status": "制作中",
       "budget": 1600000,
       "spent": 152000,
       "dueDate": "2026-06-16",
@@ -280,7 +280,7 @@
       "campaignId": "cmp-4",
       "name": "比較表コンテンツ",
       "progressPercent": 70,
-      "status": "進行中",
+      "status": "制作中",
       "budget": 1700000,
       "spent": 1130500,
       "dueDate": "2026-06-17",
@@ -294,7 +294,7 @@
       "campaignId": "cmp-5",
       "name": "インタビュー記事",
       "progressPercent": 90,
-      "status": "進行中",
+      "status": "制作中",
       "budget": 1800000,
       "spent": 1539000,
       "dueDate": "2026-07-18",
@@ -308,7 +308,7 @@
       "campaignId": "cmp-5",
       "name": "ショート動画",
       "progressPercent": 20,
-      "status": "進行中",
+      "status": "制作中",
       "budget": 1900000,
       "spent": 361000,
       "dueDate": "2026-07-19",
@@ -322,7 +322,7 @@
       "campaignId": "cmp-6",
       "name": "オンラインイベント告知",
       "progressPercent": 55,
-      "status": "進行中",
+      "status": "制作中",
       "budget": 1500000,
       "spent": 783750,
       "dueDate": "2026-08-20",
@@ -336,7 +336,7 @@
       "campaignId": "cmp-6",
       "name": "ダイレクトメール",
       "progressPercent": 0,
-      "status": "未着手",
+      "status": "計画中",
       "budget": 1600000,
       "spent": 0,
       "dueDate": "2026-08-21",
@@ -375,7 +375,7 @@
       "vendorId": "vnd-1",
       "amount": 300000,
       "dueDate": "2026-03-20",
-      "state": "発注済み"
+      "state": "発注済"
     },
     {
       "id": "ord-02",
@@ -383,7 +383,7 @@
       "vendorId": "vnd-2",
       "amount": 350000,
       "dueDate": "2026-03-21",
-      "state": "納品済み"
+      "state": "納品済"
     },
     {
       "id": "ord-03",
@@ -391,7 +391,7 @@
       "vendorId": "vnd-3",
       "amount": 400000,
       "dueDate": "2026-04-22",
-      "state": "検収済み"
+      "state": "検収済"
     },
     {
       "id": "ord-04",
@@ -399,7 +399,7 @@
       "vendorId": "vnd-4",
       "amount": 450000,
       "dueDate": "2026-04-23",
-      "state": "発注済み"
+      "state": "発注済"
     },
     {
       "id": "ord-05",
@@ -407,7 +407,7 @@
       "vendorId": "vnd-1",
       "amount": 500000,
       "dueDate": "2026-05-24",
-      "state": "納品済み"
+      "state": "納品済"
     },
     {
       "id": "ord-06",
@@ -415,7 +415,7 @@
       "vendorId": "vnd-2",
       "amount": 550000,
       "dueDate": "2026-05-25",
-      "state": "検収済み"
+      "state": "検収済"
     },
     {
       "id": "ord-07",
@@ -423,7 +423,7 @@
       "vendorId": "vnd-3",
       "amount": 600000,
       "dueDate": "2026-06-26",
-      "state": "発注済み"
+      "state": "発注済"
     },
     {
       "id": "ord-08",
@@ -431,7 +431,7 @@
       "vendorId": "vnd-4",
       "amount": 650000,
       "dueDate": "2026-06-27",
-      "state": "納品済み"
+      "state": "納品済"
     },
     {
       "id": "ord-09",
@@ -439,7 +439,7 @@
       "vendorId": "vnd-1",
       "amount": 700000,
       "dueDate": "2026-07-20",
-      "state": "検収済み"
+      "state": "検収済"
     },
     {
       "id": "ord-10",
@@ -447,7 +447,7 @@
       "vendorId": "vnd-2",
       "amount": 750000,
       "dueDate": "2026-07-21",
-      "state": "発注済み"
+      "state": "発注済"
     }
   ],
   "assets": [
@@ -461,7 +461,7 @@
         "画像"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "承認済"
     },
     {
       "id": "ast-02",
@@ -485,7 +485,7 @@
         "バナー"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "承認済"
     },
     {
       "id": "ast-04",
@@ -497,7 +497,7 @@
         "テキスト"
       ],
       "imageUrl": null,
-      "state": "アーカイブ済み"
+      "state": "アーカイブ"
     },
     {
       "id": "ast-05",
@@ -509,7 +509,7 @@
         "画像"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-06",
@@ -533,7 +533,7 @@
         "動画"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-08",
@@ -545,7 +545,7 @@
         "バナー"
       ],
       "imageUrl": null,
-      "state": "アーカイブ済み"
+      "state": "アーカイブ"
     },
     {
       "id": "ast-09",
@@ -557,7 +557,7 @@
         "テキスト"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-10",
@@ -581,7 +581,7 @@
         "画像"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-12",
@@ -593,7 +593,7 @@
         "動画"
       ],
       "imageUrl": null,
-      "state": "アーカイブ済み"
+      "state": "アーカイブ"
     },
     {
       "id": "ast-13",
@@ -605,7 +605,7 @@
         "バナー"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-14",
@@ -629,7 +629,7 @@
         "画像"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-16",
@@ -641,7 +641,7 @@
         "画像"
       ],
       "imageUrl": null,
-      "state": "アーカイブ済み"
+      "state": "アーカイブ"
     },
     {
       "id": "ast-17",
@@ -653,7 +653,7 @@
         "動画"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-18",
@@ -677,7 +677,7 @@
         "テキスト"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-20",
@@ -689,7 +689,7 @@
         "画像"
       ],
       "imageUrl": null,
-      "state": "アーカイブ済み"
+      "state": "アーカイブ"
     },
     {
       "id": "ast-21",
@@ -701,7 +701,7 @@
         "画像"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-22",
@@ -725,7 +725,7 @@
         "バナー"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-24",
@@ -737,7 +737,7 @@
         "テキスト"
       ],
       "imageUrl": null,
-      "state": "アーカイブ済み"
+      "state": "アーカイブ"
     },
     {
       "id": "ast-25",
@@ -749,7 +749,7 @@
         "画像"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-26",
@@ -773,7 +773,7 @@
         "動画"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-28",
@@ -785,7 +785,7 @@
         "バナー"
       ],
       "imageUrl": null,
-      "state": "アーカイブ済み"
+      "state": "アーカイブ"
     },
     {
       "id": "ast-29",
@@ -797,7 +797,7 @@
         "テキスト"
       ],
       "imageUrl": null,
-      "state": "登録済み"
+      "state": "登録済"
     },
     {
       "id": "ast-30",

@@ -227,7 +227,7 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
             <tr key={p.id} data-entity-id={p.id}>
               <td className={s.cell}>{p.name}</td>
               <td className={s.cell}>
-                <StateBadge status={p.status} />
+                <StateBadge status={p.status} testId="project-state-badge" />
               </td>
               <td className={s.cell}>{p.progressPercent} %</td>
               <td className={s.cell}>{formatYen(p.budget)}</td>

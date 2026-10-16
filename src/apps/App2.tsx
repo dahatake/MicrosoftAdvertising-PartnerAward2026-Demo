@@ -6,6 +6,10 @@ import { DualView } from '../view';
 import {
   CampaignList,
   CampaignRelationPanel,
+  AssetPanel,
+  DeploymentPanel,
+  OrderPanel,
+  PlanQuotePanel,
   DEFAULT_REPRESENTATION,
   PersonaBar,
   ProjectDetail,
@@ -103,6 +107,10 @@ export function App2() {
             title: t('app2.representation'),
             content: <RepresentationPanel representation={representation} campaignId={campaignId ?? projectCampaign} />,
           },
+          { id: '8', title: t('app2.planquote'), content: <PlanQuotePanel /> },
+          { id: '9', title: t('app2.assets'), content: <AssetPanel /> },
+          { id: '10', title: t('app2.deployments'), content: <DeploymentPanel /> },
+          { id: '11', title: t('app2.orders'), content: <OrderPanel projectId={projectId} /> },
         ]}
       />
     </section>

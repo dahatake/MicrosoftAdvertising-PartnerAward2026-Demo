@@ -26,7 +26,7 @@ export function entityLabel(kind: EntityKind, e: Entity): string {
     case 'quote':
       return `見積 v${r.version}（${Number(r.amount).toLocaleString('ja-JP')}円）`;
     case 'kpi':
-      return String(r.metric);
+      return `${String(r.metric)}（${Number(r.actual).toLocaleString('ja-JP')} / ${Number(r.target).toLocaleString('ja-JP')}${String(r.unit)}）`;
     case 'usage':
       return `表示 ${Number(r.impressions).toLocaleString('ja-JP')}`;
     case 'deployment':
