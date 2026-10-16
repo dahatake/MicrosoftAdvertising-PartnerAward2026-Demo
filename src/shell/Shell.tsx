@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import {
-  Radio,
-  RadioGroup,
+  Button,
   Select,
   Tab,
   TabList,
@@ -9,12 +8,15 @@ import {
   makeStyles,
   tokens,
 } from '@fluentui/react-components';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { APPS } from '../apps/registry';
 import { LANGUAGES, LANGUAGE_LABELS, isLang } from '../i18n';
 import { useT } from '../i18n/useT';
-import { updateSettings, useSettings, type AppId, type ViewMethod } from '../settings/store';
+import { updateSettings, useSettings, type AppId } from '../settings/store';
 import { spacing } from '../theme/theme';
+import { CommandPalette } from '../commands/CommandPalette';
+import { useShellCommands } from '../commands/shellCommands';
+import { ViewModeSwitch } from '../view/ViewModeSwitch';
 
 const useStyles = makeStyles({
   header: {
@@ -35,8 +37,9 @@ const useStyles = makeStyles({
 export function Shell() {
   const s = useStyles();
   const t = useT();
-  const { app, lang, viewMethod } = useSettings();
+  const { app, lang } = useSettings();
   const reduce = useReducedMotion();
+  useShellCommands();
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -61,15 +64,10 @@ export function Shell() {
           ))}
         </TabList>
         <span className={s.spacer} />
-        <RadioGroup
-          layout="horizontal"
-          aria-label={t('shell.viewMethod')}
-          value={viewMethod}
-          onChange={(_, d) => updateSettings({ viewMethod: d.value as ViewMethod })}
-        >
-          <Radio value="2d" label={t('shell.view2d')} input={{ 'data-testid': 'view-mode-2d' } as object} />
-          <Radio value="3d" label={t('shell.view3d')} input={{ 'data-testid': 'view-mode-3d' } as object} />
-        </RadioGroup>
+        <ViewModeSwitch />
+        <Button appearance="subtle" onClick={() => window.dispatchEvent(new Event('open-command-palette'))}>
+          {t('cmd.open')}
+        </Button>
         <label className={s.label}>
           <span>{t('shell.language')}</span>
           <Select
@@ -87,18 +85,16 @@ export function Shell() {
         </label>
       </header>
       <main className={s.main}>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+        <motion.div
             key={current.id}
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={reduce ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: reduce ? 0 : 0.15 }}
           >
             <Current />
           </motion.div>
-        </AnimatePresence>
       </main>
+      <CommandPalette />
     </>
   );
 }
