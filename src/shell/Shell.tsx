@@ -8,7 +8,7 @@ import {
   makeStyles,
   tokens,
 } from '@fluentui/react-components';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { APPS } from '../apps/registry';
 import { LANGUAGES, LANGUAGE_LABELS, isLang } from '../i18n';
 import { useT } from '../i18n/useT';
@@ -85,17 +85,14 @@ export function Shell() {
         </label>
       </header>
       <main className={s.main}>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+        <motion.div
             key={current.id}
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={reduce ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: reduce ? 0 : 0.15 }}
           >
             <Current />
           </motion.div>
-        </AnimatePresence>
       </main>
       <CommandPalette />
     </>
