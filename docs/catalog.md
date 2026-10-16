@@ -29,11 +29,11 @@
 | NFR-A11Y-001 | キーボード操作と代替手段 | 承認済み | src/shell/ShellTools.tsx, src/shell/Shell.tsx, src/narration/Narration.tsx | src/shell/a11y.test.tsx, tests/system/nfr.spec.ts | シェルの共通操作 |
 | NFR-A11Y-002 | 動きの軽減（reduced-motion） | 承認済み | src/theme/global.css, src/main.tsx | src/shell/a11y.test.tsx, tests/system/nfr.spec.ts | グローバル CSS |
 | NFR-A11Y-003 | ナレーションの字幕・トランスクリプト | 承認済み | src/narration/Narration.tsx, src/narration/scripts.ts | src/narration/Narration.test.tsx, tests/system/narration-app2.spec.ts | ナレーション部品, ナレーション台本辞書 |
-| NFR-PERF-001 | 初期表示と描画の性能 | 承認済み | 未実装 | 未実装 | - |
-| NFR-PERF-002 | 低性能端末のフォールバック | 承認済み | 未実装 | 未実装 | - |
+| NFR-PERF-001 | 初期表示と描画の性能 | 承認済み | src/apps/registry.ts, src/apps/lazyRetry.ts, src/view/DualView.tsx, src/view/Scene3D.tsx | src/shell/status.test.tsx, tests/system/nfr.spec.ts | アプリ登録簿, 表示方法 |
+| NFR-PERF-002 | 低性能端末のフォールバック | 承認済み | src/view/perf.ts, src/view/ViewModeSwitch.tsx | src/shell/status.test.tsx | 表示方法 |
 | NFR-SEC-001 | Speech キーの保護 | 承認済み | .gitignore, .env.example, server/speech.js | server/speech.test.ts | Speech トークンサーバー |
 | NFR-UX-001 | 画面サイズ・設定への追従 | 承認済み | src/theme/global.css, src/main.tsx | src/shell/a11y.test.tsx | グローバル CSS, デザイン基盤 |
-| NFR-UX-002 | 状態表示とエラーからの復旧 | 承認済み | 未実装 | 未実装 | - |
+| NFR-UX-002 | 状態表示とエラーからの復旧 | 承認済み | src/shell/AsyncBoundary.tsx, src/shell/Shell.tsx, src/view/DualView.tsx, src/narration/Narration.tsx | src/shell/status.test.tsx, src/narration/Narration.test.tsx | 状態表示, i18n 辞書 |
 | NFR-UX-003 | 用語と操作の一貫性 | 承認済み | src/i18n/locales/ja.ts | src/i18n/terminology.test.ts | i18n 辞書 |
 | FR-019 | 素材の展開と KPI・利用状況の登録・更新 | 承認済み | src/app2/DeploymentPanel.tsx, src/app2/AssetPanel.tsx, src/app2/operations.ts, src/app2/relations.ts, src/apps/App2.tsx, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | src/app2/changes.test.tsx, tests/system/narration-app2.spec.ts | 制作プロジェクトの表示, 関係図, App2 データストア, 状態と業務操作, ワークスペース, デザイン基盤, i18n 辞書 |
 
@@ -54,11 +54,12 @@
 |---|---|---|---|
 | デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン（kindPalette: 種類の色）。以降の画面はこれを再利用する | FR-001, FR-003, FR-004, FR-005, FR-008, FR-009, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, NFR-UX-001 |
 | シェルの共通操作 | src/shell/ShellTools.tsx | ヘッダーのカメラワーク（非モーダルのダイアログ）・レイアウト（メニュー: すべて既定に戻す）・素材登録（ダイアログ）。キーボードで開閉でき、Esc で閉じてフォーカスが戻る。data-testid: shell-camera/shell-layout/shell-register-asset | NFR-A11Y-001 |
+| 状態表示 | src/shell/AsyncBoundary.tsx | AsyncBoundary（読み込み中は role=status、失敗は role=alert で原因と「再試行」。onRetry で再読み込み）、LoadingStatus、ErrorStatus。data-testid: status-loading/status-error/status-retry | NFR-UX-002 |
 | グローバル CSS | src/theme/global.css | 横スクロールを出さない（リフロー）と、prefers-reduced-motion で動きの時間を 0 にする規則。main.tsx で読み込む | NFR-A11Y-002, NFR-UX-001 |
-| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-006, FR-008, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, NFR-UX-003 |
+| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-006, FR-008, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, NFR-UX-002, NFR-UX-003 |
 | 設定ストア | src/settings/store.ts | 言語・表示方法・アプリを持ち localStorage（lang, viewMethod）に保存。useSettings()/updateSettings() | FR-001, FR-002, FR-003, FR-004, FR-005, FR-008, FR-009 |
-| アプリ登録簿 | src/apps/registry.ts | シェルのトグルと画面の対応。新しいアプリはここに 1 行足す | FR-001 |
-| 表示方法 | src/view/index.ts, src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts | DualView（items・kinds・selectedId・onSelect。同じ項目を 2D 一覧/3D 空間配置＋共通の凡例で表示）、useViewMode()（既定 2D・3D 不可なら 2D 固定）、ViewModeSwitch、set3dSupport()。three/R3F は遅延読み込み | FR-004, FR-005, FR-008, FR-009, FR-012, FR-018 |
+| アプリ登録簿 | src/apps/registry.ts, src/apps/lazyRetry.ts | シェルのトグルと画面の対応。新しいアプリはここに 1 行足す（lazyRetry でコード分割・再読み込み可） | FR-001, NFR-PERF-001 |
+| 表示方法 | src/view/index.ts, src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts, src/view/perf.ts | DualView（items・kinds・selectedId・onSelect。同じ項目を 2D 一覧/3D 空間配置＋共通の凡例で表示）、useViewMode()（既定 2D・3D 不可なら 2D 固定）、ViewModeSwitch、set3dSupport()。three/R3F は遅延読み込み | FR-004, FR-005, FR-008, FR-009, FR-012, FR-018, NFR-PERF-001, NFR-PERF-002 |
 | ワークスペース | src/layout/index.ts, src/layout/model.ts, src/layout/store.ts, src/layout/Workspace.tsx | Workspace（screenId・panels[{id,title,content}]・defaults）。移動・方向・サイズ・タブ・表示/非表示・最大化、localStorage（layout:<screenId>）保存・復元・既定に戻す。panel の data-testid は layout-panel-<id>/layout-menu-<id> | FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019 |
 | カメラワーク | src/camera/index.ts, src/camera/CameraSettings.tsx, src/camera/useCameraWork.ts, src/camera/CameraRig3D.tsx, src/camera/model.ts, src/camera/store.ts, src/camera/labels.ts | `<CameraSettings />`（かんたん選択=スライダー+9 プリセット+ミニプレビュー、くわしく選択=4 要素、2D 不可はグレーアウト+理由）。`useCameraWork()` → {combo, key, preset, method, reducedMotion, maxDurationMs（動きを減らすで 0・PARAM-007）, now, effective, animation2d{keyframes,options}, camera3d, selectPreset, setPart}。2D は useCameraAnimation2d(ref, combo, reduced) でズーム/パン/傾きの近似、3D は CameraRig3D（Canvas 内）が実カメラを動かす（Scene3D に組込み済み）。localStorage: cameraWork。文言は labels.ts（日/英/中/韓。専門名は TECH_NAMES をツールチップのみ）。data-testid: camera-simple-slider/camera-preset-<n>/camera-mini-preview/camera-now/camera-detail-<part>/camera-combo | FR-004, FR-009 |
 | コマンドの検索 | src/commands/registry.ts, src/commands/CommandPalette.tsx, src/commands/shellCommands.ts | registerCommands(owner, [{id,label,keywords,run}])で画面がコマンドを登録。Ctrl+K で開く | FR-010 |

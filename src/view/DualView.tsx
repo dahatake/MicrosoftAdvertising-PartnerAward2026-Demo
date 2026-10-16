@@ -1,8 +1,9 @@
 // 共通の「表示方法」部品: 同じ情報項目（ViewItem[]）を 2D（既定）と 3D の空間配置で見せる。
 // 項目の一覧（data-item-id・選択・ラベル）と凡例は 2D/3D で同じ要素を使うため、ID の集合・選択・絞り込み・色・形・ラベルが一致する。
 // 絞り込みは呼び出し側が items に反映し、選択は selectedId / onSelect で呼び出し側が持つ（表示方法を切り替えても保たれる）。
-import { lazy, Suspense, type CSSProperties } from 'react';
+import { lazy, type CSSProperties } from 'react';
 import { Body1, Caption1, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
+import { AsyncBoundary } from '../shell/AsyncBoundary';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
 import { resolveKinds, type KindDef, type Shape, type ViewItem } from './kinds';
@@ -112,9 +113,9 @@ export function DualView({ items, kinds, selectedId, onSelect, label, testIds }:
           aria-label={t('view.canvas3d')}
           data-testid={testIds?.view3d ?? 'dual-view-3d'}
         >
-          <Suspense fallback={<Caption1>{t('view.loading')}</Caption1>}>
+          <AsyncBoundary errorKey="view.sceneFailed" loadingKey="view.loading">
             <Scene3D items={items} kinds={resolved} selectedId={selectedId} onSelect={onSelect} />
-          </Suspense>
+          </AsyncBoundary>
         </div>
       )}
       <div data-testid={method === '2d' ? (testIds?.view2d ?? 'dual-view-2d') : undefined}>
