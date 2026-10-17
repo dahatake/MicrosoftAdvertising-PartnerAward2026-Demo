@@ -1196,7 +1196,7 @@
       "layer": "data",
       "command": "python tests/system/ac087-folder-rename.py",
       "canary": false,
-      "status": "not_run",
+      "status": "blocked",
       "last_commit": null,
       "last_run_at": null,
       "evidence": null,
@@ -1206,6 +1206,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "reviewer指摘のAC-087未検証を補完。検証レベルintegration（台帳layer=data）。ST_AC087_WORKDIRに実作業checkoutを指定し、改名前のHEAD/refs/index/status・Git共通ディレクトリと作業ディレクトリのfilesystem identity・追跡/未追跡/ignoredファイル全件SHA-256を記録→同じ親で正式名称へ実改名（linked worktreeはgit worktree move）→旧パス消滅・正式basename・全記録同一を検証。入力欠如/既改名/移動先衝突は非0で拒否、上書きしない。停止済みプロセスとローカル改名許可が実行前提。実行後は改名を保持、失敗時は手動確認。クローンで代用せずGitHub rename/AC-088は対象外。設計のみ、not_run。"
+        },
+        {
+          "at": "2026-10-17T22:31:09+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "AC-087 は検証レベル integration で System Test 対象外。AC-087 は conductor が予定する実作業フォルダー改名とGit同一性の統合作業で検証し、System Test ledger には登録しない"
         }
       ]
     }
