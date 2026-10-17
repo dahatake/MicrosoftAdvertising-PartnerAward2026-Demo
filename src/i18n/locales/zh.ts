@@ -1,7 +1,7 @@
 import type { Messages } from './ja';
 
 export const zh: Messages = {
-  'app.title': '广告演示',
+  'app.title': 'MicrosoftAdvertising-PartnerAward2026-Demo',
   'shell.appSwitch': '切换应用',
   'shell.app1': 'App1 广告活动网站',
   'shell.app2': 'App2 广告素材管理',

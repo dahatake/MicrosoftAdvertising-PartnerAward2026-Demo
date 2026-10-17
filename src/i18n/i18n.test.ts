@@ -40,6 +40,13 @@ describe('FR-002 AC-005 辞書の網羅', () => {
   });
 });
 
+// FR-022 AC-086: 4 ロケールの app.title 自体が正式なアプリ名と完全一致する
+describe('FR-022 AC-086 アプリ識別名', () => {
+  it.each(LANGUAGES)('%s の app.title は正式名称を返す', (lang) => {
+    expect(dictionaries[lang]['app.title']).toBe('MicrosoftAdvertising-PartnerAward2026-Demo');
+  });
+});
+
 // FR-002 AC-006 選んだ言語は保存され、ブラウザの言語より優先される
 describe('FR-002 AC-006 言語の保存と復元', () => {
   it('保存済みの言語がブラウザの言語より優先される', () => {
