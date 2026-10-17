@@ -1147,9 +1147,9 @@
       "command": "npx playwright test tests/system/project-name.spec.ts -g \"4言語の\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "fde19b8",
-      "last_run_at": "2026-10-17T22:35:17+09:00",
-      "evidence": "work/runs/202610172045/logs/system-test/E2E-040-202610172234.log",
+      "last_commit": "60a13b5",
+      "last_run_at": "2026-10-17T23:53:46+09:00",
+      "evidence": "work\\runs\\202610172045\\logs\\system-test\\E2E-040-202610172352.log",
       "history": [
         {
           "at": "2026-10-17T21:49:29+09:00",
@@ -1172,9 +1172,9 @@
       "command": "npx playwright test tests/system/project-name.spec.ts -g \"異常系:\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "fde19b8",
-      "last_run_at": "2026-10-17T22:35:17+09:00",
-      "evidence": "work/runs/202610172045/logs/system-test/E2E-041-202610172234.log",
+      "last_commit": "60a13b5",
+      "last_run_at": "2026-10-17T23:53:46+09:00",
+      "evidence": "work\\runs\\202610172045\\logs\\system-test\\E2E-041-202610172353.log",
       "history": [
         {
           "at": "2026-10-17T21:49:34+09:00",
