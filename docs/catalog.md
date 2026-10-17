@@ -39,7 +39,7 @@
 | NFR-UX-003 | 用語と操作の一貫性 | 承認済み | src/i18n/locales/ja.ts | src/i18n/terminology.test.ts | i18n 辞書 |
 | FR-019 | 素材の展開と KPI・利用状況の登録・更新 | 承認済み | src/app2/DeploymentPanel.tsx, src/app2/AssetPanel.tsx, src/app2/operations.ts, src/app2/relations.ts, src/apps/App2.tsx, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | src/app2/changes.test.tsx, tests/system/narration-app2.spec.ts | 制作プロジェクトの表示, 関係図, App2 データストア, 状態と業務操作, ワークスペース, デザイン基盤, i18n 辞書 |
 | FR-022 | アプリとローカル作業フォルダーの識別名 | 承認済み | 未実装 | 未実装 | なし |
-| FR-023 | GitHub 上のリポジトリ名 | 保留 | 未実装 | 未実装 | なし |
+| FR-023 | GitHub 上のリポジトリ名 | 承認済み（Q-002 2026-10-17） | 未実装 | 未実装 | なし |
 
 ## API・イベント
 
