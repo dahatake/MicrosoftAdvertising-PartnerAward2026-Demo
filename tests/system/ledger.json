@@ -202,9 +202,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 2D の初期表示\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "70f7945",
-      "last_run_at": "2026-10-17T02:14:16+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-007-202610170200.log",
+      "last_commit": "fde19b8",
+      "last_run_at": "2026-10-17T22:35:17+09:00",
+      "evidence": "work/runs/202610172045/logs/system-test/E2E-007-202610172233.log",
       "history": [
         {
           "at": "2026-10-16T13:28:37+09:00",
@@ -283,9 +283,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-002\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "70f7945",
-      "last_run_at": "2026-10-17T02:14:16+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-010-202610170200.log",
+      "last_commit": "fde19b8",
+      "last_run_at": "2026-10-17T22:35:17+09:00",
+      "evidence": "work/runs/202610172045/logs/system-test/E2E-010-202610172234.log",
       "history": [
         {
           "at": "2026-10-16T13:29:02+09:00",
@@ -1146,10 +1146,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/project-name.spec.ts -g \"4言語の\"",
       "canary": true,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "fde19b8",
+      "last_run_at": "2026-10-17T22:35:17+09:00",
+      "evidence": "work/runs/202610172045/logs/system-test/E2E-040-202610172234.log",
       "history": [
         {
           "at": "2026-10-17T21:49:29+09:00",
@@ -1171,10 +1171,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/project-name.spec.ts -g \"異常系:\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "fde19b8",
+      "last_run_at": "2026-10-17T22:35:17+09:00",
+      "evidence": "work/runs/202610172045/logs/system-test/E2E-041-202610172234.log",
       "history": [
         {
           "at": "2026-10-17T21:49:34+09:00",
