@@ -35,7 +35,8 @@
     "AC-038": "sha256:905826614576eaa3",
     "AC-070": "sha256:74e4181ce8261160",
     "AC-071": "sha256:22724e26b927a33f",
-    "AC-086": "sha256:99de0f00bdbe59f9"
+    "AC-086": "sha256:99de0f00bdbe59f9",
+    "AC-087": "sha256:2166a7cb67c6d8fb"
   },
   "cases": [
     {
@@ -1180,6 +1181,31 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "IT-001",
+      "requirement_ids": [
+        "FR-022"
+      ],
+      "ac_ids": [
+        "AC-087"
+      ],
+      "title": "FR-022 AC-087 integration: 実作業フォルダーの改名と改名前後のGit同一性・全内容保持",
+      "layer": "data",
+      "command": "python tests/system/ac087-folder-rename.py",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-17T22:25:49+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "reviewer指摘のAC-087未検証を補完。検証レベルintegration（台帳layer=data）。ST_AC087_WORKDIRに実作業checkoutを指定し、改名前のHEAD/refs/index/status・Git共通ディレクトリと作業ディレクトリのfilesystem identity・追跡/未追跡/ignoredファイル全件SHA-256を記録→同じ親で正式名称へ実改名（linked worktreeはgit worktree move）→旧パス消滅・正式basename・全記録同一を検証。入力欠如/既改名/移動先衝突は非0で拒否、上書きしない。停止済みプロセスとローカル改名許可が実行前提。実行後は改名を保持、失敗時は手動確認。クローンで代用せずGitHub rename/AC-088は対象外。設計のみ、not_run。"
         }
       ]
     }
