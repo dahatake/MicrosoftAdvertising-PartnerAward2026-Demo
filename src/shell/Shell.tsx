@@ -10,7 +10,7 @@ import {
 } from '@fluentui/react-components';
 import { motion, useReducedMotion } from 'framer-motion';
 import { APPS } from '../apps/registry';
-import { LANGUAGES, LANGUAGE_LABELS, isLang } from '../i18n';
+import { LANGUAGES, LANGUAGE_LABELS, isLang, translate } from '../i18n';
 import { useT } from '../i18n/useT';
 import { updateSettings, useSettings, type AppId } from '../settings/store';
 import { spacing } from '../theme/theme';
@@ -45,6 +45,7 @@ export function Shell() {
 
   useEffect(() => {
     document.documentElement.lang = lang;
+    document.title = translate(lang, 'app.title');
   }, [lang]);
 
   const current = APPS.find((a) => a.id === app) ?? APPS[0];

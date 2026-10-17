@@ -1,7 +1,7 @@
 import type { Messages } from './ja';
 
 export const en: Messages = {
-  'app.title': 'Ad Demo',
+  'app.title': 'MicrosoftAdvertising-PartnerAward2026-Demo',
   'shell.appSwitch': 'Switch app',
   'shell.app1': 'App1 Ad campaign site',
   'shell.app2': 'App2 Ad asset management',

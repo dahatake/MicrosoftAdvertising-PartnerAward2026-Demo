@@ -38,8 +38,8 @@
 | NFR-UX-002 | 状態表示とエラーからの復旧 | 承認済み | src/shell/AsyncBoundary.tsx, src/shell/Shell.tsx, src/view/DualView.tsx, src/narration/Narration.tsx | src/shell/status.test.tsx, src/narration/Narration.test.tsx | 状態表示, i18n 辞書 |
 | NFR-UX-003 | 用語と操作の一貫性 | 承認済み | src/i18n/locales/ja.ts | src/i18n/terminology.test.ts | i18n 辞書 |
 | FR-019 | 素材の展開と KPI・利用状況の登録・更新 | 承認済み | src/app2/DeploymentPanel.tsx, src/app2/AssetPanel.tsx, src/app2/operations.ts, src/app2/relations.ts, src/apps/App2.tsx, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | src/app2/changes.test.tsx, tests/system/narration-app2.spec.ts | 制作プロジェクトの表示, 関係図, App2 データストア, 状態と業務操作, ワークスペース, デザイン基盤, i18n 辞書 |
-| FR-022 | アプリとローカル作業フォルダーの識別名 | 承認済み | 未実装 | 未実装 | なし |
-| FR-023 | GitHub 上のリポジトリ名 | 承認済み（Q-002 2026-10-17） | 未実装 | 未実装 | なし |
+| FR-022 | アプリとローカル作業フォルダーの識別名 | 承認済み | index.html, package.json, src/shell/Shell.tsx, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/ko.ts, src/i18n/locales/zh.ts | src/i18n/i18n.test.ts, src/shell/identity.test.tsx, tests/system/project-name.spec.ts | デザイン基盤, i18n 辞書 |
+| FR-023 | GitHub 上のリポジトリ名 | 承認済み（Q-002 2026-10-17） | 外部 GitHub リポジトリ（名称変更は conductor が別途実施） | AC-088 の GitHub 同一性確認（conductor が別途実施） | なし |
 
 ## API・イベント
 
@@ -56,11 +56,11 @@
 
 | 部品名 | ファイル | 用途 | 使っている要求 ID |
 |---|---|---|---|
-| デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン（kindPalette: 種類の色）。以降の画面はこれを再利用する | FR-001, FR-003, FR-004, FR-005, FR-008, FR-009, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, FR-020, NFR-UX-001 |
+| デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン（kindPalette: 種類の色）。以降の画面はこれを再利用する | FR-001, FR-003, FR-004, FR-005, FR-008, FR-009, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, FR-020, FR-022, NFR-UX-001 |
 | シェルの共通操作 | src/shell/ShellTools.tsx | ヘッダーのカメラワーク（非モーダルのダイアログ）・レイアウト（メニュー: すべて既定に戻す）・素材登録（ダイアログ）。キーボードで開閉でき、Esc で閉じてフォーカスが戻る。data-testid: shell-camera/shell-layout/shell-register-asset | NFR-A11Y-001 |
 | 状態表示 | src/shell/AsyncBoundary.tsx | AsyncBoundary（読み込み中は role=status、失敗は role=alert で原因と「再試行」。onRetry で再読み込み）、LoadingStatus、ErrorStatus。data-testid: status-loading/status-error/status-retry | NFR-UX-002 |
 | グローバル CSS | src/theme/global.css | 横スクロールを出さない（リフロー）と、prefers-reduced-motion で動きの時間を 0 にする規則。main.tsx で読み込む | NFR-A11Y-002, NFR-UX-001 |
-| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-006, FR-008, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, FR-020, NFR-UX-002, NFR-UX-003 |
+| i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-006, FR-008, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, FR-020, FR-022, NFR-UX-002, NFR-UX-003 |
 | 設定ストア | src/settings/store.ts | 言語・表示方法・アプリを持ち localStorage（lang, viewMethod）に保存。useSettings()/updateSettings() | FR-001, FR-002, FR-003, FR-004, FR-005, FR-008, FR-009 |
 | アプリ登録簿 | src/apps/registry.ts | シェルのトグルと画面の対応。新しいアプリはここに 1 行足す | FR-001 |
 | 表示方法 | src/view/index.ts, src/view/DualView.tsx, src/view/Scene3D.tsx, src/view/ViewModeSwitch.tsx, src/view/useViewMode.ts, src/view/support.ts, src/view/kinds.ts, src/view/perf.ts, src/apps/lazyRetry.ts | DualView（items・kinds・selectedId・onSelect。同じ項目を 2D 一覧/3D 空間配置＋共通の凡例で表示）、useViewMode()（既定 2D・3D 不可なら 2D 固定）、ViewModeSwitch、set3dSupport()。three/R3F は lazyRetry で遅延読み込み（失敗は再試行）。perf.ts の useFpsFallback: 3D 表示中に PARAM-003 を PARAM-009 秒下回り続けたら 2D に切替え通知 | FR-004, FR-005, FR-008, FR-009, FR-012, FR-018, NFR-PERF-001, NFR-PERF-002 |
