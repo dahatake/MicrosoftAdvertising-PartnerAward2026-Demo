@@ -34,7 +34,8 @@
     "AC-054": "sha256:bf72e681d41ab20c",
     "AC-038": "sha256:905826614576eaa3",
     "AC-070": "sha256:74e4181ce8261160",
-    "AC-071": "sha256:22724e26b927a33f"
+    "AC-071": "sha256:22724e26b927a33f",
+    "AC-086": "sha256:99de0f00bdbe59f9"
   },
   "cases": [
     {
@@ -1126,6 +1127,56 @@
       "history": [
         {
           "at": "2026-10-16T13:30:08+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-040",
+      "requirement_ids": [
+        "FR-022"
+      ],
+      "ac_ids": [
+        "AC-086"
+      ],
+      "title": "4言語の app.title・可視見出し・document.title が正式名称と完全一致",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/project-name.spec.ts -g \"4言語の\"",
+      "canary": true,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-17T21:49:29+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-041",
+      "requirement_ids": [
+        "FR-022"
+      ],
+      "ac_ids": [
+        "AC-086"
+      ],
+      "title": "異常系: 連続切替と元の言語への復帰でも旧名・翻訳名に戻らない",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/project-name.spec.ts -g \"異常系:\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-17T21:49:34+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
