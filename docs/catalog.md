@@ -37,7 +37,7 @@
 | NFR-UX-001 | 画面サイズ・設定への追従 | 承認済み | src/theme/global.css, src/main.tsx | src/shell/a11y.test.tsx | グローバル CSS, デザイン基盤 |
 | NFR-UX-002 | 状態表示とエラーからの復旧 | 承認済み | src/shell/AsyncBoundary.tsx, src/shell/Shell.tsx, src/view/DualView.tsx, src/narration/Narration.tsx | src/shell/status.test.tsx, src/narration/Narration.test.tsx | 状態表示, i18n 辞書 |
 | NFR-UX-003 | 用語と操作の一貫性 | 承認済み | src/i18n/locales/ja.ts | src/i18n/terminology.test.ts | i18n 辞書 |
-| NFR-UX-004 | Surface ブランドのビジュアル表現 | 承認済み | src/theme/theme.ts, src/theme/BrandButton.tsx, src/theme/ThemeProvider.tsx, src/theme/global.css, src/apps/App1.tsx, src/app2/PlanQuotePanel.tsx, src/app2/AssetPanel.tsx | src/theme/brand.test.tsx, tests/system/brand.spec.ts | デザイン基盤, グローバル CSS, シェルの共通操作 |
+| NFR-UX-004 | Surface ブランドのビジュアル表現 | 承認済み | src/theme/theme.ts, src/theme/BrandButton.tsx, src/theme/ThemeProvider.tsx, src/theme/global.css, src/apps/App1.tsx, src/apps/App2.tsx, src/app2/PlanQuotePanel.tsx, src/app2/AssetPanel.tsx, src/app2/OrderPanel.tsx, src/app2/DeploymentPanel.tsx, src/app2/WhatIfPanel.tsx, src/app2/NodeDetail.tsx | src/theme/brand.test.tsx, src/app2/brand.test.tsx, tests/system/brand.spec.ts | デザイン基盤, グローバル CSS, シェルの共通操作 |
 | NFR-UX-005 | ロゴと商標の扱い | 承認済み | 未実装 | 未実装 | デザイン基盤 |
 | FR-019 | 素材の展開と KPI・利用状況の登録・更新 | 承認済み | src/app2/DeploymentPanel.tsx, src/app2/AssetPanel.tsx, src/app2/operations.ts, src/app2/relations.ts, src/apps/App2.tsx, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | src/app2/changes.test.tsx, tests/system/narration-app2.spec.ts | 制作プロジェクトの表示, 関係図, App2 データストア, 状態と業務操作, ワークスペース, デザイン基盤, i18n 辞書 |
 
