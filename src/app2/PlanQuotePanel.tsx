@@ -5,6 +5,7 @@ import { Body1, Button, Caption1, Input, Subtitle2, makeStyles, tokens } from '@
 import { ErrorCircle16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
+import { PrimaryButton } from '../theme/BrandButton';
 import { beginRevision, cancelRevision, restoreVersion, saveRevision, applyStateOp, toDraft, type RevisableKind } from './operations';
 import { entityLabel } from './relations';
 import { StateBadge } from './ProjectBoard';
@@ -182,17 +183,17 @@ export function PlanQuotePanel() {
           )}
           <div className={s.row} data-testid="state-ops">
             {sel.kind === 'plan' ? (
-              <Button onClick={() => runOp('confirm')} data-testid="op-confirm-plan">
+              <PrimaryButton onClick={() => runOp('confirm')} data-testid="op-confirm-plan">
                 {t('app2.op.confirm')}
-              </Button>
+              </PrimaryButton>
             ) : (
               <>
-                <Button onClick={() => runOp('submit')} data-testid="op-submit-quote">
+                <PrimaryButton onClick={() => runOp('submit')} data-testid="op-submit-quote">
                   {t('app2.op.submit')}
-                </Button>
-                <Button onClick={() => runOp('approve')} data-testid="op-approve-quote">
+                </PrimaryButton>
+                <PrimaryButton onClick={() => runOp('approve')} data-testid="op-approve-quote">
                   {t('app2.op.approve')}
-                </Button>
+                </PrimaryButton>
               </>
             )}
             <Button onClick={() => runOp('draft')} data-testid="op-to-draft">

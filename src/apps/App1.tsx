@@ -15,6 +15,7 @@ import { Narration } from '../narration/Narration';
 import { getScript } from '../narration/scripts';
 import { useSettings } from '../settings/store';
 import { spacing } from '../theme/theme';
+import { PrimaryButton } from '../theme/BrandButton';
 
 const useStyles = makeStyles({
   root: { display: 'flex', flexDirection: 'column', gap: spacing.xl },
@@ -72,9 +73,9 @@ export function App1() {
             {text.heroLead}
           </Body1>
           <div>
-            <Button
+            {/* NFR-UX-004 AC-089: 主 CTA は主色・ピル形の主ボタン */}
+            <PrimaryButton
               as="a"
-              appearance="primary"
               size="large"
               icon={<Open24Regular />}
               iconPosition="after"
@@ -84,7 +85,7 @@ export function App1() {
               data-testid="cta-official-site"
             >
               {text.cta}
-            </Button>
+            </PrimaryButton>
           </div>
           <Body1 className={s.hint}>{text.ctaHint}</Body1>
           <Title3 as="h3" id="app1-persona" className={s.heroTitle}>
