@@ -54,7 +54,9 @@
     "AC-116": "sha256:227f899a863d1bdd",
     "AC-009": "sha256:576a0f279826558b",
     "AC-094": "sha256:0334f9ab6124dfc9",
-    "AC-097": "sha256:0b04a676dddd4370"
+    "AC-097": "sha256:ba41529231adaaa0",
+    "AC-117": "sha256:9af17841e961aa52",
+    "AC-118": "sha256:daf2c8967a685d15"
   },
   "cases": [
     {
@@ -2154,6 +2156,368 @@
           "by": "test-designer",
           "change": "blocked",
           "reason": "AC-097 は BLOCKED（Q-004: 商標ライセンスと公式のロゴファイルの有無が未回答）。検証レベル manual（目視）。手順は tests/system/manual/brand-manual-tests.md"
+        },
+        {
+          "at": "2026-10-19T18:29:57+09:00",
+          "by": "test-designer",
+          "change": "status -> not_run",
+          "reason": "Q-004 B 回答済み。AC-097 は公式ロゴを使う設定が有効なときだけ適用（BLOCKED 解除）。目視の手順は tests/system/manual/brand-manual-tests.md"
+        },
+        {
+          "at": "2026-10-19T18:30:23+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "Q-004 B 回答済みで BLOCKED（Q 未回答）は解消。AC-097 は検証レベル manual のため台帳では blocked を維持（CHK-10）。公式ロゴを使う設定が有効なときだけ目視（tests/system/manual/brand-manual-tests.md）で確かめ、現在は対象外"
+        }
+      ]
+    },
+    {
+      "id": "E2E-069",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-117"
+      ],
+      "title": "ja ロケールで App1・App2 のヘッダー帯の中または直下に注記が常に可視",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-117-ja\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:30+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-070",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-117"
+      ],
+      "title": "en ロケールで App1・App2 のヘッダー帯の中または直下に注記が常に可視",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-117-en\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:32+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-071",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-117"
+      ],
+      "title": "zh ロケールで App1・App2 のヘッダー帯の中または直下に注記が常に可視",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-117-zh\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:34+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-072",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-117"
+      ],
+      "title": "ko ロケールで App1・App2 のヘッダー帯の中または直下に注記が常に可視",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-117-ko\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:35+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-073",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-117"
+      ],
+      "title": "言語を切り替えると注記の言語も切り替わる",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-117-switch\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:37+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-074",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-117"
+      ],
+      "title": "異常系: 閉じる操作がなく時間経過・切替・再読込で注記が消えない",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-117-persist\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:39+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-075",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-117"
+      ],
+      "title": "ライトで注記の文字と背景のコントラスト比が 4.5 以上",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-117-contrast-light\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:41+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-076",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-117"
+      ],
+      "title": "ダークで注記の文字と背景のコントラスト比が 4.5 以上",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-117-contrast-dark\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:43+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-077",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-117"
+      ],
+      "title": "異常系: 幅 320px で注記が切れず横スクロールなし",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-117-320\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:45+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-078",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-118"
+      ],
+      "title": "注記表示中も h1 は正式名称だけ・注記とワードマークは h1 の外",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-118-h1\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:47+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-079",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-118"
+      ],
+      "title": "注記表示中も App2 の全業務領域が 1280x720 でスクロールなし",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-118-fit\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:50+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-080",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-118"
+      ],
+      "title": "ライトで注記があってもヘッダー帯が AC-116 の条件を満たす",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-118-header-light\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:52+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-081",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-118"
+      ],
+      "title": "ダークで注記があってもヘッダー帯が AC-116 の条件を満たす",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-118-header-dark\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:54+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-082",
+      "requirement_ids": [
+        "NFR-UX-005"
+      ],
+      "ac_ids": [
+        "AC-118"
+      ],
+      "title": "異常系: 幅 320px で注記があってもトグルとワードマークが欠けない",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/brand-notice.spec.ts -g \"\\[N5-118-header-320\\]\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T18:29:56+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "NFR-UX-005 AC-117/118 注記の System Test 作成"
         }
       ]
     }
