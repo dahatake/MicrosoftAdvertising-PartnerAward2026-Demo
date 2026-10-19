@@ -34,7 +34,19 @@
     "AC-054": "sha256:bf72e681d41ab20c",
     "AC-038": "sha256:905826614576eaa3",
     "AC-070": "sha256:74e4181ce8261160",
-    "AC-071": "sha256:22724e26b927a33f"
+    "AC-071": "sha256:22724e26b927a33f",
+    "AC-098": "sha256:1201bfe940863e28",
+    "AC-099": "sha256:21d331ba9ab3c24b",
+    "AC-102": "sha256:9352114d164c15fe",
+    "AC-103": "sha256:4b844633b6f713cf",
+    "AC-104": "sha256:78fa60214cf88be8",
+    "AC-108": "sha256:d6ea63e83d3342c2",
+    "AC-109": "sha256:ea72bc39da5f7ccf",
+    "AC-111": "sha256:b03a957010e9db62",
+    "AC-112": "sha256:c01ff1ad9fdc14eb",
+    "AC-113": "sha256:b02feddf6be8ced5",
+    "AC-114": "sha256:1674994eb0f49c82",
+    "AC-115": "sha256:92f91b8d8cb7f7f1"
   },
   "cases": [
     {
@@ -1129,6 +1141,442 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-042",
+      "requirement_ids": [
+        "FR-024"
+      ],
+      "ac_ids": [
+        "AC-098"
+      ],
+      "title": "基準ビューポートで全業務領域が縦横スクロールなし",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-024 AC-098 基準\"",
+      "canary": true,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:53:51+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-043",
+      "requirement_ids": [
+        "FR-024"
+      ],
+      "ac_ids": [
+        "AC-098"
+      ],
+      "title": "ペルソナ・言語切替後も1画面に収まる（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-024 AC-098 ペルソナ\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:53:53+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-044",
+      "requirement_ids": [
+        "FR-024"
+      ],
+      "ac_ids": [
+        "AC-099"
+      ],
+      "title": "内部スクロール領域がない",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-024 AC-099\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:53:55+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-045",
+      "requirement_ids": [
+        "FR-025"
+      ],
+      "ac_ids": [
+        "AC-102"
+      ],
+      "title": "左メニューの順序と垂直配置",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-025 AC-102\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:53:57+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-046",
+      "requirement_ids": [
+        "FR-025"
+      ],
+      "ac_ids": [
+        "AC-103"
+      ],
+      "title": "アイコン・ラベル・ツールチップ（20文字以内）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-025 AC-103\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:53:58+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-047",
+      "requirement_ids": [
+        "FR-025"
+      ],
+      "ac_ids": [
+        "AC-104"
+      ],
+      "title": "現在位置の表示と入力保持",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-025 AC-104 項目選択\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:00+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-048",
+      "requirement_ids": [
+        "FR-025"
+      ],
+      "ac_ids": [
+        "AC-104"
+      ],
+      "title": "不正なメニュー指定でも壊れない（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-025 AC-104 異常系\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:02+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-049",
+      "requirement_ids": [
+        "FR-026"
+      ],
+      "ac_ids": [
+        "AC-108"
+      ],
+      "title": "select・combobox・listbox が無い",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-026 AC-108\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:04+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-050",
+      "requirement_ids": [
+        "FR-026"
+      ],
+      "ac_ids": [
+        "AC-109"
+      ],
+      "title": "くわしく選択がボタン群で更新される",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-026 AC-109 くわしく\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:05+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-051",
+      "requirement_ids": [
+        "FR-026"
+      ],
+      "ac_ids": [
+        "AC-109"
+      ],
+      "title": "2D不可の組合せは無効化と理由（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-026 AC-109 異常系\"",
+      "canary": false,
+      "status": "not_run",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:07+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-052",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-111"
+      ],
+      "title": "YouTube・TikTok の実素材をサムネイルとURLで表示",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-111\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:09+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:42+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-053",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-112"
+      ],
+      "title": "参照のみ・書き込みなし・複製なし",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-112\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:11+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:42+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-054",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-113"
+      ],
+      "title": "提供元・URL・権利根拠・別製品の旨の表示",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-113\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:13+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:43+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-055",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-114"
+      ],
+      "title": "サムネイル取得失敗時の代替表示（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-114\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:14+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:43+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-056",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-115"
+      ],
+      "title": "再生前はサムネイル画像だけ第三者通信",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-115 再生前\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:16+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:43+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-057",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-115"
+      ],
+      "title": "再生ボタンのキーボード操作",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-115 「再生」\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:18+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:44+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
         }
       ]
     }
