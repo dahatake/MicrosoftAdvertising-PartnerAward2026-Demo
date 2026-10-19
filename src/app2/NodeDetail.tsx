@@ -1,7 +1,7 @@
 // 選択したノード（エンティティ）の詳細（FR-012 AC-041）。素材は画像の仮置きも表示する（AC-040）。
 import { Body1, Caption1, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
-import { spacing } from '../theme/theme';
+import { brandTokens, spacing } from '../theme/theme';
 import { AssetThumb } from './AssetThumb';
 import { kindLabelKey } from './kinds';
 import { entityLabel } from './relations';
@@ -14,7 +14,8 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     gap: spacing.s,
     padding: spacing.m,
-    borderRadius: tokens.borderRadiusMedium,
+    // NFR-UX-004 AC-093: カード（一覧の行・詳細）の角丸は PARAM-024 の範囲
+    borderRadius: brandTokens.radiusCard,
     border: `1px solid ${tokens.colorNeutralStroke2}`,
     backgroundColor: tokens.colorNeutralBackground1,
   },

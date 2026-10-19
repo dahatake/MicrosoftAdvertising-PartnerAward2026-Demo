@@ -1,6 +1,7 @@
 // App2 の左メニュー（FR-025）: 業務ワークフロー順の垂直メニュー。各項目は「同じアイコンセットのアイコン＋文字ラベル」で、
 // hover・フォーカスで 1 文のツールチップ（説明）が出る（説明は aria-describedby でも取得できる）。
-// 選択中の項目は aria-current="page" に加え、太字・左の太い枠・「▶」マークで示す（色だけに頼らない）。
+// 選択中の項目は aria-current="page" に加え、太字・主色のピル形の面・「▶」マークで示す（色だけに頼らない）。
+// メニューの面はブランドのカードの角丸（PARAM-024）、項目はピル形、選択中は主色（NFR-UX-004 のトグルと同じ表現）。
 import { Tooltip, makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-components';
 import {
   Calculator20Regular,
@@ -15,7 +16,7 @@ import {
   type FluentIcon,
 } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
-import { spacing } from '../theme/theme';
+import { brandTokens, spacing } from '../theme/theme';
 import { AREAS, areaLabelKey, areaTipKey, type AreaKey } from './areas';
 
 const ICONS: Record<AreaKey, FluentIcon> = {
@@ -39,8 +40,8 @@ const useStyles = makeStyles({
     flexShrink: 0,
     paddingBlock: spacing.xs,
     paddingInline: spacing.xs,
-    backgroundColor: tokens.colorNeutralBackground2,
-    borderRadius: tokens.borderRadiusLarge,
+    backgroundColor: tokens.colorNeutralBackground1,
+    borderRadius: brandTokens.radiusCard,
     alignSelf: 'flex-start',
   },
   item: {
@@ -59,14 +60,15 @@ const useStyles = makeStyles({
     borderInlineStartWidth: '4px',
     borderInlineStartStyle: 'solid',
     borderInlineStartColor: 'transparent',
-    borderRadius: tokens.borderRadiusMedium,
-    ':hover': { backgroundColor: tokens.colorNeutralBackground2Hover },
+    borderRadius: brandTokens.radiusPill,
+    ':hover': { backgroundColor: tokens.colorNeutralBackground1Hover },
     ':focus-visible': { outlineStyle: 'solid', outlineWidth: '2px', outlineColor: tokens.colorStrokeFocus2 },
   },
   current: {
     fontWeight: tokens.fontWeightBold,
-    backgroundColor: tokens.colorBrandBackground2,
-    borderInlineStartColor: tokens.colorBrandStroke1,
+    color: tokens.colorNeutralForegroundOnBrand,
+    backgroundColor: tokens.colorBrandBackground,
+    ':hover': { backgroundColor: tokens.colorBrandBackgroundHover },
   },
   mark: { marginInlineStart: 'auto', fontSize: tokens.fontSizeBase100 },
 });

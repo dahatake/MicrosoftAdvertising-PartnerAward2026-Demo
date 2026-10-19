@@ -2,10 +2,11 @@
 // 業務領域ごとにパネルを割り当て、ペルソナ（FR-018・FR-021）に応じた既定のレイアウトで Workspace に並べる（Q-006 A）。
 // 選択中の対象・絞り込み・入力中の内容は、領域を切り替えても失われないよう、ここで持つ。
 import { useEffect, useState, type ReactNode } from 'react';
-import { Input, makeStyles } from '@fluentui/react-components';
+import { Caption1, Input, Subtitle1, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
+import { useBrandStyles } from '../theme/BrandButton';
+import { brandCardStyle, brandTokens, spacing } from '../theme/theme';
 import { Workspace, type WorkspacePanel } from '../layout';
-import { spacing } from '../theme/theme';
 import {
   AREA_HASH_PREFIX,
   AREA_LAYOUT,
@@ -35,17 +36,60 @@ import {
 } from '../app2';
 import { CameraSettings } from '../camera';
 
-const useStyles = makeStyles({
-  root: { display: 'flex', gap: spacing.m, alignItems: 'flex-start' },
-  main: { display: 'flex', flexDirection: 'column', gap: spacing.xs, flexGrow: 1, minWidth: 0 },
-});
-
 /** 領域のペルソナ別の既定のレイアウト */
 const layoutsOf = (area: AreaKey) => Object.fromEntries((Object.keys(AREA_LAYOUT) as PersonaId[]).map((p) => [p, AREA_LAYOUT[p][area]]));
+
+// NFR-UX-004 AC-093: App2 は業務画面として、情報密度と操作性を保ったままブランドの形を使う。
+// - ページの面: ライトのテーマは PARAM-021（brandTokens.surfacePage）、ダークはテーマの面。
+// - ページの見出し帯: 暗い面（PARAM-022）に光のグラデーション（PARAM-023）を重ねた帯（useBrandStyles().glowBand。テーマによらない）。
+//   全幅のヒーローにしない（高さは見出しと説明の分だけ）。1 画面収容（FR-024 AC-098）のため、左の列（メニューの上）に置く。
+//   装飾の出現アニメーション（入場の動き）を付けない。
+// - パネル: Workspace の各パネル（共通部品の section）を、App2 の中でだけ角丸 PARAM-024（brandCardStyle）・影のカードにする。
+const useStyles = makeStyles({
+  root: { display: 'flex', flexDirection: 'column', gap: spacing.xs, minWidth: 0 },
+  band: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: spacing.xs,
+    padding: `${spacing.s} ${spacing.m}`,
+    borderRadius: brandTokens.radiusCard,
+    // 業務画面の見出し帯: 高さは中身の分だけ（ヒーローにしない）
+    minHeight: 0,
+  },
+  heading: { margin: 0, color: brandTokens.foregroundOnDark },
+  lead: { margin: 0, minWidth: 0, color: brandTokens.foregroundOnDarkMuted },
+  // 狭い画面（幅 640px 以下）では、左の列を業務領域の画面の上に積み、横に詰め込まない（横スクロールを強いない）
+  side: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: spacing.s,
+    width: '176px',
+    flexShrink: 0,
+    minWidth: 0,
+    '@media (max-width: 640px)': { width: '100%' },
+  },
+  body: {
+    display: 'flex',
+    gap: spacing.m,
+    alignItems: 'flex-start',
+    minWidth: 0,
+    '@media (max-width: 640px)': { flexDirection: 'column', alignItems: 'stretch' },
+  },
+  main: { display: 'flex', flexDirection: 'column', gap: spacing.xs, flexGrow: 1, minWidth: 0 },
+  // 共通の Workspace のパネルを、App2 の中でだけブランドのカードの形にする（属性の選択子は Workspace の data-testid の契約）
+  workspace: {
+    '& [data-testid^="layout-panel-"]': {
+      borderRadius: brandCardStyle.borderRadius,
+      boxShadow: brandCardStyle.boxShadow,
+      backgroundColor: tokens.colorNeutralBackground1,
+    },
+  },
+});
 
 export function App2() {
   const s = useStyles();
   const t = useT();
+  const b = useBrandStyles();
   const persona = usePersona();
   const data = useDataset();
   const [area, setAreaState] = useState<AreaKey>(() => areaFromHash(window.location.hash));
@@ -115,13 +159,27 @@ export function App2() {
   const panels: WorkspacePanel[] = AREA_PANELS[area].map((id) => ({ id, title: content[id].title, content: content[id].node }));
 
   return (
-    <section data-testid="app-root-app2" aria-label={t('app2.heading')} className={s.root}>
-      <SideNav current={area} onSelect={setArea} />
-      <div className={s.main}>
-        <PersonaBar persona={persona} representation={representation} onPersona={onPersona} onRepresentation={setRepresentation} />
-        <CameraSettings />
-        <div data-testid={`area-root-${area}`} data-area={area} role="region" aria-label={t(areaLabelKey(area))}>
-          <Workspace key={area} screenId={`app2-${area}`} persona={persona} personaDefaults={layoutsOf(area)} panels={panels} dense />
+    <section data-testid="app-root-app2" aria-labelledby="app2-heading" className={mergeClasses(s.root, b.pageSurface)}>
+      <div className={s.body}>
+        {/* 左の列: ページの見出し帯と、業務ワークフロー順のメニュー（FR-025）。見出し帯をこの列に置き、
+            業務領域の画面の高さを減らさない（FR-024 AC-098 の 1 画面収容） */}
+        <div className={s.side}>
+          <div data-testid="app2-heading-band" className={mergeClasses(b.glowBand, s.band)}>
+            <Subtitle1 as="h2" id="app2-heading" className={s.heading}>
+              {t('app2.heading')}
+            </Subtitle1>
+            <p className={s.lead}>
+              <Caption1>{t('app2.lead')}</Caption1>
+            </p>
+          </div>
+          <SideNav current={area} onSelect={setArea} />
+        </div>
+        <div className={s.main}>
+          <PersonaBar persona={persona} representation={representation} onPersona={onPersona} onRepresentation={setRepresentation} />
+          <CameraSettings />
+          <div data-testid={`area-root-${area}`} data-area={area} role="region" aria-label={t(areaLabelKey(area))} className={s.workspace}>
+            <Workspace key={area} screenId={`app2-${area}`} persona={persona} personaDefaults={layoutsOf(area)} panels={panels} dense />
+          </div>
         </div>
       </div>
     </section>

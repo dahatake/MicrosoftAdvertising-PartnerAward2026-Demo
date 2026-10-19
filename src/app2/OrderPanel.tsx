@@ -4,7 +4,8 @@ import { Badge, Body1, Button, Input, Label, makeStyles, tokens } from '@fluentu
 import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
 import { Paged } from '../ui/Paged';
-import { spacing } from '../theme/theme';
+import { brandTokens, spacing } from '../theme/theme';
+import { PrimaryButton } from '../theme/BrandButton';
 import { advanceOrder, isLastOrderState, registerOrder } from './operations';
 import { formatYen } from './progress';
 import { stateCode, stateKey } from './states';
@@ -22,7 +23,8 @@ const useStyles = makeStyles({
     alignItems: 'center',
     gap: spacing.m,
     padding: spacing.xs,
-    borderRadius: tokens.borderRadiusMedium,
+    // NFR-UX-004 AC-093: カード（一覧の行・詳細）の角丸は PARAM-024 の範囲
+    borderRadius: brandTokens.radiusCard,
     border: `1px solid ${tokens.colorNeutralStroke2}`,
   },
   hint: { color: tokens.colorNeutralForeground2 },
@@ -83,9 +85,9 @@ export function OrderPanel({ projectId, pageSize = 1000 }: { projectId?: string 
           <Label htmlFor="order-due-input">{t('app2.col.due')}</Label>
           <Input id="order-due-input" type="date" value={due} onChange={(_, d) => setDue(d.value)} input={{ 'data-testid': 'order-due' } as object} />
         </div>
-        <Button appearance="primary" onClick={register} data-testid="order-register">
+        <PrimaryButton onClick={register} data-testid="order-register">
           {t('app2.register')}
-        </Button>
+        </PrimaryButton>
       </div>
       <ErrorText message={error} testId="order-error" />
       <ErrorText message={advanceError} testId="order-advance-error" />

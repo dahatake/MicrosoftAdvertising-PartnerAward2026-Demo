@@ -4,20 +4,25 @@ import { Component, lazy, Suspense, useEffect, useRef, type ReactNode } from 're
 import { Body1, Caption1, makeStyles, tokens } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
 import { useSettings } from '../settings/store';
-import { spacing } from '../theme/theme';
+import { brandGlowBackground, spacing } from '../theme/theme';
 import { useViewMode } from '../view/useViewMode';
-import { SURFACE_COLORS } from './brand';
+import { DEFAULT_FINISH, metalGradient, PRODUCT_FINISHES, PRODUCT_GLASS, withAlpha } from './brand';
 import { app1Text } from './content';
 
 const ProductScene3D = lazy(() => import('./ProductScene3D'));
 
+// NFR-UX-004 AC-094: 2D の製品図も 3D と同じ製品色（既定は Dune）の金属の面で描き、暗い面（PARAM-022）の舞台の上で
+// 縁の色（edge）の細い縁取りと光の青のリムの光で外形を見分けられるようにする。
+const finish = PRODUCT_FINISHES[DEFAULT_FINISH];
+const [glow1, glow2, glow3] = PRODUCT_GLASS.glow;
+
 const useStyles = makeStyles({
   root: { display: 'flex', flexDirection: 'column', gap: spacing.m },
   stage: {
+    ...brandGlowBackground,
     height: '320px',
     borderRadius: tokens.borderRadiusXLarge,
     overflow: 'hidden',
-    backgroundImage: `linear-gradient(160deg, ${SURFACE_COLORS.bg}, #14284f)`,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -40,18 +45,33 @@ const useStyles = makeStyles({
     animationDirection: 'alternate',
     '@media (prefers-reduced-motion: reduce)': { animationName: 'none' },
   },
-  screen: {
-    height: '150px',
-    borderRadius: '10px 10px 2px 2px',
-    border: `4px solid ${SURFACE_COLORS.body}`,
-    backgroundImage: `radial-gradient(circle at 30% 40%, ${SURFACE_COLORS.accent}, transparent 45%), radial-gradient(circle at 75% 60%, ${SURFACE_COLORS.accent2}, transparent 40%), linear-gradient(135deg, ${SURFACE_COLORS.screen}, ${SURFACE_COLORS.screenGlow})`,
-    boxShadow: `0 0 40px ${SURFACE_COLORS.screenGlow}`,
+  // 画面の蓋: 金属の枠（製品色のグラデーション）＋縁取り＋背後の光（リム）
+  lid: {
+    padding: '6px',
+    borderRadius: '12px 12px 3px 3px',
+    backgroundImage: metalGradient(finish),
+    boxShadow: `0 0 0 1px ${withAlpha(finish.edge, 0.6)}, 0 0 32px ${withAlpha(glow2, 0.35)}`,
   },
+  // 表示面: 黒の細い縁の内側に光のグラデーション（PARAM-023）と、ガラスの映り込みの斜めのハイライト
+  screen: {
+    height: '144px',
+    borderRadius: '6px 6px 1px 1px',
+    border: `3px solid ${PRODUCT_GLASS.bezel}`,
+    backgroundImage: [
+      'linear-gradient(115deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 38%)',
+      `radial-gradient(circle at 28% 80%, ${withAlpha(glow1, 0.95)}, transparent 62%)`,
+      `radial-gradient(circle at 70% 40%, ${withAlpha(glow2, 0.75)}, transparent 46%)`,
+      `radial-gradient(circle at 86% 16%, ${withAlpha(glow3, 0.6)}, transparent 30%)`,
+      `linear-gradient(135deg, ${PRODUCT_GLASS.base}, ${PRODUCT_GLASS.baseEnd})`,
+    ].join(', '),
+  },
+  // 本体の前端: 金属の面と、上端のハイライト・縁取り・床への影
   base: {
     height: '14px',
-    margin: '0 -14px',
+    margin: '0 -16px',
     borderRadius: '2px 2px 14px 14px',
-    backgroundImage: `linear-gradient(${SURFACE_COLORS.pad}, ${SURFACE_COLORS.body})`,
+    backgroundImage: metalGradient(finish, 180),
+    boxShadow: `inset 0 1px 0 ${withAlpha(finish.highlight, 0.9)}, 0 0 0 1px ${withAlpha(finish.edge, 0.6)}, 0 18px 28px rgba(0, 0, 0, 0.5)`,
   },
   note: { color: tokens.colorNeutralForeground2 },
 });
@@ -76,9 +96,11 @@ export interface ProductViewProps {
 function Device2D({ testId, label }: { testId: string; label: string }) {
   const s = useStyles();
   return (
-    <div className={s.stage} role="img" aria-label={label} data-testid={testId}>
+    <div className={s.stage} role="img" aria-label={label} data-testid={testId} data-product-finish={finish.name}>
       <div className={s.device} aria-hidden>
-        <div className={s.screen} />
+        <div className={s.lid}>
+          <div className={s.screen} />
+        </div>
         <div className={s.base} />
       </div>
     </div>

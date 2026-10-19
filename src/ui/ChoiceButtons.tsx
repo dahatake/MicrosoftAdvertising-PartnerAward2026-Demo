@@ -1,11 +1,12 @@
 // ChoiceButtons: 「値を 1 つ選ぶ」項目のボタン群（FR-026。コンボボックスの代わり）。
-// role=radiogroup + role=radio（aria-checked）。選択中は色に加えて「✓」と太い枠で示す。
+// role=radiogroup + role=radio（aria-checked）。選択中は色に加えて「✓」と太い枠・太字で示す。
+// 形はデザイン基盤のトグルの項目に合わせたピル形、選択中は主色（NFR-UX-004 AC-089・AC-116 のトグルと同じ表現）。
 // キーボード: 矢印キーで移動して選ぶ、Tab で群の出入り（roving tabindex）。無効の選択肢は aria-disabled（理由を title で示す）。
 // 選択肢が pageSize を超えるときはページ送り（前へ・次へ）で全選択肢に到達できる（AC-110）。
 import { useRef, useState, type KeyboardEvent } from 'react';
 import { Caption1, makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
-import { spacing } from '../theme/theme';
+import { brandTokens, spacing } from '../theme/theme';
 
 export interface ChoiceOption {
   value: string;
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
     color: tokens.colorNeutralForeground1,
     backgroundColor: tokens.colorNeutralBackground1,
     ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke1),
-    borderRadius: tokens.borderRadiusMedium,
+    borderRadius: brandTokens.radiusPill,
     fontFamily: 'inherit',
     fontSize: tokens.fontSizeBase300,
     ':hover': { backgroundColor: tokens.colorNeutralBackground1Hover },
@@ -49,8 +50,10 @@ const useStyles = makeStyles({
   },
   on: {
     ...shorthands.border('2px', 'solid', tokens.colorBrandStroke1),
-    backgroundColor: tokens.colorBrandBackground2,
+    color: tokens.colorNeutralForegroundOnBrand,
+    backgroundColor: tokens.colorBrandBackground,
     fontWeight: tokens.fontWeightSemibold,
+    ':hover': { backgroundColor: tokens.colorBrandBackgroundHover },
   },
   off: { cursor: 'not-allowed', color: tokens.colorNeutralForegroundDisabled, backgroundColor: tokens.colorNeutralBackgroundDisabled },
   pager: { display: 'flex', alignItems: 'center', gap: spacing.xs },

@@ -15,6 +15,10 @@ export interface Scene {
 export interface App1Text {
   heroHeading: string;
   heroLead: string;
+  /** ヒーローの見出しの上の短い導入（NFR-UX-004 AC-091） */
+  heroEyebrow: string;
+  /** ヒーローの製品のビジュアルのアクセシブルな名前（NFR-UX-004 AC-091） */
+  heroVisualLabel: string;
   cta: string;
   ctaHint: string;
   valueHeading: string;
@@ -45,6 +49,8 @@ export const app1Text: Record<Lang, App1Text> = {
   ja: {
     heroHeading: 'Surface Ultra',
     heroLead: '最強の没入感と、最高のリッチなエクスペリエンスを、あなたの制作と開発に。',
+    heroEyebrow: '新しい Surface の体験',
+    heroVisualLabel: 'Surface Ultra の製品イメージ（仮置き）: 薄い本体に広い画面を開いたノート PC',
     cta: '公式サイトで詳しく見る',
     ctaHint: '新しいタブで公式サイトが開きます。',
     valueHeading: 'Surface Ultra の価値',
@@ -97,6 +103,8 @@ export const app1Text: Record<Lang, App1Text> = {
   en: {
     heroHeading: 'Surface Ultra',
     heroLead: 'The strongest immersion and the richest experience, for your creative and development work.',
+    heroEyebrow: 'A new Surface experience',
+    heroVisualLabel: 'Surface Ultra product image (placeholder): a laptop with a wide display open on a thin body',
     cta: 'Learn more on the official site',
     ctaHint: 'The official site opens in a new tab.',
     valueHeading: 'The value of Surface Ultra',
@@ -149,6 +157,8 @@ export const app1Text: Record<Lang, App1Text> = {
   zh: {
     heroHeading: 'Surface Ultra',
     heroLead: '最强的沉浸感与最丰富的体验，为您的创作与开发而生。',
+    heroEyebrow: '全新的 Surface 体验',
+    heroVisualLabel: 'Surface Ultra 产品图（占位）：轻薄机身上展开宽阔屏幕的笔记本电脑',
     cta: '前往官方网站了解详情',
     ctaHint: '官方网站将在新标签页中打开。',
     valueHeading: 'Surface Ultra 的价值',
@@ -201,6 +211,8 @@ export const app1Text: Record<Lang, App1Text> = {
   ko: {
     heroHeading: 'Surface Ultra',
     heroLead: '최강의 몰입감과 가장 풍부한 경험을, 당신의 제작과 개발에 선사합니다.',
+    heroEyebrow: '새로운 Surface 경험',
+    heroVisualLabel: 'Surface Ultra 제품 이미지(임시): 얇은 본체에 넓은 화면을 펼친 노트북',
     cta: '공식 사이트에서 자세히 보기',
     ctaHint: '공식 사이트가 새 탭에서 열립니다.',
     valueHeading: 'Surface Ultra의 가치',

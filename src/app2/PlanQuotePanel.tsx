@@ -5,7 +5,8 @@ import { Body1, Button, Caption1, Input, Subtitle2, makeStyles, tokens } from '@
 import { ErrorCircle16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
 import { Paged } from '../ui/Paged';
-import { spacing } from '../theme/theme';
+import { brandTokens, spacing } from '../theme/theme';
+import { PrimaryButton } from '../theme/BrandButton';
 import { beginRevision, cancelRevision, restoreVersion, saveRevision, applyStateOp, toDraft, type RevisableKind } from './operations';
 import { entityLabel } from './relations';
 import { StateBadge } from './ProjectBoard';
@@ -28,7 +29,8 @@ const useStyles = makeStyles({
     alignItems: 'center',
     gap: spacing.s,
     padding: spacing.xs,
-    borderRadius: tokens.borderRadiusMedium,
+    // NFR-UX-004 AC-093: カード（一覧の行・詳細）の角丸は PARAM-024 の範囲
+    borderRadius: brandTokens.radiusCard,
     border: `1px solid ${tokens.colorNeutralStroke2}`,
   },
   hint: { color: tokens.colorNeutralForeground2 },
@@ -174,9 +176,9 @@ export function PlanQuotePanel({ kind }: { kind?: RevisableKind } = {}) {
                 onChange={(_, d) => setDraft(d.value)}
                 input={{ 'data-testid': sel.kind === 'plan' ? 'plan-title' : 'quote-amount' } as object}
               />
-              <Button appearance="primary" onClick={save} data-testid={sel.kind === 'plan' ? 'save-plan' : 'save-quote'}>
+              <PrimaryButton onClick={save} data-testid={sel.kind === 'plan' ? 'save-plan' : 'save-quote'}>
                 {t('app2.save')}
-              </Button>
+              </PrimaryButton>
               <Button onClick={cancel} data-testid="cancel-revision">
                 {t('app2.cancel')}
               </Button>
@@ -190,17 +192,17 @@ export function PlanQuotePanel({ kind }: { kind?: RevisableKind } = {}) {
           )}
           <div className={s.row} data-testid="state-ops">
             {sel.kind === 'plan' ? (
-              <Button onClick={() => runOp('confirm')} data-testid="op-confirm-plan">
+              <PrimaryButton onClick={() => runOp('confirm')} data-testid="op-confirm-plan">
                 {t('app2.op.confirm')}
-              </Button>
+              </PrimaryButton>
             ) : (
               <>
-                <Button onClick={() => runOp('submit')} data-testid="op-submit-quote">
+                <PrimaryButton onClick={() => runOp('submit')} data-testid="op-submit-quote">
                   {t('app2.op.submit')}
-                </Button>
-                <Button onClick={() => runOp('approve')} data-testid="op-approve-quote">
+                </PrimaryButton>
+                <PrimaryButton onClick={() => runOp('approve')} data-testid="op-approve-quote">
                   {t('app2.op.approve')}
-                </Button>
+                </PrimaryButton>
               </>
             )}
             <Button onClick={() => runOp('draft')} data-testid="op-to-draft">

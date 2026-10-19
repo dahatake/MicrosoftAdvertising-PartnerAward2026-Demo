@@ -6,6 +6,7 @@ import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
 import { Paged } from '../ui/Paged';
 import { spacing } from '../theme/theme';
+import { PrimaryButton } from '../theme/BrandButton';
 import { kpisOfDeployment, saveUsage } from './operations';
 import { stateCode, stateKey } from './states';
 import { useDataset } from './store';
@@ -79,9 +80,9 @@ function UsageFields({
           <Label htmlFor="kpi-target-input-field">{t('app2.kpiTargetInput')}</Label>
           <Input id="kpi-target-input-field" type="number" value={target} onChange={(_, d) => setTarget(d.value)} input={{ 'data-testid': 'kpi-target-input' } as object} />
         </div>
-        <Button appearance="primary" onClick={save} data-testid="usage-save">
+        <PrimaryButton onClick={save} data-testid="usage-save">
           {t('app2.usageSave')}
-        </Button>
+        </PrimaryButton>
       </div>
       <ErrorText message={error} testId="usage-error" />
     </div>
