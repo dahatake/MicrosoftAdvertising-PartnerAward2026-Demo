@@ -50,33 +50,61 @@ describe('FR-009 AC-026 かんたん選択', () => {
   });
 });
 
-// FR-009 AC-027 くわしく選択
-describe('FR-009 AC-027 くわしく選択', () => {
-  it('4 要素を個別に変えると組合せと「いま: …」が更新され、プリセットから外れる', () => {
+// FR-009 AC-027 / FR-026 AC-109 くわしく選択（ボタン群）
+const openDetail = () => fireEvent.click(screen.getByTestId('camera-detail-open'));
+const radio = (part: string, v: string) =>
+  screen.getByTestId(`camera-group-${part}`).querySelector(`[role="radio"][data-value="${v}"]`) as HTMLElement;
+describe('FR-009 AC-027 FR-026 AC-109 くわしく選択', () => {
+  it('4 要素をボタン群で個別に変えると組合せと「いま: …」が更新され、プリセットから外れる', () => {
     wrap(<CameraSettings />);
+    openDetail();
     const before = screen.getByTestId('camera-combo').getAttribute('data-value');
-    fireEvent.change(screen.getByTestId('camera-detail-size'), { target: { value: 'extreme' } });
+    for (const p of PARTS) {
+      const g = screen.getByTestId(`camera-group-${p}`);
+      expect(g.getAttribute('role')).toBe('radiogroup');
+      expect(g.getAttribute('aria-label')).toBeTruthy();
+      expect(g.querySelector('select')).toBeNull();
+    }
+    fireEvent.click(radio('size', 'extreme'));
+    expect(radio('size', 'extreme').getAttribute('aria-checked')).toBe('true');
     expect(screen.getByTestId('camera-combo').getAttribute('data-value')).not.toBe(before);
     expect(getCameraSelection().preset).toBeNull();
     expect(screen.getByTestId('camera-now').textContent).toContain('ぐっと寄り');
     for (const p of PARTS) expect(PART_VALUES[p].length).toBeGreaterThan(1);
   });
+  // FR-026 AC-110 キーボードで移動・選択でき、選択中はテキスト（✓）でも示す
+  it('矢印キーで選択が移動し、選択中のボタンに ✓ が付く', () => {
+    wrap(<CameraSettings />);
+    openDetail();
+    const g = screen.getByTestId('camera-group-size');
+    const checked = () => g.querySelector('[aria-checked="true"]') as HTMLElement;
+    const first = checked();
+    expect(first.textContent).toContain('✓');
+    first.focus();
+    fireEvent.keyDown(g, { key: 'ArrowRight' });
+    expect(checked()).not.toBe(first);
+    expect(checked().getAttribute('data-value')).not.toBe(first.getAttribute('data-value'));
+  });
 });
 
-// FR-009 AC-028 2D で不可能な組合せのグレーアウトと理由
+// FR-009 AC-028 FR-026 AC-109 2D で不可能な組合せの無効化と理由
 describe('FR-009 AC-028 2D の制約', () => {
-  it('2D では上下の角度・奥行きの動きが無効（グレーアウト）で、理由が出る。3D では選べる', () => {
+  it('2D では上下の角度・奥行きの動きが無効（aria-disabled）で、理由が出る。3D では選べる', () => {
     set3dSupport(true);
     wrap(<CameraSettings />);
-    const opt = (part: string, v: string) =>
-      [...screen.getByTestId(`camera-detail-${part}`).querySelectorAll('option')].find((o) => o.value === v)!;
-    expect(opt('angle', 'high').disabled).toBe(true);
-    expect(opt('motion', 'orbit').disabled).toBe(true);
-    expect(opt('angle', 'high').textContent).toContain(CAMERA_LABELS.ja.only3d);
+    openDetail();
+    const dis = (part: string, v: string) => radio(part, v).getAttribute('aria-disabled') === 'true';
+    expect(dis('angle', 'high')).toBe(true);
+    expect(dis('motion', 'orbit')).toBe(true);
+    expect(radio('angle', 'high').getAttribute('title')).toContain(CAMERA_LABELS.ja.only3d);
     expect(screen.getByTestId('camera-2d-note').textContent).toBe(CAMERA_LABELS.ja.unavailable);
-    expect(opt('angle', 'level').disabled).toBe(false);
+    expect(screen.getByTestId('camera-disabled-reason').textContent).toBe(CAMERA_LABELS.ja.only3d);
+    const before = screen.getByTestId('camera-combo').getAttribute('data-value');
+    fireEvent.click(radio('angle', 'high'));
+    expect(screen.getByTestId('camera-combo').getAttribute('data-value')).toBe(before);
+    expect(dis('angle', 'level')).toBe(false);
     act(() => updateSettings({ viewMethod: '3d' }));
-    expect(opt('angle', 'high').disabled).toBe(false);
+    expect(dis('angle', 'high')).toBe(false);
     expect(screen.queryByTestId('camera-2d-note')).toBeNull();
   });
   it('2D の近似: 3D 専用の要素は近い表現に置換される', () => {
@@ -131,9 +159,10 @@ describe('FR-009 AC-032 文言', () => {
   });
   it('専門名は選択肢のツールチップ（title）にだけ出る', () => {
     wrap(<CameraSettings />);
+    openDetail();
     const text = document.body.textContent ?? '';
     expect(text).not.toContain('Shot Size');
     expect(text).not.toContain('Close-up');
-    expect(screen.getByTestId('camera-detail-size').querySelector('option[value="close"]')!.getAttribute('title')).toBe('Close-up');
+    expect(radio('size', 'close').getAttribute('title')).toBe('Close-up');
   });
 });

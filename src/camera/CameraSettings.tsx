@@ -1,29 +1,43 @@
 // CameraSettings: カメラワークの選択パネル（両アプリ共通）。かんたん選択（雰囲気のスライダーと 9 つのプリセット）と
-// くわしく選択（4 要素）。選択は即座に大きなプレビューと「いま: …」に反映され、localStorage に保存される。
-// data-testid: camera-simple-slider / camera-preset-<n> / camera-mini-preview / camera-now / camera-detail-<part> / camera-combo / camera-preview
-import { useRef } from 'react';
-import { Caption1, Subtitle2, Body1Strong, makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-components';
+// くわしく選択（4 要素。ボタン群。FR-026）。選択は即座に「いま: …」とプレビューに反映され、localStorage に保存される。
+// 1 画面に収める（FR-024）ため、全体を低い帯にまとめ、くわしく選択は「開く」で重ねて表示する（画面の高さを増やさない）。
+// data-testid: camera-simple-slider / camera-preset-<n> / camera-mini-preview / camera-now / camera-detail-open /
+//   camera-group-<part> / camera-disabled-reason / camera-combo / camera-preview
+import { useRef, useState } from 'react';
+import { Button, Caption1, Body1Strong, makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-components';
 import { spacing } from '../theme/theme';
+import { useT } from '../i18n/useT';
+import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useSettings } from '../settings/store';
 import { CAMERA_LABELS, TECH_NAMES } from './labels';
 import { PART_VALUES, PARTS, PRESETS, comboKey, isAvailable, type CameraCombo, type CameraPart } from './model';
 import { useCameraAnimation2d, useCameraWork } from './useCameraWork';
 
 const useStyles = makeStyles({
-  root: { display: 'flex', flexDirection: 'column', gap: spacing.m },
-  group: { display: 'flex', flexDirection: 'column', gap: spacing.s },
-  sliderRow: { display: 'flex', alignItems: 'center', gap: spacing.s },
-  slider: { flexGrow: 1, minHeight: '24px', accentColor: tokens.colorBrandBackground },
-  presets: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: spacing.s },
+  root: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2px',
+    padding: '2px 4px',
+    backgroundColor: tokens.colorNeutralBackground1,
+    border: `1px solid ${tokens.colorNeutralStroke2}`,
+    borderRadius: tokens.borderRadiusLarge,
+  },
+  bar: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: spacing.s },
+  sliderRow: { display: 'flex', alignItems: 'center', gap: spacing.xs, flexGrow: 1, minWidth: '200px' },
+  slider: { flexGrow: 1, minHeight: '20px', accentColor: tokens.colorBrandBackground },
+  presets: { display: 'grid', gridTemplateColumns: 'repeat(9, minmax(0, 1fr))', gap: spacing.xs },
   card: {
     display: 'flex',
     flexDirection: 'column',
-    gap: spacing.xs,
+    gap: '2px',
     alignItems: 'stretch',
     textAlign: 'start',
-    minHeight: '44px',
-    padding: spacing.s,
+    minHeight: '36px',
+    padding: '2px 4px',
     cursor: 'pointer',
+    fontFamily: 'inherit',
     color: tokens.colorNeutralForeground1,
     backgroundColor: tokens.colorNeutralBackground1,
     ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke1),
@@ -34,14 +48,15 @@ const useStyles = makeStyles({
     ...shorthands.border('2px', 'solid', tokens.colorBrandStroke1),
     backgroundColor: tokens.colorBrandBackground2,
   },
+  cardText: { fontSize: tokens.fontSizeBase100, lineHeight: tokens.lineHeightBase100, overflowWrap: 'anywhere' },
   stage: {
     position: 'relative',
     overflow: 'hidden',
-    height: '72px',
+    height: '16px',
     borderRadius: tokens.borderRadiusSmall,
     backgroundColor: tokens.colorNeutralBackground3,
   },
-  stageBig: { height: '140px' },
+  stageBig: { height: '28px', width: '96px', flexShrink: 0 },
   subject: {
     position: 'absolute',
     insetBlock: '22%',
@@ -50,16 +65,24 @@ const useStyles = makeStyles({
     backgroundColor: tokens.colorBrandBackground,
     boxShadow: tokens.shadow4,
   },
-  details: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: spacing.s },
-  field: { display: 'flex', flexDirection: 'column', gap: spacing.xs },
-  select: {
-    minHeight: '32px',
-    color: tokens.colorNeutralForeground1,
+  popover: {
+    position: 'absolute',
+    insetInlineStart: 0,
+    insetInlineEnd: 0,
+    top: '100%',
+    zIndex: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: spacing.xs,
+    padding: spacing.s,
+    marginTop: '2px',
     backgroundColor: tokens.colorNeutralBackground1,
-    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke1),
-    borderRadius: tokens.borderRadiusMedium,
-    paddingInline: spacing.s,
+    border: `1px solid ${tokens.colorNeutralStroke1}`,
+    borderRadius: tokens.borderRadiusLarge,
+    boxShadow: tokens.shadow16,
   },
+  details: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: spacing.s },
+  field: { display: 'flex', flexDirection: 'column', gap: spacing.xs },
 });
 
 /** 動く見本（2D の近似）。reduced のときは動かさず静止で表示する */
@@ -85,15 +108,13 @@ export function CameraSettings() {
     return isAvailable(part, v, cw.method) ? name : `${name} — ${l.only3d}`;
   };
   const has3dOnly = cw.method === '2d';
+  const t = useT();
+  const [detailOpen, setDetailOpen] = useState(false);
 
   return (
-    <section className={s.root} aria-labelledby="camera-heading" data-testid="camera-settings">
-      <Subtitle2 as="h3" id="camera-heading">
-        {l.title}
-      </Subtitle2>
-
-      <div className={s.group}>
-        <Body1Strong>{l.simple}</Body1Strong>
+    <section className={s.root} aria-label={l.title} data-testid="camera-settings">
+      <div className={s.bar}>
+        <Body1Strong>{l.title}</Body1Strong>
         <div className={s.sliderRow}>
           <Caption1>{l.calm}</Caption1>
           <input
@@ -110,57 +131,65 @@ export function CameraSettings() {
           />
           <Caption1>{l.flashy}</Caption1>
         </div>
-        <div className={s.presets} role="radiogroup" aria-label={l.simple}>
-          {PRESETS.map((p, n) => (
-            <button
-              key={n}
-              type="button"
-              role="radio"
-              aria-checked={cw.preset === n}
-              className={mergeClasses(s.card, cw.preset === n && s.cardOn)}
-              data-testid={`camera-preset-${n}`}
-              onClick={() => cw.selectPreset(n)}
-            >
-              <Stage combo={p} reduced={cw.reducedMotion} testId="camera-mini-preview" />
-              <Caption1>{l.presets[n]}</Caption1>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className={s.group}>
-        <Body1Strong>{l.detail}</Body1Strong>
-        <div className={s.details}>
-          {PARTS.map((part) => (
-            <label key={part} className={s.field}>
-              <Caption1>{l.partNames[part]}</Caption1>
-              <select
-                className={s.select}
-                value={cw.combo[part]}
-                data-testid={`camera-detail-${part}`}
-                onChange={(e) => cw.setPart(part, e.target.value as never)}
-              >
-                {PART_VALUES[part].map((v) => (
-                  <option key={v} value={v} disabled={!isAvailable(part, v, cw.method)} title={(TECH_NAMES[part] as Record<string, string>)[v]}>
-                    {detailText(part, v)}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ))}
-        </div>
-        {has3dOnly && <Caption1 data-testid="camera-2d-note">{l.unavailable}</Caption1>}
-      </div>
-
-      <div className={s.group}>
         <Body1Strong data-testid="camera-now" role="status">
           {cw.now}
         </Body1Strong>
+        <Caption1 data-testid="camera-combo" data-value={cw.key} data-max-duration-ms={String(cw.maxDurationMs)}>
+          {PARTS.map((part) => (l[part] as Record<string, string>)[cw.combo[part]]).join(' / ')}
+        </Caption1>
         <Stage combo={cw.combo} reduced={cw.reducedMotion} big testId="camera-preview" />
+        <Button size="small" appearance="secondary" aria-expanded={detailOpen} data-testid="camera-detail-open" onClick={() => setDetailOpen((v) => !v)}>
+          {detailOpen ? t('camera.detailClose') : t('camera.detailOpen')}
+        </Button>
         {cw.reducedMotion && <Caption1>{l.reducedNote}</Caption1>}
         {comboKey(cw.effective) !== cw.key && <Caption1>{l.fallbackNote}</Caption1>}
       </div>
-      <span hidden data-testid="camera-combo" data-value={cw.key} data-max-duration-ms={String(cw.maxDurationMs)} />
+      <div className={s.presets} role="radiogroup" aria-label={l.simple}>
+        {PRESETS.map((p, n) => (
+          <button
+            key={n}
+            type="button"
+            role="radio"
+            aria-checked={cw.preset === n}
+            className={mergeClasses(s.card, cw.preset === n && s.cardOn)}
+            data-testid={`camera-preset-${n}`}
+            onClick={() => cw.selectPreset(n)}
+          >
+            <Stage combo={p} reduced={cw.reducedMotion} testId="camera-mini-preview" />
+            <span className={s.cardText}>{l.presets[n]}</span>
+          </button>
+        ))}
+      </div>
+      {detailOpen && (
+        <div className={s.popover} role="group" aria-label={l.detail} data-testid="camera-detail">
+          <Body1Strong>{l.detail}</Body1Strong>
+          <div className={s.details}>
+            {PARTS.map((part) => (
+              <div key={part} className={s.field}>
+                <Caption1>{l.partNames[part]}</Caption1>
+                <ChoiceButtons
+                  label={l.partNames[part]}
+                  testId={`camera-group-${part}`}
+                  value={cw.combo[part]}
+                  onChange={(v) => cw.setPart(part, v as never)}
+                  options={PART_VALUES[part].map((v) => ({
+                    value: v,
+                    label: (l[part] as Record<string, string>)[v],
+                    title: isAvailable(part, v, cw.method) ? (TECH_NAMES[part] as Record<string, string>)[v] : detailText(part, v),
+                    disabled: !isAvailable(part, v, cw.method),
+                  }))}
+                />
+              </div>
+            ))}
+          </div>
+          {has3dOnly && <Caption1 data-testid="camera-2d-note">{l.unavailable}</Caption1>}
+          {has3dOnly && (
+            <Caption1 data-testid="camera-disabled-reason" role="note">
+              {l.only3d}
+            </Caption1>
+          )}
+        </div>
+      )}
     </section>
   );
 }

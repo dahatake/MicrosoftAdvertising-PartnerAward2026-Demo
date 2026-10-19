@@ -20,6 +20,7 @@ import {
   type Representation,
 } from './index';
 import { resetSettings } from '../settings/store';
+import { choose } from '../ui/choose';
 
 const wrap = (ui: React.ReactNode) => render(<FluentProvider theme={webLightTheme}>{ui}</FluentProvider>);
 
@@ -166,7 +167,7 @@ describe('FR-018 表現の切替', () => {
       <PersonaBar persona="P-3" representation="graph" onPersona={(p) => got.push(p)} onRepresentation={(r) => got.push(r)} />,
     );
     fireEvent.change(screen.getByTestId('persona-select'), { target: { value: 'P-4' } });
-    fireEvent.change(screen.getByTestId('representation-select'), { target: { value: 'table' } });
+    choose(screen.getByTestId('representation-select'), 'table');
     expect(got).toEqual(['P-4', 'table']);
   });
 });

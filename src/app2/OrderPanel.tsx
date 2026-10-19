@@ -1,7 +1,9 @@
 // 外部発注の管理（FR-017）: 発注先・金額・納期・状態で登録・一覧・更新する。状態は 依頼前→発注済→納品済→検収済 の順にだけ進める。
 import { useState } from 'react';
-import { Badge, Body1, Button, Input, Label, Select, makeStyles, tokens } from '@fluentui/react-components';
+import { Badge, Body1, Button, Input, Label, makeStyles, tokens } from '@fluentui/react-components';
+import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
+import { Paged } from '../ui/Paged';
 import { spacing } from '../theme/theme';
 import { advanceOrder, isLastOrderState, registerOrder } from './operations';
 import { formatYen } from './progress';
@@ -11,7 +13,7 @@ import { ErrorText, useFailText } from './ui';
 
 const useStyles = makeStyles({
   stack: { display: 'flex', flexDirection: 'column', gap: spacing.m },
-  fields: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: spacing.m },
+  fields: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: spacing.s },
   field: { display: 'flex', flexDirection: 'column', gap: spacing.xs },
   list: { listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: spacing.xs },
   row: {
@@ -26,7 +28,7 @@ const useStyles = makeStyles({
   hint: { color: tokens.colorNeutralForeground2 },
 });
 
-export function OrderPanel({ projectId }: { projectId?: string | null }) {
+export function OrderPanel({ projectId, pageSize = 1000 }: { projectId?: string | null; pageSize?: number }) {
   const s = useStyles();
   const t = useT();
   const data = useDataset();
@@ -53,25 +55,25 @@ export function OrderPanel({ projectId }: { projectId?: string | null }) {
     <div className={s.stack}>
       <div className={s.fields} data-testid="order-form">
         <div className={s.field}>
-          <Label htmlFor="order-project-input">{t('app2.projects')}</Label>
-          <Select id="order-project-input" value={effectiveProject} onChange={(_, d) => setProject(d.value)} select={{ 'data-testid': 'order-project' } as object}>
-            {data.projects.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </Select>
+          <Label>{t('app2.projects')}</Label>
+          <ChoiceButtons
+            label={t('app2.projects')}
+            testId="order-project"
+            pageSize={4}
+            value={effectiveProject}
+            onChange={setProject}
+            options={data.projects.map((p) => ({ value: p.id, label: p.name }))}
+          />
         </div>
         <div className={s.field}>
-          <Label htmlFor="order-vendor-input">{t('app2.vendor')}</Label>
-          <Select id="order-vendor-input" value={vendor} onChange={(_, d) => setVendor(d.value)} select={{ 'data-testid': 'order-vendor' } as object}>
-            <option value="">{t('app2.select')}</option>
-            {data.vendors.map((v) => (
-              <option key={v.id} value={v.id}>
-                {v.name}
-              </option>
-            ))}
-          </Select>
+          <Label>{t('app2.vendor')}</Label>
+          <ChoiceButtons
+            label={t('app2.vendor')}
+            testId="order-vendor"
+            value={vendor}
+            onChange={setVendor}
+            options={data.vendors.map((v) => ({ value: v.id, label: v.name }))}
+          />
         </div>
         <div className={s.field}>
           <Label htmlFor="order-amount-input">{t('app2.amount')}</Label>
@@ -88,8 +90,9 @@ export function OrderPanel({ projectId }: { projectId?: string | null }) {
       <ErrorText message={error} testId="order-error" />
       <ErrorText message={advanceError} testId="order-advance-error" />
       {data.orders.length === 0 && <Body1 className={s.hint}>{t('app2.none')}</Body1>}
+      <Paged items={data.orders} pageSize={pageSize} testId="order">{(vis) => (
       <ul className={s.list} data-testid="order-list" aria-label={t('app2.orders')}>
-        {data.orders.map((o) => {
+        {vis.map((o) => {
           const vendorName = data.vendors.find((v) => v.id === o.vendorId)?.name ?? o.vendorId;
           const projectName = data.projects.find((p) => p.id === o.projectId)?.name ?? o.projectId;
           const key = stateKey(o.state);
@@ -117,6 +120,7 @@ export function OrderPanel({ projectId }: { projectId?: string | null }) {
           );
         })}
       </ul>
+      )}</Paged>
     </div>
   );
 }

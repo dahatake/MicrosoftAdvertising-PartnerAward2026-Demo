@@ -2,6 +2,7 @@
 import { Badge, Body1, Button, Caption1, ProgressBar, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
 import { Warning16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
+import { Paged } from '../ui/Paged';
 import { spacing } from '../theme/theme';
 import { formatYen, isOverBudget, kpisOfProject, projectStatusKey, spentPercent } from './progress';
 import { stateCode, stateKey } from './states';
@@ -55,14 +56,15 @@ export function ProjectList({
   const data = useDataset();
   const projects = data.projects.filter((p) => !campaignId || p.campaignId === campaignId);
   return (
-    <div className={s.list} role="listbox" data-testid="project-list" aria-label={t('app2.projects')}>
-      {projects.map((p) => (
+    <Paged items={projects} pageSize={3} testId="project">{(vis) => (
+    <div className={s.list} role="radiogroup" data-testid="project-list" aria-label={t('app2.projects')}>
+      {vis.map((p) => (
         <Button
           key={p.id}
-          role="option"
+          role="radio"
           className={s.item}
           appearance={p.id === selectedId ? 'primary' : 'subtle'}
-          aria-selected={p.id === selectedId}
+          aria-checked={p.id === selectedId}
           data-testid="project-item"
           data-entity-id={p.id}
           onClick={() => onSelect(p.id)}
@@ -75,6 +77,7 @@ export function ProjectList({
         </Button>
       ))}
     </div>
+    )}</Paged>
   );
 }
 

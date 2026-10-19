@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Body1, Button, Caption1, Input, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
 import { ErrorCircle16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
+import { Paged } from '../ui/Paged';
 import { spacing } from '../theme/theme';
 import { beginRevision, cancelRevision, restoreVersion, saveRevision, applyStateOp, toDraft, type RevisableKind } from './operations';
 import { entityLabel } from './relations';
@@ -15,7 +16,8 @@ import type { VersionRecord } from './types';
 import { ErrorText, useFailText } from './ui';
 
 const useStyles = makeStyles({
-  stack: { display: 'flex', flexDirection: 'column', gap: spacing.m },
+  stack: { display: 'flex', flexDirection: 'column', gap: spacing.s },
+  cols: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: spacing.m },
   group: { display: 'flex', flexDirection: 'column', gap: spacing.xs },
   item: { justifyContent: 'flex-start', textAlign: 'start', minHeight: '32px', width: '100%' },
   row: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: spacing.s },
@@ -38,7 +40,7 @@ interface Sel {
   id: string;
 }
 
-export function PlanQuotePanel() {
+export function PlanQuotePanel({ kind }: { kind?: RevisableKind } = {}) {
   const s = useStyles();
   const t = useT();
   const data = useDataset();
@@ -109,16 +111,18 @@ export function PlanQuotePanel() {
   };
 
   return (
-    <div className={s.stack}>
-      <div className={s.group} role="listbox" aria-label={t('app2.plans')} data-testid="plan-list">
+    <div className={s.cols}>
+     <div className={s.stack}>
+      {(!kind || kind === 'plan') && (
+      <div className={s.group} role="radiogroup" aria-label={t('app2.plans')} data-testid="plan-list">
         <Caption1>{t('app2.plans')}</Caption1>
-        {data.plans.map((p) => (
+        <Paged items={data.plans} pageSize={4} testId="plan">{(vis) => vis.map((p) => (
           <Button
             key={p.id}
-            role="option"
+            role="radio"
             className={s.item}
             appearance={sel?.id === p.id ? 'primary' : 'subtle'}
-            aria-selected={sel?.id === p.id}
+            aria-checked={sel?.id === p.id}
             data-testid="plan-item"
             data-state={stateCode(p.state)}
             data-entity-id={p.id}
@@ -126,17 +130,19 @@ export function PlanQuotePanel() {
           >
             {entityLabel('plan', p)}
           </Button>
-        ))}
+        ))}</Paged>
       </div>
-      <div className={s.group} role="listbox" aria-label={t('app2.quotes')} data-testid="quote-list">
+      )}
+      {(!kind || kind === 'quote') && (
+      <div className={s.group} role="radiogroup" aria-label={t('app2.quotes')} data-testid="quote-list">
         <Caption1>{t('app2.quotes')}</Caption1>
-        {data.quotes.map((q) => (
+        <Paged items={data.quotes} pageSize={4} testId="quote">{(vis) => vis.map((q) => (
           <Button
             key={q.id}
-            role="option"
+            role="radio"
             className={s.item}
             appearance={sel?.id === q.id ? 'primary' : 'subtle'}
-            aria-selected={sel?.id === q.id}
+            aria-checked={sel?.id === q.id}
             data-testid="quote-item"
             data-state={stateCode(q.state)}
             data-entity-id={q.id}
@@ -144,8 +150,10 @@ export function PlanQuotePanel() {
           >
             {entityLabel('quote', q)}
           </Button>
-        ))}
+        ))}</Paged>
       </div>
+      )}
+     </div>
       {!sel || !entity ? (
         <Body1 className={s.hint}>{t('app2.selectPlanQuote')}</Body1>
       ) : (
@@ -217,23 +225,25 @@ export function PlanQuotePanel() {
           <ErrorText message={error} testId="revision-error" />
           <div className={s.group}>
             <Caption1>{t('app2.history')}</Caption1>
-            <ul className={s.list} data-testid="version-history">
-              {rows.map((r) => (
-                <li key={r.version} className={s.version} data-testid="version-row" data-version={r.version}>
-                  <strong>
-                    {t('app2.version')} {r.version}
-                  </strong>
-                  <span>{new Date(r.at).toLocaleString('ja-JP')}</span>
-                  <span>{r.states.map(stateText).join(' → ')}</span>
-                  <span data-testid="version-op" data-operation={r.operation ?? ''}>{describe(r)}</span>
-                  {r.version !== latest && (
-                    <Button size="small" onClick={() => restore(r.version)} data-testid="version-restore" disabled={editing}>
-                      {t('app2.restore')}
-                    </Button>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <Paged items={rows} pageSize={3} testId="version">{(vis) => (
+              <ul className={s.list} data-testid="version-history">
+                {vis.map((r) => (
+                  <li key={r.version} className={s.version} data-testid="version-row" data-version={r.version}>
+                    <strong>
+                      {t('app2.version')} {r.version}
+                    </strong>
+                    <span>{new Date(r.at).toLocaleString('ja-JP')}</span>
+                    <span>{r.states.map(stateText).join(' → ')}</span>
+                    <span data-testid="version-op" data-operation={r.operation ?? ''}>{describe(r)}</span>
+                    {r.version !== latest && (
+                      <Button size="small" onClick={() => restore(r.version)} data-testid="version-restore" disabled={editing}>
+                        {t('app2.restore')}
+                      </Button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}</Paged>
           </div>
         </div>
       )}

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Body1, Button, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
+import { Paged } from '../ui/Paged';
 import { spacing } from '../theme/theme';
 import { NodeDetail } from './NodeDetail';
 import { RelationView } from './RelationView';
@@ -20,8 +21,9 @@ export function CampaignList({ selectedId, onSelect }: { selectedId: string | nu
   const t = useT();
   const data = useDataset();
   return (
+    <Paged items={data.campaigns} pageSize={4} testId="campaign">{(vis) => (
     <ul className={s.list} data-testid="campaign-list" aria-label={t('app2.campaigns')}>
-      {data.campaigns.map((c) => (
+      {vis.map((c) => (
         <li key={c.id}>
           <Button
             className={s.item}
@@ -36,6 +38,7 @@ export function CampaignList({ selectedId, onSelect }: { selectedId: string | nu
         </li>
       ))}
     </ul>
+    )}</Paged>
   );
 }
 
