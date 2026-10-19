@@ -9,11 +9,23 @@
 //   camera-simple-slider / camera-preset-<n:0..8> / camera-now / camera-detail-size|angle|motion|character
 //   camera-combo / camera-mini-preview
 //   layout-panel-<id> / layout-menu-<id> / layout-reset / layout-save-note / panel-input / command-palette
+// 【2026-10-19 更新（FR-024〜026・AC-080 Q-006 A）】App2 は業務領域ごとに 1 領域ずつ表示する（左メニュー nav-item-<key>、
+//   領域の画面は area-root-<key>）。パネルの ID は実装の割当に依存させず、領域の中の最初の layout-panel-* と、
+//   その layout-menu-<同じ id> を使う。くわしく選択は camera-detail-open で開き、camera-group-<part> のボタン群
+//   （role=radiogroup、各ボタン role=radio・aria-checked）で選ぶ（select は使わない）。
 // 環境変数 BASE_URL（既定 http://localhost:5173）。
 import { test, expect, Page } from '@playwright/test';
+import { go } from './app2-helpers';
 
 const T = (page: Page, id: string) => page.getByTestId(id);
 const goto = async (page: Page) => { await page.goto('/'); };
+/** 領域 key の最初のパネルの要素と、その layout-menu-<id> */
+async function firstPanel(page: Page, key: string) {
+  const el = T(page, `area-root-${key}`).locator('[data-testid^="layout-panel-"]').first();
+  const tid = (await el.getAttribute('data-testid'))!;
+  const id = tid.replace('layout-panel-', '');
+  return { id, panel: T(page, tid), menu: T(page, `layout-menu-${id}`) };
+}
 
 test.use({ baseURL: process.env.BASE_URL ?? 'http://localhost:5173' });
 
@@ -162,6 +174,7 @@ test('FR-008 AC-023 2D→3D で同じ ID 集合の項目が表示され、選択
   await goto(page);
   // AC-023 は App1 のペルソナを指定しない。シェルのトグルで App2 の DualView 例を使う。
   await T(page, 'app-toggle-app2').click();
+  await go(page, 'relation');
   const ids = () => page.locator('[data-item-id]').evaluateAll(es => es.map(e => e.getAttribute('data-item-id')).sort());
   const before = await ids();
   expect(before.length).toBeGreaterThan(0);
@@ -191,14 +204,25 @@ test('FR-009 AC-027 くわしく選択で 4 要素を個別に変更でき、「
   await T(page, 'app-toggle-app2').click();
   const combo0 = await T(page, 'camera-combo').getAttribute('data-value');
   const now0 = await T(page, 'camera-now').innerText();
+  await T(page, 'camera-detail-open').click();
   for (const k of ['size', 'angle', 'motion', 'character']) {
-    const sel = T(page, `camera-detail-${k}`);
-    const opts = await sel.locator('option').count();
-    expect(opts).toBeGreaterThan(1);
+    const grp = T(page, `camera-group-${k}`);
+    await expect(grp.locator('select')).toHaveCount(0); // AC-109: select ではなくボタン群
+    const radios = grp.getByRole('radio');
+    expect(await radios.count()).toBeGreaterThan(1);
     const before = await T(page, 'camera-combo').getAttribute('data-value');
-    await sel.selectOption({ index: opts - 1 });
-    await sel.selectOption({ index: 0 }).catch(() => {});
-    await sel.selectOption({ index: opts - 1 });
+    // 現在選択中でなく、無効でない（2D で表現できる）ボタンを選ぶ
+    let done = false;
+    for (let i = 0; i < await radios.count(); i++) {
+      const r = radios.nth(i);
+      if ((await r.getAttribute('aria-checked')) !== 'true' && (await r.isEnabled())) {
+        await r.click();
+        await expect(r).toHaveAttribute('aria-checked', 'true');
+        done = true;
+        break;
+      }
+    }
+    expect(done, `${k} に選べるボタンがある`).toBe(true);
     expect(await T(page, 'camera-combo').getAttribute('data-value')).not.toBe(before);
   }
   expect(await T(page, 'camera-combo').getAttribute('data-value')).not.toBe(combo0);
@@ -222,15 +246,16 @@ test('FR-009 AC-030 「動きを減らす」設定ではミニプレビューも
 test('FR-010 AC-033 パネルの移動・サイズ変更・タブ化・非表示・最大化が即反映される', async ({ page }) => {
   await goto(page);
   await T(page, 'app-toggle-app2').click();
-  const p = T(page, 'layout-panel-1');
+  await go(page, 'relation');
+  const { panel: p, menu } = await firstPanel(page, 'relation');
   const w0 = (await p.boundingBox())!.width;
-  await T(page, 'layout-menu-1').click();
+  await menu.click();
   await page.getByRole('menuitem', { name: /widen|wider|広く|拡大|넓|宽/i }).click();
   expect((await p.boundingBox())!.width).not.toBe(w0);
-  await T(page, 'layout-menu-1').click();
+  await menu.click();
   await page.getByRole('menuitem', { name: /maxim|最大|최대/i }).click();
   await expect(p).toHaveAttribute('data-maximized', 'true');
-  await T(page, 'layout-menu-1').click();
+  await menu.click();
   await page.getByRole('menuitem', { name: /hide|非表示|숨|隐藏/i }).click();
   await expect(p).toBeHidden();
 });
@@ -238,23 +263,27 @@ test('FR-010 AC-033 パネルの移動・サイズ変更・タブ化・非表示
 test('FR-010 AC-034 レイアウトは localStorage に保存・再訪で復元・「既定に戻す」で戻る', async ({ page }) => {
   await goto(page);
   await T(page, 'app-toggle-app2').click();
-  await T(page, 'layout-menu-1').click();
+  await go(page, 'relation');
+  const { id, panel: p, menu } = await firstPanel(page, 'relation');
+  await menu.click();
   await page.getByRole('menuitem', { name: /hide|非表示|숨|隐藏/i }).click();
-  await expect(T(page, 'layout-panel-1')).toBeHidden();
+  await expect(p).toBeHidden();
   expect(await page.evaluate(() => Object.keys(localStorage).some(k => /layout/i.test(k)))).toBe(true);
   await page.reload();
   await T(page, 'app-toggle-app2').click();
-  await expect(T(page, 'layout-panel-1')).toBeHidden();
+  await go(page, 'relation');
+  await expect(T(page, `layout-panel-${id}`)).toBeHidden();
   await T(page, 'layout-reset').click();
-  await expect(T(page, 'layout-panel-1')).toBeVisible();
+  await expect(T(page, `layout-panel-${id}`)).toBeVisible();
 });
 
 test('FR-010 AC-035 キーボードのメニュー操作でもドラッグと同じ結果（移動・サイズ変更）になる', async ({ page }) => {
   await goto(page);
   await T(page, 'app-toggle-app2').click();
-  const p = T(page, 'layout-panel-1');
+  await go(page, 'relation');
+  const { panel: p, menu } = await firstPanel(page, 'relation');
   const b0 = (await p.boundingBox())!;
-  await T(page, 'layout-menu-1').focus();
+  await menu.focus();
   await page.keyboard.press('Enter');
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
@@ -265,8 +294,20 @@ test('FR-010 AC-035 キーボードのメニュー操作でもドラッグと同
 test('FR-010 AC-037 レイアウトを変更しても入力中の内容・選択中の対象が失われない', async ({ page }) => {
   await goto(page);
   await T(page, 'app-toggle-app2').click();
+  await go(page, 'relation');
   await T(page, 'panel-input').fill('入力中のテキスト');
-  await T(page, 'layout-menu-1').click();
+  await T(page, 'campaign-item').first().click();
+  const sel = await T(page, 'campaign-item').first().getAttribute('data-entity-id');
+  // 入力欄を含むパネルとは別の最初のパネルで大きさを変える（入力欄のパネルは残る）
+  const { menu } = await firstPanel(page, 'relation');
+  await menu.click();
+  await page.getByRole('menuitem', { name: /widen|wider|広く|拡大|넓|宽/i }).click();
+  await expect(T(page, 'panel-input')).toHaveValue('入力中のテキスト');
+  await expect(page.locator(`[data-testid="campaign-item"][data-entity-id="${sel}"]`)).toBeVisible();
+  // 異常系: 入力欄のあるパネルを最大化しても入力内容は失われない
+  const memoPanel = T(page, 'area-root-relation').locator('[data-testid^="layout-panel-"]').filter({ has: T(page, 'panel-input') });
+  const memoId = ((await memoPanel.getAttribute('data-testid')) ?? '').replace('layout-panel-', '');
+  await T(page, `layout-menu-${memoId}`).click();
   await page.getByRole('menuitem', { name: /maxim|最大|최대/i }).click();
   await expect(T(page, 'panel-input')).toHaveValue('入力中のテキスト');
 });
