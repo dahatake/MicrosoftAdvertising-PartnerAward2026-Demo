@@ -70,8 +70,8 @@ const useStyles = makeStyles({
   tabIdle: {
     backgroundColor: tokens.colorTransparentBackground,
     color: brandTokens.foregroundOnDark,
-    ':enabled:hover': { backgroundColor: 'rgba(255, 255, 255, 0.12)', color: brandTokens.foregroundOnDark },
-    ':enabled:active': { backgroundColor: 'rgba(255, 255, 255, 0.2)', color: brandTokens.foregroundOnDark },
+    ':enabled:hover': { backgroundColor: brandTokens.surfaceOnDarkHover, color: brandTokens.foregroundOnDark },
+    ':enabled:active': { backgroundColor: brandTokens.surfaceOnDarkPressed, color: brandTokens.foregroundOnDark },
   },
   // ヘッダー帯の下の共通操作（表示方法・カメラワーク・レイアウト・素材登録・コマンド・言語）。テーマの面に追従する
   toolbar: {
