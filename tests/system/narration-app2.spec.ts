@@ -123,7 +123,8 @@ test('FR-012 AC-042 3D にしても同じノードと関連が表示され、選
   await expect(v3).toBeVisible();
   const ids3d = (await v3.getByTestId('relation-node').evaluateAll((els) => els.map((e) => e.getAttribute('data-entity-id')))).sort();
   expect(ids3d).toEqual(ids2d);
-  await expect(v3.locator(`[data-entity-id="${selected}"]`)).toHaveAttribute('aria-selected', 'true');
+  // 選択状態は radio の aria-checked で表される
+  await expect(v3.locator(`[data-testid="relation-node"][data-entity-id="${selected}"]`)).toHaveAttribute('aria-checked', 'true');
   await expect(page.getByTestId('node-detail')).toBeVisible();
 });
 
@@ -216,10 +217,10 @@ test('FR-017 AC-051 発注を登録し状態を順に進められ、一覧で発
   await app2(page);
   await go(page, 'order');
   await pick(page, 'order-vendor');
-  await page.getByTestId('order-amount').fill('450000');
+  await page.getByTestId('order-amount').fill('451234'); // 初期データと重ならない金額にする
   await page.getByTestId('order-due').fill('2026-12-31');
   await page.getByTestId('order-register').click();
-  const row = await findOnPages(page, page.getByTestId('order-row').filter({ hasText: /450000|450,000/ }));
+  const row = await findOnPages(page, page.getByTestId('order-row').filter({ hasText: /451234|451,234/ }));
   await expect(row).toContainText('2026-12-31');
   await expect(row).toContainText(/依頼前|Not requested/);
   for (const s of [/発注済|Ordered/, /納品済|Delivered/, /検収済|Accepted/]) {

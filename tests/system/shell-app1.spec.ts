@@ -175,14 +175,19 @@ test('FR-008 AC-023 2D→3D で同じ ID 集合の項目が表示され、選択
   // AC-023 は App1 のペルソナを指定しない。シェルのトグルで App2 の DualView 例を使う。
   await T(page, 'app-toggle-app2').click();
   await go(page, 'relation');
-  const ids = () => page.locator('[data-item-id]').evaluateAll(es => es.map(e => e.getAttribute('data-item-id')).sort());
+  // 項目（関係図のノード）はキャンペーンを選ぶと表示される。選択状態は aria-checked / aria-selected / data-selected
+  await T(page, 'campaign-item').first().click();
+  const ids = () => T(page, 'relation-node').evaluateAll(es => es.map(e => e.getAttribute('data-entity-id')).sort());
   const before = await ids();
   expect(before.length).toBeGreaterThan(0);
-  await page.locator('[data-item-id]').first().click();
-  const selected = await page.locator('[aria-selected=true][data-item-id], [data-selected=true][data-item-id]').first().getAttribute('data-item-id');
+  await T(page, 'relation-node').nth(1).click();
+  const selected = await T(page, 'relation-node').nth(1).getAttribute('data-entity-id');
   await T(page, 'view-mode-3d').click();
   expect(await ids()).toEqual(before);
-  await expect(page.locator(`[data-item-id="${selected}"][aria-selected=true], [data-item-id="${selected}"][data-selected=true]`)).toBeVisible();
+  await expect(page.locator(`[data-testid="relation-node"][data-entity-id="${selected}"][aria-checked=true], [data-testid="relation-node"][data-entity-id="${selected}"][aria-selected=true]`)).toBeVisible();
+  // 3D の DualView も同じ ID 集合を持つ
+  const dual = await page.locator('[data-item-id]').evaluateAll(es => [...new Set(es.map(e => e.getAttribute('data-item-id')))].sort());
+  expect(dual).toEqual(before);
 });
 
 // ---------- FR-009 ----------
@@ -297,13 +302,13 @@ test('FR-010 AC-037 レイアウトを変更しても入力中の内容・選択
   await go(page, 'relation');
   await T(page, 'panel-input').fill('入力中のテキスト');
   await T(page, 'campaign-item').first().click();
-  const sel = await T(page, 'campaign-item').first().getAttribute('data-entity-id');
+  const sel = await T(page, 'campaign-item').first().getAttribute('data-campaign-id');
   // 入力欄を含むパネルとは別の最初のパネルで大きさを変える（入力欄のパネルは残る）
   const { menu } = await firstPanel(page, 'relation');
   await menu.click();
   await page.getByRole('menuitem', { name: /widen|wider|広く|拡大|넓|宽/i }).click();
   await expect(T(page, 'panel-input')).toHaveValue('入力中のテキスト');
-  await expect(page.locator(`[data-testid="campaign-item"][data-entity-id="${sel}"]`)).toBeVisible();
+  await expect(page.locator(`[data-testid="campaign-item"][data-campaign-id="${sel}"]`)).toHaveAttribute('aria-pressed', 'true');
   // 異常系: 入力欄のあるパネルを最大化しても入力内容は失われない
   const memoPanel = T(page, 'area-root-relation').locator('[data-testid^="layout-panel-"]').filter({ has: T(page, 'panel-input') });
   const memoId = ((await memoPanel.getAttribute('data-testid')) ?? '').replace('layout-panel-', '');
