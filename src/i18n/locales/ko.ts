@@ -3,6 +3,7 @@ import type { Messages } from './ja';
 export const ko: Messages = {
   'app.title': 'MicrosoftAdvertising-PartnerAward2026-Demo',
   'shell.appSwitch': '앱 전환',
+  'shell.brandNotice': '가상의 제품이며 비공식 데모입니다(사양·로고·동영상은 임시 가안이며, 실제 Microsoft／Surface 공식 사이트가 아닙니다).',
   'shell.app1': 'App1 광고 캠페인 사이트',
   'shell.app2': 'App2 광고 소재 관리',
   'shell.camera': '카메라워크',

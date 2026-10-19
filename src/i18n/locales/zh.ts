@@ -3,6 +3,7 @@ import type { Messages } from './ja';
 export const zh: Messages = {
   'app.title': 'MicrosoftAdvertising-PartnerAward2026-Demo',
   'shell.appSwitch': '切换应用',
+  'shell.brandNotice': '虚构产品，非官方演示（规格、标志和视频均为占位内容，并非真实的 Microsoft／Surface 官方网站）。',
   'shell.app1': 'App1 广告活动网站',
   'shell.app2': 'App2 广告素材管理',
   'shell.camera': '镜头运动',
