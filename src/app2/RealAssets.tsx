@@ -2,7 +2,7 @@
 // 再生前に第三者へ通信するのはサムネイル画像の取得だけ。「再生」を選んだときだけ埋め込み（iframe）に切り替える（AC-115）。
 // 読み込めないときは仮置き表示と、原因・次の行動を示す（AC-114）。
 import { useState } from 'react';
-import { Body1, Button, Caption1, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
+import { Button, Caption1, makeStyles, tokens } from '@fluentui/react-components';
 import { Image20Regular } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
@@ -16,24 +16,24 @@ const PLACEHOLDER_THUMB =
 
 const useStyles = makeStyles({
   stack: { display: 'flex', flexDirection: 'column', gap: spacing.s },
-  list: { listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexWrap: 'wrap', gap: spacing.m },
+  list: { listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexWrap: 'wrap', gap: spacing.xs },
   item: {
     display: 'flex',
-    gap: spacing.m,
+    gap: spacing.s,
     alignItems: 'flex-start',
-    padding: spacing.s,
+    padding: spacing.xs,
     borderRadius: tokens.borderRadiusMedium,
     border: `1px solid ${tokens.colorNeutralStroke2}`,
-    minWidth: '320px',
+    minWidth: 0,
     flexGrow: 1,
-    flexBasis: '320px',
+    flexBasis: '100%',
   },
   frame: {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '160px',
-    height: '90px',
+    width: '96px',
+    height: '54px',
     flexShrink: 0,
     overflow: 'hidden',
     borderRadius: tokens.borderRadiusMedium,
@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     color: tokens.colorNeutralForeground2,
   },
   img: { width: '100%', height: '100%', objectFit: 'cover' },
-  embed: { width: '160px', height: '90px', border: 0 },
+  embed: { width: '96px', height: '54px', border: 0 },
   info: { display: 'flex', flexDirection: 'column', gap: spacing.xs, minWidth: 0 },
 });
 
@@ -78,14 +78,14 @@ function RealItem({ cfg }: { cfg: RealAssetConfig }) {
         </span>
       )}
       <div className={s.info}>
-        <Body1 data-testid="asset-real-source">
+        <Caption1 data-testid="asset-real-source">
           {t('app2.real.source')}: {source}
-        </Body1>
+        </Caption1>
         <a href={cfg.url} target="_blank" rel="noopener noreferrer" data-testid="asset-real-url">
           {individual ? t('app2.real.open') : t('app2.real.openProfile')}
         </a>
         <Caption1 data-testid="asset-real-rights">{t('app2.real.rights')}</Caption1>
-        <Caption1 data-testid="asset-real-notice">{t('app2.real.notice')}</Caption1>
+        <Caption1 data-testid="asset-real-notice" style={{ fontSize: 'inherit' }}>{t('app2.real.notice')}</Caption1>
         {showFallback && (
           <div data-testid="asset-real-fallback">
             <Caption1 data-testid="asset-real-fallback-reason" role="status">
@@ -108,7 +108,6 @@ export function RealAssets() {
   const t = useT();
   return (
     <section className={s.stack} aria-label={t('app2.real.title')} data-testid="asset-real">
-      <Subtitle2 as="h3">{t('app2.real.title')}</Subtitle2>
       <ul className={s.list}>
         {REAL_ASSETS.map((c) => (
           <RealItem key={c.id} cfg={c} />

@@ -29,6 +29,9 @@ export { ProjectList, ProjectDetail, StateBadge, OverrunMark } from './ProjectBo
 export { PlanQuotePanel } from './PlanQuotePanel';
 export { AssetPanel, ASSET_TYPES } from './AssetPanel';
 export { DeploymentPanel } from './DeploymentPanel';
+export { RealAssets } from './RealAssets';
+export { SideNav } from './SideNav';
+export { AREAS, AREA_LAYOUT, AREA_PANELS, AREA_HASH_PREFIX, DEFAULT_AREA, areaFromHash, areaLabelKey, areaTipKey, isArea, type AreaKey } from './areas';
 export { OrderPanel } from './OrderPanel';
 export { ErrorText, useFailText } from './ui';
 export {
@@ -92,7 +95,6 @@ export {
   REPRESENTATIONS,
   DEFAULT_REPRESENTATION,
   PERSONA_STORAGE_KEY,
-  PERSONA_LAYOUT,
   getPersona,
   setPersona,
   resetPersona,

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Badge, Body1, Button, Caption1, Input, Label, makeStyles, tokens } from '@fluentui/react-components';
 import { ChoiceButtons } from '../ui/ChoiceButtons';
-import { RealAssets } from './RealAssets';
+import { Paged } from '../ui/Paged';
 import { CheckmarkCircle16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
@@ -27,7 +27,7 @@ export const ASSET_TYPES = ['画像', '動画', 'バナー', 'テキスト'] as 
 
 const useStyles = makeStyles({
   stack: { display: 'flex', flexDirection: 'column', gap: spacing.m },
-  fields: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: spacing.m },
+  fields: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', alignItems: 'start', gap: spacing.s },
   field: { display: 'flex', flexDirection: 'column', gap: spacing.xs },
   list: { listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: spacing.s },
   row: {
@@ -84,7 +84,7 @@ function AssetRow({ asset, onError }: { asset: Asset; onError: (m: string | null
   return (
     <li className={s.row} data-testid="asset-row" data-entity-id={asset.id}>
       <span data-testid="asset-preview">
-        <AssetThumb src={asset.imageUrl} alt={asset.name} />
+        <AssetThumb src={asset.imageUrl} alt={asset.name} compact />
       </span>
       <div className={s.info}>
         <Body1 data-testid="asset-name-text">
@@ -177,11 +177,21 @@ function AssetRow({ asset, onError }: { asset: Asset; onError: (m: string | null
   );
 }
 
-export function AssetPanel() {
+/** part: 'form'=登録フォームだけ、'list'=絞り込みと一覧だけ、'all'=両方（既定）。App2 は 1 画面に収めるため 2 つのパネルに分ける */
+export function AssetPanel({
+  filter: filterProp,
+  onFilter,
+  part = 'all',
+  pageSize = 1000,
+}: { filter?: string; onFilter?: (v: string) => void; part?: 'all' | 'form' | 'list'; pageSize?: number } = {}) {
   const s = useStyles();
   const t = useT();
   const data = useDataset();
   const failText = useFailText();
+  // 絞り込みは呼び出し側（App2）が持てば、領域を切り替えても保たれる（FR-025 AC-104）
+  const [ownFilter, setOwnFilter] = useState('');
+  const filter = filterProp ?? ownFilter;
+  const setFilter = onFilter ?? setOwnFilter;
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [tags, setTags] = useState('');
@@ -199,9 +209,13 @@ export function AssetPanel() {
     setProjectId('');
   };
 
+  const q = filter.trim().toLowerCase();
+  const shown = q ? data.assets.filter((a) => [a.name, a.type, ...a.tags].some((x) => x.toLowerCase().includes(q))) : data.assets;
+
   return (
     <div className={s.stack}>
-      <RealAssets />
+      {part !== 'form' && <Input aria-label={t('app2.assetFilter')} placeholder={t('app2.assetFilter')} value={filter} onChange={(_, d) => setFilter(d.value)} input={{ 'data-testid': 'asset-filter' } as object} />}
+      {part !== 'list' && (<>
       <div className={s.fields} data-testid="asset-form">
         <div className={s.field}>
           <Label htmlFor="asset-name-input">{t('app2.col.name')}</Label>
@@ -226,6 +240,7 @@ export function AssetPanel() {
           <ChoiceButtons
             label={t('app2.projects')}
             testId="asset-project"
+            pageSize={3}
             value={projectId}
             onChange={setProjectId}
             options={data.projects.map((p) => ({ value: p.id, label: p.name }))}
@@ -236,13 +251,18 @@ export function AssetPanel() {
         </Button>
       </div>
       <ErrorText message={error} testId="asset-error" />
+      </>)}
+      {part !== 'form' && (<>
       <ErrorText message={opError} testId="asset-op-error" />
-      {data.assets.length === 0 && <Body1 className={s.hint}>{t('app2.none')}</Body1>}
+      {shown.length === 0 && <Body1 className={s.hint}>{t('app2.none')}</Body1>}
+      <Paged items={shown} pageSize={pageSize} testId="asset">{(vis) => (
       <ul className={s.list} data-testid="asset-list" aria-label={t('app2.assets')}>
-        {data.assets.map((a) => (
+        {vis.map((a) => (
           <AssetRow key={a.id} asset={a} onError={setOpError} />
         ))}
       </ul>
+      )}</Paged>
+      </>)}
     </div>
   );
 }

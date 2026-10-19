@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Badge, Body1, Button, Caption1, Input, Label, makeStyles, tokens } from '@fluentui/react-components';
 import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
+import { Paged } from '../ui/Paged';
 import { spacing } from '../theme/theme';
 import { kpisOfDeployment, saveUsage } from './operations';
 import { stateCode, stateKey } from './states';
@@ -87,7 +88,8 @@ function UsageFields({
   );
 }
 
-export function DeploymentPanel() {
+/** mode: 'deploy'=展開の一覧だけ（FR-025 の「展開」）、'usage'=一覧と利用状況・KPI 目標の登録（「利用状況」。既定） */
+export function DeploymentPanel({ mode = 'usage' }: { mode?: 'deploy' | 'usage' } = {}) {
   const s = useStyles();
   const t = useT();
   const data = useDataset();
@@ -95,8 +97,9 @@ export function DeploymentPanel() {
   return (
     <div className={s.stack}>
       {data.deployments.length === 0 && <Body1 className={s.hint}>{t('app2.none')}</Body1>}
+      <Paged items={data.deployments} pageSize={4} testId="deployment">{(vis) => (
       <div className={s.list} role="radiogroup" aria-label={t('app2.deployments')} data-testid="deployment-list">
-        {data.deployments.map((dep) => {
+        {vis.map((dep) => {
           const asset = data.assets.find((a) => a.id === dep.assetId);
           const channel = data.channels.find((c) => c.id === dep.channelId);
           const usage = data.usages.find((u) => u.deploymentId === dep.id);
@@ -127,7 +130,8 @@ export function DeploymentPanel() {
           );
         })}
       </div>
-      {selectedId && data.deployments.some((d) => d.id === selectedId) ? (
+      )}</Paged>
+      {mode === 'deploy' ? null : selectedId && data.deployments.some((d) => d.id === selectedId) ? (
         <UsageForm key={selectedId} deploymentId={selectedId} />
       ) : (
         <Body1 className={s.hint}>{t('app2.selectDeployment')}</Body1>

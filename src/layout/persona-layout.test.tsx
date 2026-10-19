@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { FluentProvider, webLightTheme } from '@fluentui/react-components';
 import { App1 } from '../apps/App1';
 import { App2 } from '../apps/App2';
-import { PERSONA_LAYOUT, resetPersona } from '../app2';
+import { AREA_LAYOUT, resetPersona } from '../app2';
 import { APP1_PERSONA_LAYOUT } from '../app1/persona-layout';
 import { resetAllLayouts, LAYOUT_KEY_PREFIX } from './store';
 import { resetSettings } from '../settings/store';
@@ -19,6 +19,7 @@ const menu = (id: string, name: RegExp) => {
 };
 
 beforeEach(() => {
+  window.location.hash = ''; // 業務領域は既定（関係）から始める
   localStorage.clear();
   resetAllLayouts();
   resetSettings(['ja']);
@@ -28,30 +29,34 @@ afterEach(() => cleanup());
 
 // FR-021 AC-080 ペルソナごとの既定のレイアウト（配置・表示/非表示・順序）
 describe('FR-021 AC-080 ペルソナ別の既定のレイアウト', () => {
-  it('App2: P-3〜P-5 で順序・表示/非表示が §7 の既定になり、互いに異なる', () => {
+  // FR-025 AC-107: 既定のレイアウトは業務領域（メニューの項目）ごとに割り当てられ、ペルソナで変わる
+  it('App2: 業務領域（関係）で P-3〜P-5 の順序・表示/非表示が AREA_LAYOUT の既定になり、互いに異なる', () => {
     wrap(<App2 />);
     const seen = new Set<string>();
     for (const p of ['P-3', 'P-4', 'P-5'] as const) {
       pickApp2(p);
       expect(persona()).toBe(p);
-      const d = PERSONA_LAYOUT[p];
+      const d = AREA_LAYOUT[p].relation;
       const hidden = d.hidden ?? [];
       const expected = d.order!.filter((i) => !hidden.includes(i));
-      expect(order().slice(0, expected.length)).toEqual(expected);
-      for (const h of hidden) expect(order()).not.toContain(h);
-      expect(order()).toContain('1');
-      expect(order()[0]).toBe('7');
+      expect(order()).toEqual(expected);
+      for (const h of hidden) expect(screen.getByTestId(`layout-panel-${h}`).style.display).toBe('none');
       seen.add(order().join(','));
     }
     expect(seen.size).toBe(3);
   });
-  it('P-3 は企画・見積と what-if、P-4 は発注と素材、P-5 は展開（KPI）と関係図が前に並ぶ', () => {
+  it('業務領域ごとに別のパネル構成で、1 つの領域の画面には 1 画面に収まる数（3 つ以下）のパネルだけが並ぶ', () => {
     wrap(<App2 />);
-    expect(order().slice(0, 3)).toEqual(['7', '8', '6']);
-    pickApp2('P-4');
-    expect(order().slice(0, 4)).toEqual(['7', '5', '11', '9']);
-    pickApp2('P-5');
-    expect(order().slice(0, 3)).toEqual(['7', '10', '4']);
+    const areas = ['relation', 'plan', 'quote', 'production', 'order', 'asset', 'deploy', 'usage', 'kpi'];
+    const seen = new Set<string>();
+    for (const a of areas) {
+      fireEvent.click(screen.getByTestId(`nav-item-${a}`));
+      expect(screen.getByTestId(`area-root-${a}`)).toBeTruthy();
+      expect(order().length).toBeGreaterThan(0);
+      expect(order().length).toBeLessThanOrEqual(3);
+      seen.add(order().join(','));
+    }
+    expect(seen.size).toBeGreaterThan(5);
   });
   it('App1: P-1 と P-2 で順序が異なる（P-1 は製品ビュー先頭、P-2 は説明先頭）', () => {
     wrap(<App1 />);
@@ -72,30 +77,29 @@ describe('FR-021 AC-081 ペルソナ×画面の保存と既定に戻す', () => 
   it('App2: P-3 で変更 → P-4 は既定のまま → P-3 に戻ると変更が復元される', () => {
     wrap(<App2 />);
     const def3 = order();
-    menu('7', /後ろへ移動/);
+    menu('r', /後ろへ移動/);
     const changed = order();
     expect(changed).not.toEqual(def3);
-    expect(Object.keys(localStorage).filter((k) => k.startsWith(LAYOUT_KEY_PREFIX))).toEqual([`${LAYOUT_KEY_PREFIX}app2:P-3`]);
+    expect(Object.keys(localStorage).filter((k) => k.startsWith(LAYOUT_KEY_PREFIX))).toEqual([`${LAYOUT_KEY_PREFIX}app2-relation:P-3`]);
     pickApp2('P-4');
-    expect(order()[0]).toBe('7');
-    expect(order().slice(0, 4)).toEqual(['7', '5', '11', '9']);
+    expect(order()).toEqual(['c', 'r', 'm']);
     pickApp2('P-3');
     expect(order()).toEqual(changed);
   });
   it('「既定に戻す」は現在のペルソナだけを既定に戻し、他のペルソナの変更は残る', () => {
     wrap(<App2 />);
-    menu('7', /後ろへ移動/);
+    menu('r', /後ろへ移動/);
     const p3Changed = order();
     pickApp2('P-4');
     const p4Default = order();
-    menu('7', /後ろへ移動/);
+    menu('c', /後ろへ移動/);
     expect(order()).not.toEqual(p4Default);
     fireEvent.click(screen.getByTestId('layout-reset'));
     expect(order()).toEqual(p4Default);
     pickApp2('P-3');
     expect(order()).toEqual(p3Changed);
     fireEvent.click(screen.getByTestId('layout-reset'));
-    expect(order().slice(0, 3)).toEqual(['7', '8', '6']);
+    expect(order()).toEqual(['r', 'c', 'm']);
   });
   it('再読込（再描画）でも復元される。App1 も P-1 と P-2 で別々に保存される', () => {
     const { unmount } = wrap(<App1 />);
@@ -154,18 +158,20 @@ describe('FR-021 AC-083 メニューでの変更と狭い画面', () => {
       expect(order()[0]).toBe(first);
     }
     pickApp2('P-3');
-    const before = screen.getByTestId('layout-panel-7').style.flex;
-    menu('7', /パネルを狭く/);
-    expect(screen.getByTestId('layout-panel-7').style.flex).not.toBe(before);
+    const before = screen.getByTestId('layout-panel-r').style.flex;
+    menu('r', /パネルを狭く/);
+    expect(screen.getByTestId('layout-panel-r').style.flex).not.toBe(before);
   });
   it('表示されないパネルの内容も欠けずにマウントされ、非表示のものは「非表示のパネル」から戻せる', () => {
     wrap(<App2 />);
     pickApp2('P-5');
-    for (const id of PERSONA_LAYOUT['P-5'].hidden!) {
+    const hidden = AREA_LAYOUT['P-5'].relation.hidden!;
+    for (const id of hidden) {
       expect(screen.getByTestId(`layout-panel-${id}`).style.display).toBe('none');
     }
+    const shown = order().length;
     fireEvent.click(screen.getByTestId('layout-show-menu'));
     fireEvent.click(screen.getAllByRole('menuitem')[0]);
-    expect(order().length).toBe(11 - PERSONA_LAYOUT['P-5'].hidden!.length + 1);
+    expect(order().length).toBe(shown + 1);
   });
 });

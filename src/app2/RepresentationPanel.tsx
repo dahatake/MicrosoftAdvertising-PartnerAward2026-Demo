@@ -3,6 +3,7 @@
 import { Select, Subtitle2, Caption1, makeStyles, tokens } from '@fluentui/react-components';
 import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
+import { Paged } from '../ui/Paged';
 import type { MessageKey } from '../i18n';
 import { spacing } from '../theme/theme';
 import { OverrunMark, StateBadge } from './ProjectBoard';
@@ -55,7 +56,7 @@ const useStyles = makeStyles({
   },
   ganttDone: { height: '100%', backgroundColor: tokens.colorBrandBackground },
   table: { borderCollapse: 'collapse', width: '100%' },
-  cell: { textAlign: 'start', padding: `${spacing.xs} ${spacing.s}`, borderBottom: `1px solid ${tokens.colorNeutralStroke2}` },
+  cell: { textAlign: 'start', padding: `2px ${spacing.xs}`, fontSize: tokens.fontSizeBase200, whiteSpace: 'nowrap', borderBottom: `1px solid ${tokens.colorNeutralStroke2}` },
   plain: { margin: 0, paddingInlineStart: spacing.l },
 });
 
@@ -89,6 +90,14 @@ export function PersonaBar({
           ))}
         </Select>
       </label>
+      <ChoiceButtons
+        label={t('app2.persona')}
+        testId="persona-buttons"
+        value={persona}
+        onChange={(v) => isPersona(v) && onPersona(v)}
+        optionTestId={(v) => `persona-select-p${PERSONAS.indexOf(v as PersonaId) + 1}`}
+        options={PERSONAS.map((p) => ({ value: p, label: p }))}
+      />
       <div className={s.label}>
         <span>{t('app2.representation')}</span>
         <ChoiceButtons
@@ -111,8 +120,9 @@ function Graph({ projects }: { projects: Project[] }) {
   const t = useT();
   const max = Math.max(1, ...projects.map((p) => Math.max(p.budget, p.spent)));
   return (
+    <Paged items={projects} pageSize={3} testId="rep-graph-page">{(vis) => (
     <div className={s.stack} data-testid="rep-graph" role="group" aria-label={t('app2.graphLabel')}>
-      {projects.map((p) => (
+      {vis.map((p) => (
         <div key={p.id} className={s.chartRow}>
           <Caption1>
             {p.name} — {t('app2.budget')} {formatYen(p.budget)} / {t('app2.spent')} {formatYen(p.spent)} <OverrunMark project={p} />
@@ -124,6 +134,7 @@ function Graph({ projects }: { projects: Project[] }) {
         </div>
       ))}
     </div>
+    )}</Paged>
   );
 }
 
@@ -138,8 +149,9 @@ function Gantt({ data, projects }: { data: Dataset; projects: Project[] }) {
   const min = Math.min(...rows.map((r) => r.start));
   const span = Math.max(1, Math.max(...rows.map((r) => r.end)) - min);
   return (
+    <Paged items={rows} pageSize={3} testId="rep-gantt-page">{(vis) => (
     <div className={s.stack} data-testid="rep-gantt" role="group" aria-label={t('app2.ganttLabel')}>
-      {rows.map(({ p, start, end }) => (
+      {vis.map(({ p, start, end }) => (
         <div key={p.id} className={s.chartRow}>
           <Caption1>
             {p.name} — {p.dueDate} — {p.progressPercent} %
@@ -152,6 +164,7 @@ function Gantt({ data, projects }: { data: Dataset; projects: Project[] }) {
         </div>
       ))}
     </div>
+    )}</Paged>
   );
 }
 
@@ -161,13 +174,15 @@ function RelationSummary({ data, campaignId }: { data: Dataset; campaignId: stri
   if (!campaignId) return <Caption1>{t('app2.selectCampaign')}</Caption1>;
   const r = buildRelations(data, campaignId);
   return (
+    <Paged items={r.nodes} pageSize={4} testId="rep-relation-page">{(vis) => (
     <ul className={s.plain} data-testid="rep-relation">
-      {r.nodes.map((n) => (
+      {vis.map((n) => (
         <li key={n.id}>
           {t(kindLabelKey(n.kind))}: {n.label}
         </li>
       ))}
     </ul>
+    )}</Paged>
   );
 }
 
@@ -207,6 +222,7 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
       <p>
         {t('app2.count')}: {projects.length}
       </p>
+      <Paged items={projects} pageSize={3} testId="rep-table">{(vis) => (
       <table className={s.table}>
         <thead>
           <tr>
@@ -219,7 +235,7 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
           </tr>
         </thead>
         <tbody>
-          {projects.map((p) => (
+          {vis.map((p) => (
             <tr key={p.id} data-entity-id={p.id}>
               <td className={s.cell}>{p.name}</td>
               <td className={s.cell}>
@@ -235,6 +251,7 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
           ))}
         </tbody>
       </table>
+      )}</Paged>
     </div>
   );
 }

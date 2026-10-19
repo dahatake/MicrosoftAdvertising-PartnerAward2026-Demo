@@ -4,7 +4,7 @@ import {
   Select,
   Tab,
   TabList,
-  Title1,
+  Title3,
   makeStyles,
   tokens,
 } from '@fluentui/react-components';
@@ -25,13 +25,13 @@ const useStyles = makeStyles({
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: spacing.m,
-    padding: `${spacing.s} ${spacing.l}`,
+    gap: spacing.s,
+    padding: `${spacing.xs} ${spacing.m}`,
     backgroundColor: tokens.colorNeutralBackground2,
     borderBottom: `1px solid ${tokens.colorNeutralStroke2}`,
   },
   spacer: { flexGrow: 1 },
-  main: { padding: spacing.l, maxWidth: '1200px', margin: '0 auto' },
+  main: { padding: spacing.s, maxWidth: '1240px', margin: '0 auto' },
   label: { display: 'flex', alignItems: 'center', gap: spacing.s },
 });
 
@@ -53,9 +53,10 @@ export function Shell() {
   return (
     <>
       <header className={s.header}>
-        <Title1 as="h1">{t('app.title')}</Title1>
+        <Title3 as="h1">{t('app.title')}</Title3>
         <TabList
           aria-label={t('shell.appSwitch')}
+          size="small"
           selectedValue={app}
           onTabSelect={(_, d) => updateSettings({ app: d.value as AppId })}
         >
@@ -68,7 +69,7 @@ export function Shell() {
         <span className={s.spacer} />
         <ViewModeSwitch />
         <ShellTools />
-        <Button appearance="subtle" onClick={() => window.dispatchEvent(new Event('open-command-palette'))}>
+        <Button appearance="subtle" size="small" onClick={() => window.dispatchEvent(new Event('open-command-palette'))}>
           {t('cmd.open')}
         </Button>
         <label className={s.label}>

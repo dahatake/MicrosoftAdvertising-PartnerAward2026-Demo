@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Badge, Body1, Button, Input, Label, makeStyles, tokens } from '@fluentui/react-components';
 import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
+import { Paged } from '../ui/Paged';
 import { spacing } from '../theme/theme';
 import { advanceOrder, isLastOrderState, registerOrder } from './operations';
 import { formatYen } from './progress';
@@ -12,7 +13,7 @@ import { ErrorText, useFailText } from './ui';
 
 const useStyles = makeStyles({
   stack: { display: 'flex', flexDirection: 'column', gap: spacing.m },
-  fields: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: spacing.m },
+  fields: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: spacing.s },
   field: { display: 'flex', flexDirection: 'column', gap: spacing.xs },
   list: { listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: spacing.xs },
   row: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
   hint: { color: tokens.colorNeutralForeground2 },
 });
 
-export function OrderPanel({ projectId }: { projectId?: string | null }) {
+export function OrderPanel({ projectId, pageSize = 1000 }: { projectId?: string | null; pageSize?: number }) {
   const s = useStyles();
   const t = useT();
   const data = useDataset();
@@ -58,6 +59,7 @@ export function OrderPanel({ projectId }: { projectId?: string | null }) {
           <ChoiceButtons
             label={t('app2.projects')}
             testId="order-project"
+            pageSize={4}
             value={effectiveProject}
             onChange={setProject}
             options={data.projects.map((p) => ({ value: p.id, label: p.name }))}
@@ -88,8 +90,9 @@ export function OrderPanel({ projectId }: { projectId?: string | null }) {
       <ErrorText message={error} testId="order-error" />
       <ErrorText message={advanceError} testId="order-advance-error" />
       {data.orders.length === 0 && <Body1 className={s.hint}>{t('app2.none')}</Body1>}
+      <Paged items={data.orders} pageSize={pageSize} testId="order">{(vis) => (
       <ul className={s.list} data-testid="order-list" aria-label={t('app2.orders')}>
-        {data.orders.map((o) => {
+        {vis.map((o) => {
           const vendorName = data.vendors.find((v) => v.id === o.vendorId)?.name ?? o.vendorId;
           const projectName = data.projects.find((p) => p.id === o.projectId)?.name ?? o.projectId;
           const key = stateKey(o.state);
@@ -117,6 +120,7 @@ export function OrderPanel({ projectId }: { projectId?: string | null }) {
           );
         })}
       </ul>
+      )}</Paged>
     </div>
   );
 }

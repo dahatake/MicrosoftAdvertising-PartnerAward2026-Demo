@@ -14,6 +14,7 @@ import {
   TabList,
   Subtitle2,
   makeStyles,
+  mergeClasses,
   tokens,
 } from '@fluentui/react-components';
 import { MoreHorizontal20Regular } from '@fluentui/react-icons';
@@ -53,12 +54,15 @@ export interface WorkspaceProps {
   persona?: string;
   /** ペルソナごとの既定のレイアウト（パネルの配置・表示/非表示・順序）。なければ defaults */
   personaDefaults?: Readonly<Record<string, LayoutDefaults>>;
+  /** 1 画面に収める画面（App2。FR-024）向けに、余白とボタンを小さくする */
+  dense?: boolean;
 }
 
 const NARROW = '@media (max-width: 720px)';
 
 const useStyles = makeStyles({
   root: { display: 'flex', flexDirection: 'column', gap: spacing.m },
+  rootDense: { gap: spacing.xs },
   toolbar: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: spacing.s },
   row: { display: 'flex', flexDirection: 'row', gap: spacing.m, alignItems: 'stretch', [NARROW]: { flexDirection: 'column' } },
   column: { display: 'flex', flexDirection: 'column', gap: spacing.m },
@@ -82,6 +86,8 @@ const useStyles = makeStyles({
   },
   title: { flexGrow: 1, minWidth: 0 },
   body: { padding: spacing.m, minWidth: 0, overflow: 'auto' },
+  bodyDense: { padding: spacing.xs },
+  headerDense: { paddingBlock: '2px' },
   handle: {
     position: 'absolute',
     insetBlock: 0,
@@ -108,7 +114,7 @@ const useStyles = makeStyles({
 
 const PX_PER_UNIT = 160;
 
-export function Workspace({ screenId: baseScreenId, panels, defaults: baseDefaults, persona, personaDefaults }: WorkspaceProps) {
+export function Workspace({ screenId: baseScreenId, panels, defaults: baseDefaults, persona, personaDefaults, dense }: WorkspaceProps) {
   const s = useStyles();
   const t = useT();
   const ids = panels.map((p) => p.id);
@@ -164,19 +170,19 @@ export function Workspace({ screenId: baseScreenId, panels, defaults: baseDefaul
 
   return (
     <div
-      className={s.root}
+      className={mergeClasses(s.root, dense && s.rootDense)}
       data-testid="layout-root"
       data-layout-persona={persona}
       data-layout-order={layout.order.filter((id) => isShown(layout, id)).join(',')}
     >
       <div className={s.toolbar}>
-        <Button data-testid="layout-reset" appearance="secondary" onClick={() => resetLayout(screenId)}>
+        <Button data-testid="layout-reset" appearance="secondary" size={dense ? 'small' : undefined} onClick={() => resetLayout(screenId)}>
           {t('layout.reset')}
         </Button>
-        <Button appearance="subtle" onClick={() => update((l) => setDirection(l, 'row'))} aria-pressed={row}>
+        <Button appearance="subtle" size={dense ? 'small' : undefined} onClick={() => update((l) => setDirection(l, 'row'))} aria-pressed={row}>
           {t('layout.horizontal')}
         </Button>
-        <Button appearance="subtle" onClick={() => update((l) => setDirection(l, 'column'))} aria-pressed={!row}>
+        <Button appearance="subtle" size={dense ? 'small' : undefined} onClick={() => update((l) => setDirection(l, 'column'))} aria-pressed={!row}>
           {t('layout.vertical')}
         </Button>
         {layout.hidden.length > 0 && (
@@ -226,7 +232,7 @@ export function Workspace({ screenId: baseScreenId, panels, defaults: baseDefaul
               }}
             >
               <div
-                className={s.header}
+                className={mergeClasses(s.header, dense && s.headerDense)}
                 draggable
                 title={t('layout.drag')}
                 onDragStart={(e) => {
@@ -281,7 +287,7 @@ export function Workspace({ screenId: baseScreenId, panels, defaults: baseDefaul
                   </MenuPopover>
                 </Menu>
               </div>
-              <div className={s.body}>{p.content}</div>
+              <div className={mergeClasses(s.body, dense && s.bodyDense)}>{p.content}</div>
               <button
                 type="button"
                 role="separator"

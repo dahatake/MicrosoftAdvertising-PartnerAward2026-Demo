@@ -22,6 +22,8 @@ export interface ChoiceButtonsProps {
   value: string;
   onChange: (value: string) => void;
   testId?: string;
+  /** 選択肢ごとの data-testid（省略可） */
+  optionTestId?: (value: string) => string;
   /** 1 ページに出す選択肢の数（既定 8） */
   pageSize?: number;
 }
@@ -54,7 +56,7 @@ const useStyles = makeStyles({
   pager: { display: 'flex', alignItems: 'center', gap: spacing.xs },
 });
 
-export function ChoiceButtons({ label, options, value, onChange, testId, pageSize = 8 }: ChoiceButtonsProps) {
+export function ChoiceButtons({ label, options, value, onChange, testId, pageSize = 8, optionTestId }: ChoiceButtonsProps) {
   const s = useStyles();
   const t = useT();
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -100,6 +102,7 @@ export function ChoiceButtons({ label, options, value, onChange, testId, pageSiz
               tabIndex={i === tabStop ? 0 : -1}
               title={o.title}
               data-value={o.value}
+              data-testid={optionTestId?.(o.value)}
               className={mergeClasses(s.btn, checked && s.on, o.disabled && s.off)}
               onClick={() => {
                 if (!o.disabled) onChange(o.value);
