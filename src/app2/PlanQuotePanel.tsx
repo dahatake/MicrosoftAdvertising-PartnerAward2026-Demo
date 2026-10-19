@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Body1, Button, Caption1, Input, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
 import { ErrorCircle16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
-import { spacing } from '../theme/theme';
+import { brandTokens, spacing } from '../theme/theme';
 import { PrimaryButton } from '../theme/BrandButton';
 import { beginRevision, cancelRevision, restoreVersion, saveRevision, applyStateOp, toDraft, type RevisableKind } from './operations';
 import { entityLabel } from './relations';
@@ -27,7 +27,8 @@ const useStyles = makeStyles({
     alignItems: 'center',
     gap: spacing.s,
     padding: spacing.xs,
-    borderRadius: tokens.borderRadiusMedium,
+    // NFR-UX-004 AC-093: カード（一覧の行・詳細）の角丸は PARAM-024 の範囲
+    borderRadius: brandTokens.radiusCard,
     border: `1px solid ${tokens.colorNeutralStroke2}`,
   },
   hint: { color: tokens.colorNeutralForeground2 },
@@ -167,9 +168,9 @@ export function PlanQuotePanel() {
                 onChange={(_, d) => setDraft(d.value)}
                 input={{ 'data-testid': sel.kind === 'plan' ? 'plan-title' : 'quote-amount' } as object}
               />
-              <Button appearance="primary" onClick={save} data-testid={sel.kind === 'plan' ? 'save-plan' : 'save-quote'}>
+              <PrimaryButton onClick={save} data-testid={sel.kind === 'plan' ? 'save-plan' : 'save-quote'}>
                 {t('app2.save')}
-              </Button>
+              </PrimaryButton>
               <Button onClick={cancel} data-testid="cancel-revision">
                 {t('app2.cancel')}
               </Button>
