@@ -27,7 +27,7 @@ function ToolDialog({ label, testId, modal = true, children }: { label: string; 
   return (
     <Dialog modalType={modal ? 'modal' : 'non-modal'} surfaceMotion={reduce ? null : undefined}>
       <DialogTrigger disableButtonEnhancement>
-        <Button appearance="subtle" data-testid={testId}>
+        <Button appearance="subtle" size="small" data-testid={testId}>
           {label}
         </Button>
       </DialogTrigger>
@@ -58,7 +58,7 @@ export function ShellTools() {
       </ToolDialog>
       <Menu>
         <MenuTrigger disableButtonEnhancement>
-          <Button appearance="subtle" data-testid="shell-layout">
+          <Button appearance="subtle" size="small" data-testid="shell-layout">
             {t('shell.layout')}
           </Button>
         </MenuTrigger>

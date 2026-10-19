@@ -35,6 +35,7 @@ function setOsScheme(dark: boolean) {
 }
 
 beforeEach(() => {
+  window.location.hash = '';
   localStorage.clear();
   resetAllLayouts();
   resetSettings(['ja']);
@@ -102,6 +103,14 @@ function renderApp2(dark: boolean) {
   );
 }
 
+/** 左メニュー（FR-025）で業務領域を開く */
+const openArea = (key: string) => {
+  fireEvent.click(screen.getByTestId(`nav-item-${key}`));
+  return screen.getByTestId(`area-root-${key}`);
+};
+/** App2 の業務領域（FR-025 のメニューの全項目） */
+const AREA_KEYS = ['relation', 'plan', 'quote', 'production', 'order', 'asset', 'deploy', 'usage', 'kpi'];
+
 const SCHEMES = [
   [false, PARAM_011, 'ライト'],
   [true, PARAM_020, 'ダーク'],
@@ -112,38 +121,45 @@ describe('NFR-UX-004 AC-093 App2 のブランドの形', () => {
     // NFR-UX-004 AC-093 主操作のボタンはピル形・主色
     it(`${label}のテーマで App2 の主操作のボタンがすべて主色のピル形（文字とのコントラスト比 4.5 以上）`, () => {
       renderApp2(dark);
-      // 企画の確定（FR-020）を出すため企画を選び、What-If の実行を出すため制作プロジェクトを選ぶ
-      fireEvent.click(screen.getAllByTestId('plan-item')[0]);
-      fireEvent.click(screen.getAllByTestId('project-item')[0]);
       const root = screen.getByTestId('app-root-app2');
-      for (const id of ['op-confirm-plan', 'asset-register', 'order-register', 'whatif-run']) {
-        expect(screen.getByTestId(id).classList.contains('brand-primary-button'), `${id} は PrimaryButton`).toBe(true);
+      // 主操作のボタンは業務領域（FR-025）ごとの画面にある。領域を開き、操作を出すための対象を選んで集める
+      const checked = new Set<string>();
+      const expectPrimary = () => {
+        const buttons = Array.from(root.querySelectorAll<HTMLElement>('.brand-primary-button'));
+        for (const el of buttons) {
+          const id = el.getAttribute('data-testid') ?? '';
+          checked.add(id);
+          expect(computed(el, 'background-color').toUpperCase(), `${id} の背景`).toBe(primary);
+          for (const r of radii(el)) expect(parseFloat(r), `${id} の角丸`).toBeGreaterThanOrEqual(1000);
+          expect(contrast(computed(el, 'color'), primary), `${id} の文字`).toBeGreaterThanOrEqual(PARAM_012);
+        }
+      };
+      // 企画の確定（FR-020）を出すため企画を選ぶ
+      openArea('plan');
+      fireEvent.click(screen.getAllByTestId('plan-item')[0]);
+      expectPrimary();
+      // 見積の提出・承認（FR-020）を出すため見積を選ぶ
+      openArea('quote');
+      fireEvent.click(screen.getAllByTestId('quote-item')[0]);
+      expectPrimary();
+      // What-If の実行を出すため制作プロジェクトを選ぶ（選択は領域を切り替えても保たれる）
+      openArea('production');
+      fireEvent.click(screen.getAllByTestId('project-item')[0]);
+      expectPrimary();
+      for (const key of ['order', 'asset', 'kpi']) {
+        openArea(key);
+        expectPrimary();
       }
-      const buttons = Array.from(root.querySelectorAll<HTMLElement>('.brand-primary-button'));
-      expect(buttons.length).toBeGreaterThanOrEqual(4);
-      for (const el of buttons) {
-        const id = el.getAttribute('data-testid');
-        expect(computed(el, 'background-color').toUpperCase(), `${id} の背景`).toBe(primary);
-        for (const r of radii(el)) expect(parseFloat(r), `${id} の角丸`).toBeGreaterThanOrEqual(1000);
-        expect(contrast(computed(el, 'color'), primary), `${id} の文字`).toBeGreaterThanOrEqual(PARAM_012);
+      for (const id of ['op-confirm-plan', 'op-submit-quote', 'op-approve-quote', 'asset-register', 'order-register', 'whatif-run']) {
+        expect(checked.has(id), `${id} は PrimaryButton`).toBe(true);
       }
     });
 
     // NFR-UX-004 AC-093 パネル・カードの角丸が PARAM-024 の範囲
     it(`${label}のテーマで App2 のパネルとカード（素材・発注の行、詳細）の角丸が PARAM-024（.75〜1.5rem）の範囲`, () => {
       renderApp2(dark);
-      // 詳細のカードを出すためキャンペーンを選ぶ
-      fireEvent.click(screen.getAllByTestId('campaign-item')[0]);
       const root = screen.getByTestId('app-root-app2');
-      const panels = Array.from(root.querySelectorAll('[data-testid^="layout-panel-"]'));
-      const cards = [
-        ...panels,
-        screen.getAllByTestId('asset-row')[0],
-        screen.getAllByTestId('order-row')[0],
-        screen.getByTestId('node-detail-empty'),
-      ];
-      expect(panels.length).toBe(11);
-      for (const el of cards) {
+      const expectRadius = (el: Element) => {
         const parts = radii(el);
         expect(parts.length, `${el.getAttribute('data-testid')} の角丸`).toBeGreaterThan(0);
         for (const r of parts) {
@@ -151,9 +167,28 @@ describe('NFR-UX-004 AC-093 App2 のブランドの形', () => {
           expect(px, `${el.getAttribute('data-testid')} の角丸 ${r}`).toBeGreaterThanOrEqual(PARAM_024_PX[0]);
           expect(px, `${el.getAttribute('data-testid')} の角丸 ${r}`).toBeLessThanOrEqual(PARAM_024_PX[1]);
         }
+      };
+      // どの業務領域（FR-025）でも、パネルは角丸 PARAM-024 の影のカード
+      let panelCount = 0;
+      for (const key of AREA_KEYS) {
+        openArea(key);
+        const panels = Array.from(root.querySelectorAll('[data-testid^="layout-panel-"]'));
+        expect(panels.length, `領域 ${key} のパネル`).toBeGreaterThan(0);
+        panelCount += panels.length;
+        for (const el of panels) {
+          expectRadius(el);
+          expect(computed(el, 'box-shadow')).not.toMatch(/^(none)?$/);
+        }
       }
-      // パネルは影を持つカード
-      for (const el of panels) expect(computed(el, 'box-shadow')).not.toMatch(/^(none)?$/);
+      expect(panelCount).toBeGreaterThanOrEqual(AREA_KEYS.length);
+      // カード: 素材・発注の行と、関係図の詳細（キャンペーンを選ぶと出る）
+      openArea('asset');
+      expectRadius(screen.getAllByTestId('asset-row')[0]);
+      openArea('order');
+      expectRadius(screen.getAllByTestId('order-row')[0]);
+      openArea('relation');
+      fireEvent.click(screen.getAllByTestId('campaign-item')[0]);
+      expectRadius(screen.getByTestId('node-detail-empty'));
     });
 
     // NFR-UX-004 AC-093 見出し帯は暗い面＋光のグラデーション（テーマによらない）

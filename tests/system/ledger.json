@@ -35,6 +35,20 @@
     "AC-038": "sha256:905826614576eaa3",
     "AC-070": "sha256:74e4181ce8261160",
     "AC-071": "sha256:22724e26b927a33f",
+    "AC-098": "sha256:1201bfe940863e28",
+    "AC-099": "sha256:21d331ba9ab3c24b",
+    "AC-102": "sha256:9352114d164c15fe",
+    "AC-103": "sha256:4b844633b6f713cf",
+    "AC-104": "sha256:78fa60214cf88be8",
+    "AC-108": "sha256:d6ea63e83d3342c2",
+    "AC-109": "sha256:ea72bc39da5f7ccf",
+    "AC-111": "sha256:b03a957010e9db62",
+    "AC-112": "sha256:c01ff1ad9fdc14eb",
+    "AC-113": "sha256:b02feddf6be8ced5",
+    "AC-114": "sha256:1674994eb0f49c82",
+    "AC-115": "sha256:92f91b8d8cb7f7f1",
+    "AC-086": "sha256:99de0f00bdbe59f9",
+    "AC-087": "sha256:2166a7cb67c6d8fb",
     "AC-089": "sha256:7a2a5a70b278376c",
     "AC-091": "sha256:c79d1aa79bb1c3a5",
     "AC-116": "sha256:227f899a863d1bdd",
@@ -56,9 +70,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 キーボードだけで主要操作に到達\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-001-202610191612.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-001-202610191426.log",
       "history": [
         {
           "at": "2026-10-16T13:28:24+09:00",
@@ -81,9 +95,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 言語切替とアプリ切替\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-002-202610191613.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-002-202610191426.log",
       "history": [
         {
           "at": "2026-10-16T13:28:26+09:00",
@@ -106,9 +120,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 異常系\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-003-202610191613.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-003-202610191427.log",
       "history": [
         {
           "at": "2026-10-16T13:28:28+09:00",
@@ -131,9 +145,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-055 ナレーション・レイアウト\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-004-202610191613.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-004-202610191427.log",
       "history": [
         {
           "at": "2026-10-16T13:28:30+09:00",
@@ -156,9 +170,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-057 動きを減らす設定で CSS\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-005-202610191613.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-005-202610191427.log",
       "history": [
         {
           "at": "2026-10-16T13:28:33+09:00",
@@ -181,9 +195,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-057 動きを減らす設定でカメラワーク\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-006-202610191613.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-006-202610191428.log",
       "history": [
         {
           "at": "2026-10-16T13:28:35+09:00",
@@ -206,9 +220,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 2D の初期表示\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-007-202610191612.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-007-202610191425.log",
       "history": [
         {
           "at": "2026-10-16T13:28:37+09:00",
@@ -231,9 +245,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 異常系\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-008-202610191614.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-008-202610191428.log",
       "history": [
         {
           "at": "2026-10-16T13:28:40+09:00",
@@ -256,9 +270,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-001\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-009-202610191614.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-009-202610191428.log",
       "history": [
         {
           "at": "2026-10-16T13:29:00+09:00",
@@ -287,9 +301,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-002\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-010-202610191612.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-010-202610191426.log",
       "history": [
         {
           "at": "2026-10-16T13:29:02+09:00",
@@ -318,9 +332,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-002 AC-003\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-011-202610191614.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-011-202610191428.log",
       "history": [
         {
           "at": "2026-10-16T13:29:05+09:00",
@@ -349,9 +363,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-003 AC-007\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-012-202610191614.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-012-202610191429.log",
       "history": [
         {
           "at": "2026-10-16T13:29:07+09:00",
@@ -380,9 +394,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-010\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-013-202610191615.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-013-202610191429.log",
       "history": [
         {
           "at": "2026-10-16T13:29:10+09:00",
@@ -411,9 +425,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-067\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-014-202610191615.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-014-202610191429.log",
       "history": [
         {
           "at": "2026-10-16T13:29:12+09:00",
@@ -442,9 +456,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-011\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-015-202610191615.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-015-202610191429.log",
       "history": [
         {
           "at": "2026-10-16T13:29:14+09:00",
@@ -473,9 +487,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-004 AC-012\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-016-202610191615.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-016-202610191430.log",
       "history": [
         {
           "at": "2026-10-16T13:29:17+09:00",
@@ -504,9 +518,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-006 AC-015\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-017-202610191615.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-017-202610191430.log",
       "history": [
         {
           "at": "2026-10-16T13:29:19+09:00",
@@ -535,9 +549,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-005 AC-013\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-018-202610191617.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-018-202610191430.log",
       "history": [
         {
           "at": "2026-10-16T13:29:21+09:00",
@@ -566,9 +580,9 @@
       "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"NFR-A11Y-003 AC-058\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-019-202610191617.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-019-202610191431.log",
       "history": [
         {
           "at": "2026-10-16T13:29:23+09:00",
@@ -588,12 +602,12 @@
       ],
       "title": "2D→3D で同一 ID 集合・選択保持（App2 の DualView 例）",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\"",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-020-202610191617.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:45:50+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-020-202610191444.log",
       "history": [
         {
           "at": "2026-10-16T13:29:25+09:00",
@@ -612,6 +626,12 @@
           "by": "test-designer",
           "change": "title: '2D→3D で同一 ID 集合・選択保持' -> '2D→3D で同一 ID 集合・選択保持（App2 の DualView 例）'",
           "reason": "AC-023 は App1 のペルソナを前提にしない。App1 未実装でも通るよう App2 の項目で検証"
+        },
+        {
+          "at": "2026-10-19T14:12:42+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\"' -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-008 AC-023\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -625,18 +645,24 @@
       ],
       "title": "キャンペーン選択の関係図",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-041\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-041\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-021-202610191617.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-021-202610191431.log",
       "history": [
         {
           "at": "2026-10-16T13:29:27+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:38+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-041\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-041\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -653,9 +679,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-026\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-022-202610191618.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-022-202610191431.log",
       "history": [
         {
           "at": "2026-10-16T13:29:29+09:00",
@@ -681,18 +707,24 @@
       ],
       "title": "3D でも同じノードと選択保持",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-042\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-042\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-023-202610191618.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:45:50+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-023-202610191444.log",
       "history": [
         {
           "at": "2026-10-16T13:29:31+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:37+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-042\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-012 AC-042\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -706,12 +738,12 @@
       ],
       "title": "くわしく選択 4 要素",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-027\"",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-027\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-024-202610191618.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-024-202610191432.log",
       "history": [
         {
           "at": "2026-10-16T13:29:33+09:00",
@@ -724,6 +756,12 @@
           "by": "test-designer",
           "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-009 AC-027'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-027\"'",
           "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
+        },
+        {
+          "at": "2026-10-19T14:12:38+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-027\"' -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-027\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -737,18 +775,24 @@
       ],
       "title": "制作プロジェクトの進捗・予算・成果物・KPI",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-013 AC-043\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-013 AC-043\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-025-202610191618.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-025-202610191432.log",
       "history": [
         {
           "at": "2026-10-16T13:29:35+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:35+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-013 AC-043\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-013 AC-043\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -765,9 +809,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-009 AC-030\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-026-202610191618.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-026-202610191432.log",
       "history": [
         {
           "at": "2026-10-16T13:29:37+09:00",
@@ -793,18 +837,24 @@
       ],
       "title": "企画・見積の編集と版履歴",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-014 AC-045\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-014 AC-045\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-027-202610191618.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-027-202610191433.log",
       "history": [
         {
           "at": "2026-10-16T13:29:39+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:39+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-014 AC-045\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-014 AC-045\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -818,12 +868,12 @@
       ],
       "title": "パネル操作の即反映",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-033\"",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-033\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-028-202610191619.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-028-202610191433.log",
       "history": [
         {
           "at": "2026-10-16T13:29:41+09:00",
@@ -836,6 +886,12 @@
           "by": "test-designer",
           "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-033'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-033\"'",
           "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
+        },
+        {
+          "at": "2026-10-19T14:12:43+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-033\"' -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-033\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -849,18 +905,24 @@
       ],
       "title": "what-if 試算",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-015 AC-047\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-015 AC-047\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-029-202610191619.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-029-202610191433.log",
       "history": [
         {
           "at": "2026-10-16T13:29:43+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:39+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-015 AC-047\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-015 AC-047\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -874,12 +936,12 @@
       ],
       "title": "レイアウト保存・復元・既定に戻す",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-034\"",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-034\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-030-202610191619.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-030-202610191433.log",
       "history": [
         {
           "at": "2026-10-16T13:29:46+09:00",
@@ -892,6 +954,12 @@
           "by": "test-designer",
           "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-034'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-034\"'",
           "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
+        },
+        {
+          "at": "2026-10-19T14:12:43+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-034\"' -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-034\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -905,18 +973,24 @@
       ],
       "title": "素材の登録・プレビュー・チャネル紐付け",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-016 AC-049\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-016 AC-049\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-031-202610191619.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-031-202610191434.log",
       "history": [
         {
           "at": "2026-10-16T13:29:48+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:40+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-016 AC-049\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-016 AC-049\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -930,12 +1004,12 @@
       ],
       "title": "キーボード/メニューでも同結果",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-035\"",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-035\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-032-202610191620.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-032-202610191434.log",
       "history": [
         {
           "at": "2026-10-16T13:29:50+09:00",
@@ -948,6 +1022,12 @@
           "by": "test-designer",
           "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-035'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-035\"'",
           "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
+        },
+        {
+          "at": "2026-10-19T14:12:36+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-035\"' -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-035\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -961,18 +1041,24 @@
       ],
       "title": "発注の登録と状態の前進",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-017 AC-051\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-017 AC-051\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-033-202610191620.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:45:50+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-033-202610191444.log",
       "history": [
         {
           "at": "2026-10-16T13:29:52+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:36+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-017 AC-051\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-017 AC-051\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -986,18 +1072,24 @@
       ],
       "title": "ペルソナ別既定表現と切替",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-053\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-053\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-034-202610191620.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-034-202610191435.log",
       "history": [
         {
           "at": "2026-10-16T13:29:55+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:41+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-053\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-053\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -1011,12 +1103,12 @@
       ],
       "title": "レイアウト変更で入力保持",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-037\"",
+      "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-037\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-035-202610191620.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:45:50+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-035-202610191445.log",
       "history": [
         {
           "at": "2026-10-16T13:29:57+09:00",
@@ -1029,6 +1121,12 @@
           "by": "test-designer",
           "change": "command: \"npx playwright test tests/system/shell-app1.spec.ts -g 'FR-010 AC-037'\" -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-037\"'",
           "reason": "Windows cmd で単一引用符が分割されるため二重引用符へ"
+        },
+        {
+          "at": "2026-10-19T14:12:37+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-037\"' -> 'npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-037\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -1042,18 +1140,24 @@
       ],
       "title": "視覚表現の代替と色だけで示さない",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-054\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-054\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-036-202610191620.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-036-202610191435.log",
       "history": [
         {
           "at": "2026-10-16T13:29:59+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:42+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-054\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-018 AC-054\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -1070,9 +1174,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-010 AC-038\"",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-037-202610191620.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-037-202610191436.log",
       "history": [
         {
           "at": "2026-10-16T13:30:01+09:00",
@@ -1098,18 +1202,24 @@
       ],
       "title": "素材の展開とアーカイブ",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-070\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-070\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-038-202610191620.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-038-202610191436.log",
       "history": [
         {
           "at": "2026-10-16T13:30:05+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:35+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-070\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-070\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
         }
       ]
     },
@@ -1123,18 +1233,541 @@
       ],
       "title": "利用状況・KPI 目標の登録と反映",
       "layer": "e2e",
-      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-071\"",
+      "command": "npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-071\" --reporter=line",
       "canary": false,
       "status": "pass",
-      "last_commit": "0dea89a",
-      "last_run_at": "2026-10-19T16:23:21+09:00",
-      "evidence": "work/runs/202610191228/logs/system-test/E2E-039-202610191621.log",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-039-202610191436.log",
       "history": [
         {
           "at": "2026-10-16T13:30:08+09:00",
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T14:12:40+09:00",
+          "by": "test-designer",
+          "change": "command: 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-071\"' -> 'npx playwright test tests/system/narration-app2.spec.ts -g \"FR-019 AC-071\" --reporter=line'",
+          "reason": "FR-024〜026・AC-080（Q-006 A）導入に伴い期待を更新: 業務領域ごとの 1 領域表示（左メニュー）・select 禁止のボタン群・ページ送りに沿って操作手順を変更（ACの観点は不変）。assert 数の変動は一覧のページ送り化による"
+        }
+      ]
+    },
+    {
+      "id": "E2E-042",
+      "requirement_ids": [
+        "FR-024"
+      ],
+      "ac_ids": [
+        "AC-098"
+      ],
+      "title": "基準ビューポートで全業務領域が縦横スクロールなし",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-024 AC-098 基準\"",
+      "canary": true,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-042-202610191426.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:53:51+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-043",
+      "requirement_ids": [
+        "FR-024"
+      ],
+      "ac_ids": [
+        "AC-098"
+      ],
+      "title": "ペルソナ・言語切替後も1画面に収まる（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-024 AC-098 ペルソナ\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-043-202610191436.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:53:53+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-044",
+      "requirement_ids": [
+        "FR-024"
+      ],
+      "ac_ids": [
+        "AC-099"
+      ],
+      "title": "内部スクロール領域がない",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-024 AC-099\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-044-202610191437.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:53:55+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-045",
+      "requirement_ids": [
+        "FR-025"
+      ],
+      "ac_ids": [
+        "AC-102"
+      ],
+      "title": "左メニューの順序と垂直配置",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-025 AC-102\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-045-202610191437.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:53:57+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-046",
+      "requirement_ids": [
+        "FR-025"
+      ],
+      "ac_ids": [
+        "AC-103"
+      ],
+      "title": "アイコン・ラベル・ツールチップ（20文字以内）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-025 AC-103\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-046-202610191437.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:53:58+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-047",
+      "requirement_ids": [
+        "FR-025"
+      ],
+      "ac_ids": [
+        "AC-104"
+      ],
+      "title": "現在位置の表示と入力保持",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-025 AC-104 項目選択\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-047-202610191438.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:54:00+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-048",
+      "requirement_ids": [
+        "FR-025"
+      ],
+      "ac_ids": [
+        "AC-104"
+      ],
+      "title": "不正なメニュー指定でも壊れない（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-025 AC-104 異常系\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-048-202610191438.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:54:02+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-049",
+      "requirement_ids": [
+        "FR-026"
+      ],
+      "ac_ids": [
+        "AC-108"
+      ],
+      "title": "select・combobox・listbox が無い",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-026 AC-108\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-049-202610191438.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:54:04+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-050",
+      "requirement_ids": [
+        "FR-026"
+      ],
+      "ac_ids": [
+        "AC-109"
+      ],
+      "title": "くわしく選択がボタン群で更新される",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-026 AC-109 くわしく\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-050-202610191439.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:54:05+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-051",
+      "requirement_ids": [
+        "FR-026"
+      ],
+      "ac_ids": [
+        "AC-109"
+      ],
+      "title": "2D不可の組合せは無効化と理由（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-026 AC-109 異常系\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "9f936b9",
+      "last_run_at": "2026-10-19T14:39:46+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-051-202610191439.log",
+      "history": [
+        {
+          "at": "2026-10-19T12:54:07+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-052",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-111"
+      ],
+      "title": "YouTube・TikTok の実素材をサムネイルとURLで表示",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-111\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:09+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:42+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-053",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-112"
+      ],
+      "title": "参照のみ・書き込みなし・複製なし",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-112\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:11+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:42+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-054",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-113"
+      ],
+      "title": "提供元・URL・権利根拠・別製品の旨の表示",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-113\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:13+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:43+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-055",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-114"
+      ],
+      "title": "サムネイル取得失敗時の代替表示（異常系）",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-114\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:14+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:43+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-056",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-115"
+      ],
+      "title": "再生前はサムネイル画像だけ第三者通信",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-115 再生前\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:16+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:43+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-057",
+      "requirement_ids": [
+        "FR-027"
+      ],
+      "ac_ids": [
+        "AC-115"
+      ],
+      "title": "再生ボタンのキーボード操作",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-027 AC-115 「再生」\"",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-19T12:54:18+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "FR-024〜027 System Test 作成"
+        },
+        {
+          "at": "2026-10-19T12:54:44+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-040",
+      "requirement_ids": [
+        "FR-022"
+      ],
+      "ac_ids": [
+        "AC-086"
+      ],
+      "title": "4言語の app.title・可視見出し・document.title が正式名称と完全一致",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/project-name.spec.ts -g \"4言語の\"",
+      "canary": true,
+      "status": "pass",
+      "last_commit": "60a13b5",
+      "last_run_at": "2026-10-17T23:53:46+09:00",
+      "evidence": "work\\runs\\202610172045\\logs\\system-test\\E2E-040-202610172352.log",
+      "history": [
+        {
+          "at": "2026-10-17T21:49:29+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-041",
+      "requirement_ids": [
+        "FR-022"
+      ],
+      "ac_ids": [
+        "AC-086"
+      ],
+      "title": "異常系: 連続切替と元の言語への復帰でも旧名・翻訳名に戻らない",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/project-name.spec.ts -g \"異常系:\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "60a13b5",
+      "last_run_at": "2026-10-17T23:53:46+09:00",
+      "evidence": "work\\runs\\202610172045\\logs\\system-test\\E2E-041-202610172353.log",
+      "history": [
+        {
+          "at": "2026-10-17T21:49:34+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "IT-001",
+      "requirement_ids": [
+        "FR-022"
+      ],
+      "ac_ids": [
+        "AC-087"
+      ],
+      "title": "FR-022 AC-087 integration: 実作業フォルダーの改名と改名前後のGit同一性・全内容保持",
+      "layer": "data",
+      "command": "python tests/system/ac087-folder-rename.py",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-17T22:25:49+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "reviewer指摘のAC-087未検証を補完。検証レベルintegration（台帳layer=data）。ST_AC087_WORKDIRに実作業checkoutを指定し、改名前のHEAD/refs/index/status・Git共通ディレクトリと作業ディレクトリのfilesystem identity・追跡/未追跡/ignoredファイル全件SHA-256を記録→同じ親で正式名称へ実改名（linked worktreeはgit worktree move）→旧パス消滅・正式basename・全記録同一を検証。入力欠如/既改名/移動先衝突は非0で拒否、上書きしない。停止済みプロセスとローカル改名許可が実行前提。実行後は改名を保持、失敗時は手動確認。クローンで代用せずGitHub rename/AC-088は対象外。設計のみ、not_run。"
+        },
+        {
+          "at": "2026-10-17T22:31:09+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "AC-087 は検証レベル integration で System Test 対象外。AC-087 は conductor が予定する実作業フォルダー改名とGit同一性の統合作業で検証し、System Test ledger には登録しない"
         }
       ]
     },
@@ -1146,11 +1779,11 @@
       "ac_ids": [
         "AC-089"
       ],
-      "title": "ライトのテーマで主 CTA・App2 の主操作のボタンが主色のピル形・コントラスト比",
+      "title": "ライトのテーマで主 CTA・App2 の主操作のボタン（左メニューで各領域を開く）が主色のピル形・コントラスト比",
       "layer": "e2e",
       "command": "npx playwright test tests/system/brand.spec.ts -g \"NFR-UX-004 AC-089 ライトのテーマ\"",
       "canary": false,
-      "status": "pass",
+      "status": "not_run",
       "last_commit": "0dea89a",
       "last_run_at": "2026-10-19T16:23:21+09:00",
       "evidence": "work/runs/202610191228/logs/system-test/E2E-058-202610191621.log",
@@ -1160,6 +1793,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T17:39:06+09:00",
+          "by": "test-designer",
+          "change": "title: 'ライトのテーマで主 CTA・App2 の主操作のボタンが主色のピル形・コントラスト比' -> 'ライトのテーマで主 CTA・App2 の主操作のボタン（左メニューで各領域を開く）が主色のピル形・コントラスト比'",
+          "reason": "FR-025 の左メニュー＋領域ごとの画面（既定 relation）に合わせ、nav-item-plan/quote/asset で該当の領域を開いてから主操作のボタンを検査する手順に変更（検査の対象・期待値は AC-089 のまま）"
         }
       ]
     },
@@ -1171,11 +1810,11 @@
       "ac_ids": [
         "AC-089"
       ],
-      "title": "ダークのテーマで主 CTA・App2 の主操作のボタンが主色のピル形・コントラスト比",
+      "title": "ダークのテーマで主 CTA・App2 の主操作のボタン（左メニューで各領域を開く）が主色のピル形・コントラスト比",
       "layer": "e2e",
       "command": "npx playwright test tests/system/brand.spec.ts -g \"NFR-UX-004 AC-089 ダークのテーマ\"",
       "canary": false,
-      "status": "pass",
+      "status": "not_run",
       "last_commit": "0dea89a",
       "last_run_at": "2026-10-19T16:23:21+09:00",
       "evidence": "work/runs/202610191228/logs/system-test/E2E-059-202610191621.log",
@@ -1185,6 +1824,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T17:39:06+09:00",
+          "by": "test-designer",
+          "change": "title: 'ダークのテーマで主 CTA・App2 の主操作のボタンが主色のピル形・コントラスト比' -> 'ダークのテーマで主 CTA・App2 の主操作のボタン（左メニューで各領域を開く）が主色のピル形・コントラスト比'",
+          "reason": "FR-025 の左メニュー＋領域ごとの画面（既定 relation）に合わせ、nav-item-plan/quote/asset で該当の領域を開いてから主操作のボタンを検査する手順に変更（検査の対象・期待値は AC-089 のまま）"
         }
       ]
     },
@@ -1196,11 +1841,11 @@
       "ac_ids": [
         "AC-089"
       ],
-      "title": "異常系: 表示中の OS のテーマ切替に主操作のボタンの主色が追従",
+      "title": "異常系: 表示中の OS のテーマ切替に主操作のボタン（素材の領域の素材登録を含む）の主色が追従",
       "layer": "e2e",
       "command": "npx playwright test tests/system/brand.spec.ts -g \"NFR-UX-004 AC-089 異常系\"",
       "canary": false,
-      "status": "pass",
+      "status": "not_run",
       "last_commit": "0dea89a",
       "last_run_at": "2026-10-19T16:23:21+09:00",
       "evidence": "work/runs/202610191228/logs/system-test/E2E-060-202610191621.log",
@@ -1210,6 +1855,12 @@
           "by": "test-designer",
           "change": "追加",
           "reason": "受入基準からケースを作成"
+        },
+        {
+          "at": "2026-10-19T17:39:07+09:00",
+          "by": "test-designer",
+          "change": "title: '異常系: 表示中の OS のテーマ切替に主操作のボタンの主色が追従' -> '異常系: 表示中の OS のテーマ切替に主操作のボタン（素材の領域の素材登録を含む）の主色が追従'",
+          "reason": "FR-025 の左メニュー＋領域ごとの画面（既定 relation）に合わせ、nav-item-plan/quote/asset で該当の領域を開いてから主操作のボタンを検査する手順に変更（検査の対象・期待値は AC-089 のまま）"
         }
       ]
     },

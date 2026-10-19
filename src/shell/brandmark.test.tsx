@@ -118,8 +118,12 @@ describe('NFR-UX-005 AC-095 テキストのワードマーク', () => {
     expect(mark.textContent).toBe('Surface Ultra');
     expect(BRAND_WORDMARK).toBe('Surface Ultra');
     expect(fontList(resolveVars(mark, getComputedStyle(mark).getPropertyValue('font-family')))).toBe(PARAM_013);
-    // 見出し（h1）の中にあり、アクセシブルな名前にワードマークが含まれる
-    expect(screen.getByRole('heading', { level: 1, name: /Surface Ultra/ })).toBeTruthy();
+    // ワードマークはページのヘッダー（banner）の帯の中で、見出し（h1）の外に置く。
+    // FR-022 AC-086 で h1 の文字は正式名称だけにするため（ワードマークと正式名称を同じ見出しに混ぜない）
+    expect(screen.getByRole('banner').contains(mark)).toBe(true);
+    const h1 = screen.getByRole('heading', { level: 1 });
+    expect(h1.contains(mark)).toBe(false);
+    expect(header.contains(h1)).toBe(true);
   });
 
   it('どの言語でもワードマークは翻訳されず「Surface Ultra」のまま（商標の表記）', () => {
@@ -220,7 +224,8 @@ describe('NFR-UX-005 AC-096 ロゴの差し替え', () => {
     const img = within(header).getByRole('img', { name: 'Surface Ultra' });
     expect(img.getAttribute('src')).toBe(logos.dark);
     expect(within(header).queryByTestId('brand-wordmark')).toBeNull();
-    expect(screen.getByRole('heading', { level: 1, name: /Surface Ultra/ })).toBeTruthy();
+    // ロゴは見出し（h1）の外にあり、h1 は正式名称のまま（FR-022 AC-086）
+    expect(screen.getByRole('heading', { level: 1 }).contains(img)).toBe(false);
   });
 
   it('異常系: ロゴが読み込めないときはワードマークに戻り、ヘッダーのトグルも残る', () => {

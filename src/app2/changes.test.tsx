@@ -32,6 +32,7 @@ import {
   type Dataset,
 } from './index';
 import { resetSettings } from '../settings/store';
+import { choose } from '../ui/choose';
 
 const wrap = (ui: React.ReactNode) => render(<FluentProvider theme={webLightTheme}>{ui}</FluentProvider>);
 
@@ -152,14 +153,14 @@ describe('FR-016 素材管理', () => {
     wrap(<AssetPanel />);
     const n0 = screen.getAllByTestId('asset-row').length;
     fireEvent.change(screen.getByTestId('asset-name'), { target: { value: 'ST-素材-A' } });
-    fireEvent.change(screen.getByTestId('asset-type'), { target: { value: '画像' } });
-    fireEvent.change(screen.getByTestId('asset-project'), { target: { value: projectId() } });
+    choose(screen.getByTestId('asset-type'), '画像');
+    choose(screen.getByTestId('asset-project'), projectId());
     fireEvent.click(screen.getByTestId('asset-register'));
     const rows = screen.getAllByTestId('asset-row');
     expect(rows).toHaveLength(n0 + 1);
     const row = rows.find((r) => r.textContent!.includes('ST-素材-A'))!;
     expect(within(row).getByTestId('asset-preview')).toBeTruthy();
-    fireEvent.change(within(row).getByTestId('asset-channel-select'), { target: { value: seedDataset.channels[0].id } });
+    choose(within(row).getByTestId('asset-channel-select'), seedDataset.channels[0].id);
     fireEvent.click(within(row).getByTestId('asset-link-channel'));
     expect(within(row).getByTestId('asset-channels').textContent).toContain(seedDataset.channels[0].name);
   });
@@ -200,7 +201,7 @@ describe('FR-017 外部発注の管理', () => {
 
   it('AC-051 画面: 登録した行に発注先・金額・納期・状態が出て、最終状態では進める操作が無効', () => {
     wrap(<OrderPanel />);
-    fireEvent.change(screen.getByTestId('order-vendor'), { target: { value: seedDataset.vendors[0].id } });
+    choose(screen.getByTestId('order-vendor'), seedDataset.vendors[0].id);
     fireEvent.change(screen.getByTestId('order-amount'), { target: { value: '450000' } });
     fireEvent.change(screen.getByTestId('order-due'), { target: { value: '2026-12-31' } });
     fireEvent.click(screen.getByTestId('order-register'));
@@ -259,7 +260,7 @@ describe('FR-019 素材の展開と KPI・利用状況', () => {
     wrap(<AssetPanel />);
     const a = approvedAsset();
     const row = () => document.querySelector(`[data-testid="asset-row"][data-entity-id="${a.id}"]`) as HTMLElement;
-    fireEvent.change(within(row()).getByTestId('asset-deploy-channel'), { target: { value: ch() } });
+    choose(within(row()).getByTestId('asset-deploy-channel'), ch());
     fireEvent.click(within(row()).getByTestId('asset-deploy'));
     expect(within(row()).getByTestId('asset-state').getAttribute('data-state')).toBe('deploying');
     fireEvent.click(within(row()).getByTestId('asset-archive'));

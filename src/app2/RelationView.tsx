@@ -77,7 +77,7 @@ export function RelationView({ relations, selectedId, onSelect }: RelationViewPr
         />
       )}
       {nodes.length > 0 && (
-        <svg className={s.svg} viewBox={`0 0 ${width} ${height}`} role="listbox" aria-label={t('app2.relationLabel')}>
+        <svg className={s.svg} viewBox={`0 0 ${width} ${height}`} role="radiogroup" aria-label={t('app2.relationLabel')}>
           {edges.map((e) => {
             const a = pos.get(e.from);
             const b = pos.get(e.to);
@@ -104,9 +104,9 @@ export function RelationView({ relations, selectedId, onSelect }: RelationViewPr
             return (
               <g
                 key={n.id}
-                role="option"
+                role="radio"
                 tabIndex={0}
-                aria-selected={selected}
+                aria-checked={selected}
                 aria-label={`${t(kindLabelKey(n.kind))}: ${n.label}`}
                 data-testid="relation-node"
                 data-entity-id={n.id}

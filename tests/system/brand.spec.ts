@@ -20,10 +20,13 @@
 //  App2   : app-root-app2 / plan-item / quote-item（既存）
 //           op-confirm-plan / op-submit-quote / op-approve-quote（既存。FR-020 の主操作。企画・見積を選ぶと表示）
 //           asset-register（既存。素材登録の確定）
+//           FR-025 の左メニュー（nav-item-<key>）で業務領域を 1 つずつ開く（既定は relation）。企画の操作は plan、
+//           見積の操作は quote、素材登録は asset の領域（app2-helpers.ts の go と同じ割当）
 //  主操作のボタンは、この testid の要素自身が背景色を持つ。文字の色は不透明の color で指定する
 //  （background-clip: text のグラデーション文字や半透明の文字は、コントラスト比を判定できないため不可）。
 // ベース URL は playwright.config の baseURL。localStorage は各テストの最初に空にする。
 import { test, expect, Page, Locator } from '@playwright/test';
+import { go } from './app2-helpers';
 
 type Scheme = 'light' | 'dark';
 type RGB = [number, number, number];
@@ -307,11 +310,18 @@ for (const [scheme, jp] of SCHEMES) {
     await open(page, scheme);
     await expectPrimaryButton(T(page, 'cta-official-site'), scheme, 'App1 の主 CTA');
     await toApp2(page);
+    // FR-025: 主操作のボタンは業務領域の画面にあるので、左メニューで該当の領域を開いてから確かめる
+    await go(page, 'plan');
+    await settle(page);
     await T(page, 'plan-item').first().click();
     await expectPrimaryButton(T(page, 'op-confirm-plan'), scheme, 'App2 の企画の確定');
+    await go(page, 'quote');
+    await settle(page);
     await T(page, 'quote-item').first().click();
     await expectPrimaryButton(T(page, 'op-submit-quote'), scheme, 'App2 の見積の提出');
     await expectPrimaryButton(T(page, 'op-approve-quote'), scheme, 'App2 の見積の承認');
+    await go(page, 'asset');
+    await settle(page);
     await expectPrimaryButton(T(page, 'asset-register'), scheme, 'App2 の素材登録の確定');
   });
 }
@@ -324,6 +334,8 @@ test('NFR-UX-004 AC-089 異常系: 表示中に OS のテーマを切り替え�
   await settle(page);
   await expectPrimaryButton(T(page, 'cta-official-site'), 'dark', 'App1 の主 CTA（ダークへ切替後）');
   await toApp2(page);
+  await go(page, 'asset'); // FR-025: 素材登録は素材の領域の画面にある
+  await settle(page);
   await expectPrimaryButton(T(page, 'asset-register'), 'dark', 'App2 の素材登録の確定（ダーク）');
   await page.emulateMedia({ colorScheme: 'light' });
   await settle(page);

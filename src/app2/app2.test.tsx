@@ -149,6 +149,6 @@ describe('FR-012 AC-042 3D 切替', () => {
     await act(async () => updateSettings({ viewMethod: '3d' }));
     expect(screen.getByTestId('relation-view-3d')).toBeTruthy();
     expect(ids()).toEqual(ids2d);
-    expect(document.querySelector(`[data-testid="relation-node"][data-entity-id="${sel}"]`)?.getAttribute('aria-selected')).toBe('true');
+    expect(document.querySelector(`[data-testid="relation-node"][data-entity-id="${sel}"]`)?.getAttribute('aria-checked')).toBe('true');
   });
 });

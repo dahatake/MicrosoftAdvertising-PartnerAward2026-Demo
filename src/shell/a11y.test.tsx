@@ -61,8 +61,8 @@ describe('NFR-A11Y-001 AC-056 3D の名前と代替', () => {
     const { container } = wrap(<DualView items={items} kinds={[{ id: 'a', label: 'Alpha' }]} />);
     const canvas = container.querySelector('[role="img"]');
     expect(canvas?.getAttribute('aria-label')).toBeTruthy();
-    const list = screen.getAllByRole('listbox')[0];
-    expect(within(list).getAllByRole('option').length).toBe(2);
+    const list = screen.getAllByRole('radiogroup')[0];
+    expect(within(list).getAllByRole('radio').length).toBe(2);
     expect(screen.getByText('one')).toBeTruthy();
   });
 });
