@@ -31,6 +31,14 @@
       }
     ]
   },
+  "system_test": {
+    "_note": "serial_patterns はリストなので既定値（ebaklib.DEFAULT_CONFIG）を置き換える。既定の default_port も残す。Playwright のケースは同じ port 4317 の webServer と build を使うため直列にする（port の衝突と性能の計測のゆがみを防ぐ）。それ以外は jobs で並列。",
+    "jobs": "auto",
+    "serial_patterns": [
+      "npx playwright",
+      "default_port"
+    ]
+  },
   "models": {
     "_note": "Phase 1 で較正して決めます（users-guide/04-customization.md）。conductor は subagent を呼ぶときにこの表を参照します。空なら既定のモデルを使います。",
     "conductor": "",
