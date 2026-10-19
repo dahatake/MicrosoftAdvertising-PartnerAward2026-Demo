@@ -1,6 +1,7 @@
 // ペルソナと表現の切替、表現（表・グラフ・ガント・関係の要約）、同じ情報の表（FR-018）。
 // どの表現でも、表示するデータの集合（制作プロジェクトの件数と ID）は同じ。視覚的な表現には必ず表の代替（data-table-alternative）を添える（AC-054）。
 import { Select, Subtitle2, Caption1, makeStyles, tokens } from '@fluentui/react-components';
+import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
 import type { MessageKey } from '../i18n';
 import { spacing } from '../theme/theme';
@@ -88,21 +89,16 @@ export function PersonaBar({
           ))}
         </Select>
       </label>
-      <label className={s.label}>
+      <div className={s.label}>
         <span>{t('app2.representation')}</span>
-        <Select
+        <ChoiceButtons
+          label={t('app2.representation')}
+          testId="representation-select"
           value={representation}
-          aria-label={t('app2.representation')}
-          onChange={(_, d) => isRepresentation(d.value) && onRepresentation(d.value)}
-          select={{ 'data-testid': 'representation-select' } as object}
-        >
-          {REPRESENTATIONS.map((r) => (
-            <option key={r} value={r}>
-              {t(`app2.rep.${r}` as MessageKey)}
-            </option>
-          ))}
-        </Select>
-      </label>
+          onChange={(v) => isRepresentation(v) && onRepresentation(v)}
+          options={REPRESENTATIONS.map((r) => ({ value: r, label: t(`app2.rep.${r}` as MessageKey) }))}
+        />
+      </div>
     </div>
   );
 }

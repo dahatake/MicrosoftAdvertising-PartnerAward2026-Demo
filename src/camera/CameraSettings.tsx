@@ -1,9 +1,11 @@
 // CameraSettings: カメラワークの選択パネル（両アプリ共通）。かんたん選択（雰囲気のスライダーと 9 つのプリセット）と
 // くわしく選択（4 要素）。選択は即座に大きなプレビューと「いま: …」に反映され、localStorage に保存される。
 // data-testid: camera-simple-slider / camera-preset-<n> / camera-mini-preview / camera-now / camera-detail-<part> / camera-combo / camera-preview
-import { useRef } from 'react';
-import { Caption1, Subtitle2, Body1Strong, makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-components';
+import { useRef, useState } from 'react';
+import { Button, Caption1, Subtitle2, Body1Strong, makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-components';
 import { spacing } from '../theme/theme';
+import { useT } from '../i18n/useT';
+import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useSettings } from '../settings/store';
 import { CAMERA_LABELS, TECH_NAMES } from './labels';
 import { PART_VALUES, PARTS, PRESETS, comboKey, isAvailable, type CameraCombo, type CameraPart } from './model';
@@ -85,6 +87,8 @@ export function CameraSettings() {
     return isAvailable(part, v, cw.method) ? name : `${name} — ${l.only3d}`;
   };
   const has3dOnly = cw.method === '2d';
+  const t = useT();
+  const [detailOpen, setDetailOpen] = useState(false);
 
   return (
     <section className={s.root} aria-labelledby="camera-heading" data-testid="camera-settings">
@@ -130,26 +134,44 @@ export function CameraSettings() {
 
       <div className={s.group}>
         <Body1Strong>{l.detail}</Body1Strong>
-        <div className={s.details}>
-          {PARTS.map((part) => (
-            <label key={part} className={s.field}>
-              <Caption1>{l.partNames[part]}</Caption1>
-              <select
-                className={s.select}
-                value={cw.combo[part]}
-                data-testid={`camera-detail-${part}`}
-                onChange={(e) => cw.setPart(part, e.target.value as never)}
-              >
-                {PART_VALUES[part].map((v) => (
-                  <option key={v} value={v} disabled={!isAvailable(part, v, cw.method)} title={(TECH_NAMES[part] as Record<string, string>)[v]}>
-                    {detailText(part, v)}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ))}
-        </div>
-        {has3dOnly && <Caption1 data-testid="camera-2d-note">{l.unavailable}</Caption1>}
+        <Button
+          size="small"
+          appearance="secondary"
+          aria-expanded={detailOpen}
+          data-testid="camera-detail-open"
+          onClick={() => setDetailOpen((v) => !v)}
+        >
+          {detailOpen ? t('camera.detailClose') : t('camera.detailOpen')}
+        </Button>
+        {detailOpen && (
+          <>
+            <div className={s.details} data-testid="camera-detail">
+              {PARTS.map((part) => (
+                <div key={part} className={s.field}>
+                  <Caption1>{l.partNames[part]}</Caption1>
+                  <ChoiceButtons
+                    label={l.partNames[part]}
+                    testId={`camera-group-${part}`}
+                    value={cw.combo[part]}
+                    onChange={(v) => cw.setPart(part, v as never)}
+                    options={PART_VALUES[part].map((v) => ({
+                      value: v,
+                      label: (l[part] as Record<string, string>)[v],
+                      title: isAvailable(part, v, cw.method) ? (TECH_NAMES[part] as Record<string, string>)[v] : detailText(part, v),
+                      disabled: !isAvailable(part, v, cw.method),
+                    }))}
+                  />
+                </div>
+              ))}
+            </div>
+            {has3dOnly && <Caption1 data-testid="camera-2d-note">{l.unavailable}</Caption1>}
+            {has3dOnly && (
+              <Caption1 data-testid="camera-disabled-reason" role="note">
+                {l.only3d}
+              </Caption1>
+            )}
+          </>
+        )}
       </div>
 
       <div className={s.group}>
@@ -160,7 +182,9 @@ export function CameraSettings() {
         {cw.reducedMotion && <Caption1>{l.reducedNote}</Caption1>}
         {comboKey(cw.effective) !== cw.key && <Caption1>{l.fallbackNote}</Caption1>}
       </div>
-      <span hidden data-testid="camera-combo" data-value={cw.key} data-max-duration-ms={String(cw.maxDurationMs)} />
+      <Caption1 data-testid="camera-combo" data-value={cw.key} data-max-duration-ms={String(cw.maxDurationMs)}>
+        {PARTS.map((part) => (l[part] as Record<string, string>)[cw.combo[part]]).join(' / ')}
+      </Caption1>
     </section>
   );
 }

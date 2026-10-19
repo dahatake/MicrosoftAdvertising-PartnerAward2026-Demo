@@ -1,7 +1,8 @@
 // 展開の一覧と、選んだ展開の利用状況（実績値）・KPI の目標値の登録・更新（FR-019）。
 // 登録すると、制作プロジェクトの KPI の目標と現在値の表示（FR-013）と KPI の関係図に反映され、localStorage に保存される。
 import { useState } from 'react';
-import { Badge, Body1, Button, Caption1, Input, Label, Select, makeStyles, tokens } from '@fluentui/react-components';
+import { Badge, Body1, Button, Caption1, Input, Label, makeStyles, tokens } from '@fluentui/react-components';
+import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
 import { kpisOfDeployment, saveUsage } from './operations';
@@ -29,14 +30,14 @@ function UsageForm({ deploymentId }: { deploymentId: string }) {
   // 入力は、選んだ KPI の現在の値から始める（KPI を切り替えたら取り直す）
   return <UsageFields key={kpi?.id ?? 'none'} deploymentId={deploymentId} kpiId={kpi?.id} initialActual={kpi?.actual} initialTarget={kpi?.target} kpiSelect={
     <div className={s.field}>
-      <Label htmlFor="kpi-select-input">{t('app2.kpiSelect')}</Label>
-      <Select id="kpi-select-input" value={kpi?.id ?? ''} onChange={(_, d) => setKpiId(d.value)} select={{ 'data-testid': 'kpi-select' } as object}>
-        {kpis.map((k) => (
-          <option key={k.id} value={k.id}>
-            {k.metric}（{k.unit}）
-          </option>
-        ))}
-      </Select>
+      <Label>{t('app2.kpiSelect')}</Label>
+      <ChoiceButtons
+        label={t('app2.kpiSelect')}
+        testId="kpi-select"
+        value={kpi?.id ?? ''}
+        onChange={setKpiId}
+        options={kpis.map((k) => ({ value: k.id, label: `${k.metric}（${k.unit}）` }))}
+      />
     </div>
   } failText={failText} />;
 }
@@ -94,7 +95,7 @@ export function DeploymentPanel() {
   return (
     <div className={s.stack}>
       {data.deployments.length === 0 && <Body1 className={s.hint}>{t('app2.none')}</Body1>}
-      <div className={s.list} role="listbox" aria-label={t('app2.deployments')} data-testid="deployment-list">
+      <div className={s.list} role="radiogroup" aria-label={t('app2.deployments')} data-testid="deployment-list">
         {data.deployments.map((dep) => {
           const asset = data.assets.find((a) => a.id === dep.assetId);
           const channel = data.channels.find((c) => c.id === dep.channelId);
@@ -103,10 +104,10 @@ export function DeploymentPanel() {
           return (
             <Button
               key={dep.id}
-              role="option"
+              role="radio"
               className={s.item}
               appearance={dep.id === selectedId ? 'primary' : 'subtle'}
-              aria-selected={dep.id === selectedId}
+              aria-checked={dep.id === selectedId}
               data-testid="deployment-row"
               data-entity-id={dep.id}
               onClick={() => setSelectedId(dep.id)}

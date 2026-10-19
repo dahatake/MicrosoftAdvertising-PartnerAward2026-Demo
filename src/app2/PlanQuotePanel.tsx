@@ -110,15 +110,15 @@ export function PlanQuotePanel() {
 
   return (
     <div className={s.stack}>
-      <div className={s.group} role="listbox" aria-label={t('app2.plans')} data-testid="plan-list">
+      <div className={s.group} role="radiogroup" aria-label={t('app2.plans')} data-testid="plan-list">
         <Caption1>{t('app2.plans')}</Caption1>
         {data.plans.map((p) => (
           <Button
             key={p.id}
-            role="option"
+            role="radio"
             className={s.item}
             appearance={sel?.id === p.id ? 'primary' : 'subtle'}
-            aria-selected={sel?.id === p.id}
+            aria-checked={sel?.id === p.id}
             data-testid="plan-item"
             data-state={stateCode(p.state)}
             data-entity-id={p.id}
@@ -128,15 +128,15 @@ export function PlanQuotePanel() {
           </Button>
         ))}
       </div>
-      <div className={s.group} role="listbox" aria-label={t('app2.quotes')} data-testid="quote-list">
+      <div className={s.group} role="radiogroup" aria-label={t('app2.quotes')} data-testid="quote-list">
         <Caption1>{t('app2.quotes')}</Caption1>
         {data.quotes.map((q) => (
           <Button
             key={q.id}
-            role="option"
+            role="radio"
             className={s.item}
             appearance={sel?.id === q.id ? 'primary' : 'subtle'}
-            aria-selected={sel?.id === q.id}
+            aria-checked={sel?.id === q.id}
             data-testid="quote-item"
             data-state={stateCode(q.state)}
             data-entity-id={q.id}

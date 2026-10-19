@@ -55,14 +55,14 @@ export function ProjectList({
   const data = useDataset();
   const projects = data.projects.filter((p) => !campaignId || p.campaignId === campaignId);
   return (
-    <div className={s.list} role="listbox" data-testid="project-list" aria-label={t('app2.projects')}>
+    <div className={s.list} role="radiogroup" data-testid="project-list" aria-label={t('app2.projects')}>
       {projects.map((p) => (
         <Button
           key={p.id}
-          role="option"
+          role="radio"
           className={s.item}
           appearance={p.id === selectedId ? 'primary' : 'subtle'}
-          aria-selected={p.id === selectedId}
+          aria-checked={p.id === selectedId}
           data-testid="project-item"
           data-entity-id={p.id}
           onClick={() => onSelect(p.id)}

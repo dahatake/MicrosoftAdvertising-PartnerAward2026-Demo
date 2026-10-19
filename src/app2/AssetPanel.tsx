@@ -1,7 +1,9 @@
 // 素材管理（FR-016）: 登録・メタデータの編集・プレビュー・チャネルへの紐付け。
 // 素材の展開・アーカイブと状態遷移（FR-019）も、同じ一覧の行から操作する（承認 → 展開 → アーカイブ）。
 import { useState } from 'react';
-import { Badge, Body1, Button, Caption1, Input, Label, Select, makeStyles, tokens } from '@fluentui/react-components';
+import { Badge, Body1, Button, Caption1, Input, Label, makeStyles, tokens } from '@fluentui/react-components';
+import { ChoiceButtons } from '../ui/ChoiceButtons';
+import { RealAssets } from './RealAssets';
 import { CheckmarkCircle16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
@@ -105,19 +107,13 @@ function AssetRow({ asset, onError }: { asset: Asset; onError: (m: string | null
       </div>
       <div className={s.stack}>
         <span className={s.ops}>
-          <Select
-            aria-label={t('app2.channel')}
+          <ChoiceButtons
+            label={t('app2.channel')}
+            testId="asset-channel-select"
             value={linkTo}
-            onChange={(_, d) => setLinkTo(d.value)}
-            select={{ 'data-testid': 'asset-channel-select' } as object}
-          >
-            <option value="">{t('app2.select')}</option>
-            {data.channels.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </Select>
+            onChange={setLinkTo}
+            options={data.channels.map((c) => ({ value: c.id, label: c.name }))}
+          />
           <Button
             size="small"
             data-testid="asset-link-channel"
@@ -130,19 +126,13 @@ function AssetRow({ asset, onError }: { asset: Asset; onError: (m: string | null
           </Button>
         </span>
         <span className={s.ops}>
-          <Select
-            aria-label={`${t('app2.deploy')}: ${t('app2.channel')}`}
+          <ChoiceButtons
+            label={`${t('app2.deploy')}: ${t('app2.channel')}`}
+            testId="asset-deploy-channel"
             value={deployTo}
-            onChange={(_, d) => setDeployTo(d.value)}
-            select={{ 'data-testid': 'asset-deploy-channel' } as object}
-          >
-            <option value="">{t('app2.select')}</option>
-            {data.channels.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </Select>
+            onChange={setDeployTo}
+            options={data.channels.map((c) => ({ value: c.id, label: c.name }))}
+          />
           <Button size="small" data-testid="asset-deploy" disabled={isLastAssetState(asset.state)} onClick={() => act(deployAsset(asset.id, deployTo))}>
             {t('app2.deploy')}
           </Button>
@@ -162,21 +152,21 @@ function AssetRow({ asset, onError }: { asset: Asset; onError: (m: string | null
       {editing && (
         <div className={`${s.fields} ${s.full}`}>
           <Input aria-label={t('app2.col.name')} value={name} onChange={(_, d) => setName(d.value)} input={{ 'data-testid': 'asset-edit-name' } as object} />
-          <Select aria-label={t('app2.type')} value={type} onChange={(_, d) => setType(d.value)} select={{ 'data-testid': 'asset-edit-type' } as object}>
-            {types.map((x) => (
-              <option key={x} value={x}>
-                {x}
-              </option>
-            ))}
-          </Select>
+          <ChoiceButtons
+            label={t('app2.type')}
+            testId="asset-edit-type"
+            value={type}
+            onChange={setType}
+            options={types.map((x) => ({ value: x, label: x }))}
+          />
           <Input aria-label={t('app2.tags')} value={tags} onChange={(_, d) => setTags(d.value)} input={{ 'data-testid': 'asset-edit-tags' } as object} />
-          <Select aria-label={t('app2.projects')} value={projectId} onChange={(_, d) => setProjectId(d.value)} select={{ 'data-testid': 'asset-edit-project' } as object}>
-            {data.projects.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </Select>
+          <ChoiceButtons
+            label={t('app2.projects')}
+            testId="asset-edit-project"
+            value={projectId}
+            onChange={setProjectId}
+            options={data.projects.map((p) => ({ value: p.id, label: p.name }))}
+          />
           <Button appearance="primary" onClick={save} data-testid="asset-edit-save">
             {t('app2.save')}
           </Button>
@@ -211,36 +201,35 @@ export function AssetPanel() {
 
   return (
     <div className={s.stack}>
+      <RealAssets />
       <div className={s.fields} data-testid="asset-form">
         <div className={s.field}>
           <Label htmlFor="asset-name-input">{t('app2.col.name')}</Label>
           <Input id="asset-name-input" value={name} onChange={(_, d) => setName(d.value)} input={{ 'data-testid': 'asset-name' } as object} />
         </div>
         <div className={s.field}>
-          <Label htmlFor="asset-type-input">{t('app2.type')}</Label>
-          <Select id="asset-type-input" value={type} onChange={(_, d) => setType(d.value)} select={{ 'data-testid': 'asset-type' } as object}>
-            <option value="">{t('app2.select')}</option>
-            {ASSET_TYPES.map((x) => (
-              <option key={x} value={x}>
-                {x}
-              </option>
-            ))}
-          </Select>
+          <Label>{t('app2.type')}</Label>
+          <ChoiceButtons
+            label={t('app2.type')}
+            testId="asset-type"
+            value={type}
+            onChange={setType}
+            options={ASSET_TYPES.map((x) => ({ value: x, label: x }))}
+          />
         </div>
         <div className={s.field}>
           <Label htmlFor="asset-tags-input">{t('app2.tags')}</Label>
           <Input id="asset-tags-input" value={tags} onChange={(_, d) => setTags(d.value)} input={{ 'data-testid': 'asset-tags' } as object} />
         </div>
         <div className={s.field}>
-          <Label htmlFor="asset-project-input">{t('app2.projects')}</Label>
-          <Select id="asset-project-input" value={projectId} onChange={(_, d) => setProjectId(d.value)} select={{ 'data-testid': 'asset-project' } as object}>
-            <option value="">{t('app2.select')}</option>
-            {data.projects.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </Select>
+          <Label>{t('app2.projects')}</Label>
+          <ChoiceButtons
+            label={t('app2.projects')}
+            testId="asset-project"
+            value={projectId}
+            onChange={setProjectId}
+            options={data.projects.map((p) => ({ value: p.id, label: p.name }))}
+          />
         </div>
         <Button appearance="primary" onClick={register} data-testid="asset-register">
           {t('app2.register')}

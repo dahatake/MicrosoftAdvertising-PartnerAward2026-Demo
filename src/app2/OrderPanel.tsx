@@ -1,6 +1,7 @@
 // 外部発注の管理（FR-017）: 発注先・金額・納期・状態で登録・一覧・更新する。状態は 依頼前→発注済→納品済→検収済 の順にだけ進める。
 import { useState } from 'react';
-import { Badge, Body1, Button, Input, Label, Select, makeStyles, tokens } from '@fluentui/react-components';
+import { Badge, Body1, Button, Input, Label, makeStyles, tokens } from '@fluentui/react-components';
+import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
 import { advanceOrder, isLastOrderState, registerOrder } from './operations';
@@ -53,25 +54,24 @@ export function OrderPanel({ projectId }: { projectId?: string | null }) {
     <div className={s.stack}>
       <div className={s.fields} data-testid="order-form">
         <div className={s.field}>
-          <Label htmlFor="order-project-input">{t('app2.projects')}</Label>
-          <Select id="order-project-input" value={effectiveProject} onChange={(_, d) => setProject(d.value)} select={{ 'data-testid': 'order-project' } as object}>
-            {data.projects.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </Select>
+          <Label>{t('app2.projects')}</Label>
+          <ChoiceButtons
+            label={t('app2.projects')}
+            testId="order-project"
+            value={effectiveProject}
+            onChange={setProject}
+            options={data.projects.map((p) => ({ value: p.id, label: p.name }))}
+          />
         </div>
         <div className={s.field}>
-          <Label htmlFor="order-vendor-input">{t('app2.vendor')}</Label>
-          <Select id="order-vendor-input" value={vendor} onChange={(_, d) => setVendor(d.value)} select={{ 'data-testid': 'order-vendor' } as object}>
-            <option value="">{t('app2.select')}</option>
-            {data.vendors.map((v) => (
-              <option key={v.id} value={v.id}>
-                {v.name}
-              </option>
-            ))}
-          </Select>
+          <Label>{t('app2.vendor')}</Label>
+          <ChoiceButtons
+            label={t('app2.vendor')}
+            testId="order-vendor"
+            value={vendor}
+            onChange={setVendor}
+            options={data.vendors.map((v) => ({ value: v.id, label: v.name }))}
+          />
         </div>
         <div className={s.field}>
           <Label htmlFor="order-amount-input">{t('app2.amount')}</Label>
