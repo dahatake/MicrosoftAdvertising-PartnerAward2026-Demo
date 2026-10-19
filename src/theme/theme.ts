@@ -36,6 +36,12 @@ export const BRAND = {
   /** 暗い面の上の文字（白と、補足の文字。どちらも暗い面・光のグラデーションの上でコントラスト比 4.5 以上） */
   foregroundOnDark: '#FFFFFF',
   foregroundOnDarkMuted: '#C9D6EA',
+  /**
+   * 暗い面の上の操作要素（ヘッダー帯のトグルの未選択の項目など）のホバー・押下の背景。
+   * 白を半透明で重ねる（8 桁の 16 進。ホバー 12%・押下 20%）。重ねた後も白の文字とのコントラスト比 4.5 以上を保つ濃さ
+   */
+  surfaceOnDarkHover: '#FFFFFF1F',
+  surfaceOnDarkPressed: '#FFFFFF33',
 } as const;
 
 // ---------- ブランドランプ（Fluent の BrandVariants: 10〜160 の 16 段） ----------
@@ -91,6 +97,8 @@ type BrandExtension = {
   brandRadiusCardLarge: string;
   brandForegroundOnDark: string;
   brandForegroundOnDarkMuted: string;
+  brandSurfaceOnDarkHover: string;
+  brandSurfaceOnDarkPressed: string;
 };
 export type BrandTheme = Theme & BrandExtension;
 
@@ -109,6 +117,8 @@ const sharedExtension = {
   brandRadiusCardLarge: BRAND.radiusCardLarge,
   brandForegroundOnDark: BRAND.foregroundOnDark,
   brandForegroundOnDarkMuted: BRAND.foregroundOnDarkMuted,
+  brandSurfaceOnDarkHover: BRAND.surfaceOnDarkHover,
+  brandSurfaceOnDarkPressed: BRAND.surfaceOnDarkPressed,
 } satisfies Partial<BrandExtension>;
 
 function withBrandFonts(t: Theme): Theme {
@@ -167,6 +177,9 @@ export const brandTokens = {
   radiusPill: tokens.borderRadiusCircular,
   foregroundOnDark: 'var(--brandForegroundOnDark)',
   foregroundOnDarkMuted: 'var(--brandForegroundOnDarkMuted)',
+  /** 暗い面の上の操作要素のホバー・押下の背景（テーマによらない） */
+  surfaceOnDarkHover: 'var(--brandSurfaceOnDarkHover)',
+  surfaceOnDarkPressed: 'var(--brandSurfaceOnDarkPressed)',
 } as const;
 
 /**
