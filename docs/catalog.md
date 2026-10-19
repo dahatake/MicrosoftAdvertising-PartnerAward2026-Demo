@@ -28,6 +28,10 @@
 | FR-018 | ペルソナ別の既定の情報表現と表現の切替（App2） | 承認済み | src/app2/persona.ts, src/app2/RepresentationPanel.tsx, src/apps/App2.tsx, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | src/app2/projects.test.tsx, tests/system/narration-app2.spec.ts | ペルソナと表現, 制作プロジェクトの表示, 関係図, 表示方法, App2 データストア, ワークスペース, デザイン基盤, i18n 辞書 |
 | FR-020 | 企画の確定と見積の提出・承認の操作 | 承認済み | src/app2/PlanQuotePanel.tsx, src/app2/operations.ts, src/app2/states.ts, src/app2/types.ts, src/app2/index.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | src/app2/stateops.test.tsx | App2 データストア, 状態と業務操作, デザイン基盤, i18n 辞書 |
 | FR-021 | ペルソナ別の既定のレイアウトの切替（App1・App2） | 承認済み | src/layout/Workspace.tsx, src/layout/model.ts, src/app1/persona-layout.ts, src/app2/persona.ts, src/apps/App1.tsx, src/apps/App2.tsx | src/layout/persona-layout.test.tsx | ワークスペース, ペルソナと表現 |
+| FR-024 | App2 の画面の 1 画面収容（縦横スクロールなし） | 承認済み | 未実装 | 未実装 | なし |
+| FR-025 | 業務ワークフロー順の左メニュー（サイドナビ） | 承認済み | 未実装 | 未実装 | なし |
+| FR-026 | コンボボックスのボタン（ボタン群）化 | 承認済み | 未実装 | 未実装 | なし |
+| FR-027 | 実際の広告素材（YouTube・TikTok）の参照 | 承認済み | 未実装 | 未実装 | なし |
 | NFR-A11Y-001 | キーボード操作と代替手段 | 承認済み | src/shell/ShellTools.tsx, src/shell/Shell.tsx, src/narration/Narration.tsx | src/shell/a11y.test.tsx, tests/system/nfr.spec.ts | シェルの共通操作 |
 | NFR-A11Y-002 | 動きの軽減（reduced-motion） | 承認済み | src/theme/global.css, src/main.tsx | src/shell/a11y.test.tsx, tests/system/nfr.spec.ts | グローバル CSS |
 | NFR-A11Y-003 | ナレーションの字幕・トランスクリプト | 承認済み | src/narration/Narration.tsx, src/narration/scripts.ts | src/narration/Narration.test.tsx, tests/system/narration-app2.spec.ts | ナレーション部品, ナレーション台本辞書 |
