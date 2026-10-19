@@ -2,7 +2,7 @@
 // 新しい画面・機能の文言は、この src/i18n/locales/ の 4 ファイルに同じキーを追加する（欠落は単体テストで検出される）。
 // 用語は docs/requirements-definition.md §3.3 の用語表に従う（禁止同義語は使わない）。
 export const ja = {
-  'app.title': '広告デモ',
+  'app.title': 'MicrosoftAdvertising-PartnerAward2026-Demo',
   'shell.appSwitch': 'アプリの切替',
   'shell.app1': 'App1 広告キャンペーンサイト',
   'shell.app2': 'App2 広告素材管理',

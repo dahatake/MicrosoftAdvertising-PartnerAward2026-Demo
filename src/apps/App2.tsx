@@ -37,7 +37,7 @@ import { CameraSettings } from '../camera';
 
 const useStyles = makeStyles({
   root: { display: 'flex', gap: spacing.m, alignItems: 'flex-start' },
-  main: { display: 'flex', flexDirection: 'column', gap: spacing.s, flexGrow: 1, minWidth: 0 },
+  main: { display: 'flex', flexDirection: 'column', gap: spacing.xs, flexGrow: 1, minWidth: 0 },
 });
 
 /** 領域のペルソナ別の既定のレイアウト */

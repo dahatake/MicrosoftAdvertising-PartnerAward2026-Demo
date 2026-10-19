@@ -4,13 +4,13 @@ import {
   Select,
   Tab,
   TabList,
-  Title3,
+  Subtitle2,
   makeStyles,
   tokens,
 } from '@fluentui/react-components';
 import { motion, useReducedMotion } from 'framer-motion';
 import { APPS } from '../apps/registry';
-import { LANGUAGES, LANGUAGE_LABELS, isLang } from '../i18n';
+import { LANGUAGES, LANGUAGE_LABELS, isLang, translate } from '../i18n';
 import { useT } from '../i18n/useT';
 import { updateSettings, useSettings, type AppId } from '../settings/store';
 import { spacing } from '../theme/theme';
@@ -30,6 +30,7 @@ const useStyles = makeStyles({
     backgroundColor: tokens.colorNeutralBackground2,
     borderBottom: `1px solid ${tokens.colorNeutralStroke2}`,
   },
+  title: { margin: 0, flexShrink: 0 },
   spacer: { flexGrow: 1 },
   main: { padding: spacing.s, maxWidth: '1240px', margin: '0 auto' },
   label: { display: 'flex', alignItems: 'center', gap: spacing.s },
@@ -45,6 +46,7 @@ export function Shell() {
 
   useEffect(() => {
     document.documentElement.lang = lang;
+    document.title = translate(lang, 'app.title');
   }, [lang]);
 
   const current = APPS.find((a) => a.id === app) ?? APPS[0];
@@ -53,7 +55,7 @@ export function Shell() {
   return (
     <>
       <header className={s.header}>
-        <Title3 as="h1">{t('app.title')}</Title3>
+        <Subtitle2 as="h1" className={s.title}>{t('app.title')}</Subtitle2>
         <TabList
           aria-label={t('shell.appSwitch')}
           size="small"

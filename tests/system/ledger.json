@@ -46,7 +46,9 @@
     "AC-112": "sha256:c01ff1ad9fdc14eb",
     "AC-113": "sha256:b02feddf6be8ced5",
     "AC-114": "sha256:1674994eb0f49c82",
-    "AC-115": "sha256:92f91b8d8cb7f7f1"
+    "AC-115": "sha256:92f91b8d8cb7f7f1",
+    "AC-086": "sha256:99de0f00bdbe59f9",
+    "AC-087": "sha256:2166a7cb67c6d8fb"
   },
   "cases": [
     {
@@ -1679,6 +1681,87 @@
           "by": "test-designer",
           "change": "blocked",
           "reason": "検証レベルが integration のため System Test の対象外。参考ケースとして保持（implementer が統合テストの根拠に利用可）"
+        }
+      ]
+    },
+    {
+      "id": "E2E-040",
+      "requirement_ids": [
+        "FR-022"
+      ],
+      "ac_ids": [
+        "AC-086"
+      ],
+      "title": "4言語の app.title・可視見出し・document.title が正式名称と完全一致",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/project-name.spec.ts -g \"4言語の\"",
+      "canary": true,
+      "status": "pass",
+      "last_commit": "60a13b5",
+      "last_run_at": "2026-10-17T23:53:46+09:00",
+      "evidence": "work\\runs\\202610172045\\logs\\system-test\\E2E-040-202610172352.log",
+      "history": [
+        {
+          "at": "2026-10-17T21:49:29+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "E2E-041",
+      "requirement_ids": [
+        "FR-022"
+      ],
+      "ac_ids": [
+        "AC-086"
+      ],
+      "title": "異常系: 連続切替と元の言語への復帰でも旧名・翻訳名に戻らない",
+      "layer": "e2e",
+      "command": "npx playwright test tests/system/project-name.spec.ts -g \"異常系:\"",
+      "canary": false,
+      "status": "pass",
+      "last_commit": "60a13b5",
+      "last_run_at": "2026-10-17T23:53:46+09:00",
+      "evidence": "work\\runs\\202610172045\\logs\\system-test\\E2E-041-202610172353.log",
+      "history": [
+        {
+          "at": "2026-10-17T21:49:34+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "受入基準からケースを作成"
+        }
+      ]
+    },
+    {
+      "id": "IT-001",
+      "requirement_ids": [
+        "FR-022"
+      ],
+      "ac_ids": [
+        "AC-087"
+      ],
+      "title": "FR-022 AC-087 integration: 実作業フォルダーの改名と改名前後のGit同一性・全内容保持",
+      "layer": "data",
+      "command": "python tests/system/ac087-folder-rename.py",
+      "canary": false,
+      "status": "blocked",
+      "last_commit": null,
+      "last_run_at": null,
+      "evidence": null,
+      "history": [
+        {
+          "at": "2026-10-17T22:25:49+09:00",
+          "by": "test-designer",
+          "change": "追加",
+          "reason": "reviewer指摘のAC-087未検証を補完。検証レベルintegration（台帳layer=data）。ST_AC087_WORKDIRに実作業checkoutを指定し、改名前のHEAD/refs/index/status・Git共通ディレクトリと作業ディレクトリのfilesystem identity・追跡/未追跡/ignoredファイル全件SHA-256を記録→同じ親で正式名称へ実改名（linked worktreeはgit worktree move）→旧パス消滅・正式basename・全記録同一を検証。入力欠如/既改名/移動先衝突は非0で拒否、上書きしない。停止済みプロセスとローカル改名許可が実行前提。実行後は改名を保持、失敗時は手動確認。クローンで代用せずGitHub rename/AC-088は対象外。設計のみ、not_run。"
+        },
+        {
+          "at": "2026-10-17T22:31:09+09:00",
+          "by": "test-designer",
+          "change": "blocked",
+          "reason": "AC-087 は検証レベル integration で System Test 対象外。AC-087 は conductor が予定する実作業フォルダー改名とGit同一性の統合作業で検証し、System Test ledger には登録しない"
         }
       ]
     }

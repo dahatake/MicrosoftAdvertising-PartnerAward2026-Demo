@@ -1,7 +1,7 @@
 import type { Messages } from './ja';
 
 export const ko: Messages = {
-  'app.title': '광고 데모',
+  'app.title': 'MicrosoftAdvertising-PartnerAward2026-Demo',
   'shell.appSwitch': '앱 전환',
   'shell.app1': 'App1 광고 캠페인 사이트',
   'shell.app2': 'App2 광고 소재 관리',
