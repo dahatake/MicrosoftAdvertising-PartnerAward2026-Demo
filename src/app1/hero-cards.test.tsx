@@ -6,6 +6,7 @@
 import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { tokens } from '@fluentui/react-components';
 import { ThemeProvider } from '../theme/ThemeProvider';
 import { App1 } from '../apps/App1';
 import { resetSettings } from '../settings/store';
@@ -126,6 +127,26 @@ describe('NFR-UX-004 AC-091 App1 のヒーロー', () => {
     expect(visual.getAttribute('role')).toBe('img');
     expect(visual.getAttribute('aria-label')).toBe(text.heroVisualLabel);
     expect(within(hero).getByRole('img', { name: text.heroVisualLabel })).toBe(visual);
+  });
+  // NFR-UX-004 AC-091 大きな見出し: 文字は Fluent の type ramp のトークン（直書きの値・clamp を使わない。幅の切替は WIDE のメディアクエリ）
+  it('見出しは Hero の type ramp、副題は Base500 のトークンの大きさと行の高さ（狭い幅の既定）', () => {
+    renderApp1();
+    const hero = screen.getByTestId('app1-hero');
+    const heading = within(hero).getByRole('heading', { level: 2 });
+    const lead = within(hero).getByText(app1Text.ja.heroLead);
+    const pairs: [HTMLElement, string, string][] = [
+      [heading, 'font-size', tokens.fontSizeHero800],
+      [heading, 'line-height', tokens.lineHeightHero800],
+      [lead, 'font-size', tokens.fontSizeBase500],
+      [lead, 'line-height', tokens.lineHeightBase500],
+    ];
+    for (const [el, prop, token] of pairs) {
+      const raw = getComputedStyle(el).getPropertyValue(prop);
+      expect(raw, `${prop} は直書きの値でない`).not.toMatch(/clamp\(|vw/);
+      expect(computed(el, prop), `${prop} = ${token}`).toBe(resolveVars(el, token));
+      expect(computed(el, prop)).toMatch(/^\d+px$/);
+    }
+    expect(toPx(computed(heading, 'font-size'))).toBeGreaterThan(toPx(computed(lead, 'font-size')));
   });
   it('4 言語に製品のビジュアルの名前と導入の文言がある', () => {
     for (const t of Object.values(app1Text)) {

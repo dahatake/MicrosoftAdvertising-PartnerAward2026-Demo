@@ -62,23 +62,27 @@ const useStyles = makeStyles({
     lineHeight: tokens.lineHeightBase400,
     fontWeight: tokens.fontWeightSemibold,
   },
-  // 大きな見出し（Segoe 系の display。320px でも欠けないよう clamp で縮め、長い語は折り返す）
+  // 大きな見出し（Segoe 系の display。Fluent の type ramp の Hero。狭い幅は Hero800、WIDE で Hero1000。
+  // 320px でも欠けないよう、長い語は折り返す）
   heroTitle: {
     margin: 0,
     color: brandTokens.foregroundOnDark,
     fontFamily: brandTokens.fontFamilyDisplay,
-    fontSize: 'clamp(2.25rem, 1.25rem + 5vw, 4.5rem)',
-    lineHeight: 1.05,
+    fontSize: tokens.fontSizeHero800,
+    lineHeight: tokens.lineHeightHero800,
     fontWeight: tokens.fontWeightSemibold,
-    letterSpacing: '-0.02em',
     maxWidth: '100%',
+    overflowWrap: 'break-word',
+    [WIDE]: { fontSize: tokens.fontSizeHero1000, lineHeight: tokens.lineHeightHero1000 },
   },
+  // 副題（type ramp の Base500、WIDE で Base600）
   heroLead: {
     margin: 0,
     color: brandTokens.foregroundOnDark,
-    fontSize: 'clamp(1.0625rem, 1rem + 0.5vw, 1.375rem)',
-    lineHeight: 1.45,
+    fontSize: tokens.fontSizeBase500,
+    lineHeight: tokens.lineHeightBase500,
     maxWidth: '34em',
+    [WIDE]: { fontSize: tokens.fontSizeBase600, lineHeight: tokens.lineHeightBase600 },
   },
   ctaRow: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: spacing.m, marginTop: spacing.s, maxWidth: '100%' },
   cta: { maxWidth: '100%', whiteSpace: 'normal', textAlign: 'center' },
