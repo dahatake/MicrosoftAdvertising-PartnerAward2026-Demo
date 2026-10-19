@@ -5,8 +5,9 @@ import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { THEME_SWITCHING_ATTR, ThemeProvider } from './ThemeProvider';
-import { BRAND, brandDark, brandDarkTheme, brandLight, brandLightTheme, brandRamp, pickTheme } from './theme';
-import { PrimaryButton } from './BrandButton';
+import { BRAND, brandDark, brandDarkTheme, brandLight, brandLightTheme, brandPillStyle, brandRamp, brandTokens, pickTheme } from './theme';
+import { BrandToggleButton, PrimaryButton, useBrandStyles } from './BrandButton';
+import { Button } from '@fluentui/react-components';
 import { Shell } from '../shell/Shell';
 import { App1 } from '../apps/App1';
 import { AssetPanel, PlanQuotePanel, resetDataset } from '../app2';
@@ -207,6 +208,80 @@ describe('NFR-UX-004 AC-089 主操作のボタンは主色・ピル形', () => {
     expectPrimaryPill(screen.getByTestId('b1'), PARAM_011);
     expectPrimaryPill(screen.getByTestId('b2'), PARAM_011);
     expect(screen.getByTestId('b2').tagName).toBe('A');
+  });
+  // NFR-UX-004 AC-089 キーボードでフォーカスした状態（Fluent の [data-fui-focus-visible]）でも、どの大きさでもピル形のまま
+  it('キーボードでフォーカスした主操作のボタン（small・medium・large・リンク）もピル形のまま', () => {
+    render(
+      <ThemeProvider>
+        <input data-testid="before" />
+        {(['small', 'medium', 'large'] as const).map((size) => (
+          <PrimaryButton key={size} size={size} data-testid={`k-${size}`}>
+            {size}
+          </PrimaryButton>
+        ))}
+        <PrimaryButton as="a" href="#k" data-testid="k-link">
+          link
+        </PrimaryButton>
+      </ThemeProvider>,
+    );
+    for (const id of ['k-small', 'k-medium', 'k-large', 'k-link']) {
+      const el = screen.getByTestId(id);
+      // キーボード操作（Tab）の直後のフォーカスで、tabster が focus-visible の属性を付ける
+      fireEvent.keyDown(document.activeElement ?? document.body, { key: 'Tab', code: 'Tab', keyCode: 9 });
+      el.focus();
+      expect(document.activeElement).toBe(el);
+      expect(el.hasAttribute('data-fui-focus-visible'), `${id} にキーボードのフォーカスの属性`).toBe(true);
+      expectPrimaryPill(el, PARAM_011);
+    }
+  });
+  it('App1 の主 CTA をキーボードでフォーカスしてもピル形のまま（ダークのテーマ）', () => {
+    setOsScheme(true);
+    render(
+      <ThemeProvider>
+        <App1 />
+      </ThemeProvider>,
+    );
+    const cta = screen.getByTestId('cta-official-site');
+    fireEvent.keyDown(document.body, { key: 'Tab', code: 'Tab', keyCode: 9 });
+    cta.focus();
+    expect(cta.hasAttribute('data-fui-focus-visible')).toBe(true);
+    expectPrimaryPill(cta, PARAM_020);
+  });
+  // NFR-UX-004 AC-089 トグルの選択中の項目（BrandToggleButton）と、shape の API を持たない要素に付ける useBrandStyles().pill も、
+  // キーボードでフォーカスした状態でピル形のまま
+  it('BrandToggleButton の選択中の項目と useBrandStyles().pill を付けた部品は、キーボードでフォーカスしてもピル形', () => {
+    function PillByClass() {
+      const b = useBrandStyles();
+      return (
+        <Button size="large" appearance="primary" className={b.pill} data-testid="cls-pill">
+          c
+        </Button>
+      );
+    }
+    render(
+      <ThemeProvider>
+        <BrandToggleButton checked data-testid="tg-on">
+          on
+        </BrandToggleButton>
+        <BrandToggleButton checked={false} size="large" data-testid="tg-off">
+          off
+        </BrandToggleButton>
+        <PillByClass />
+      </ThemeProvider>,
+    );
+    const on = screen.getByTestId('tg-on');
+    expect(on.getAttribute('aria-pressed')).toBe('true');
+    expectPrimaryPill(on, PARAM_011);
+    for (const id of ['tg-on', 'tg-off', 'cls-pill']) {
+      const el = screen.getByTestId(id);
+      fireEvent.keyDown(document.activeElement ?? document.body, { key: 'Tab', code: 'Tab', keyCode: 9 });
+      el.focus();
+      expect(el.hasAttribute('data-fui-focus-visible'), `${id} にキーボードのフォーカスの属性`).toBe(true);
+      const radius = computed(el, 'border-radius');
+      for (const r of radius.split(/[\s/]+/).filter(Boolean)) expect(parseFloat(r), `${id} の角丸 ${radius}`).toBeGreaterThanOrEqual(1000);
+    }
+    expectPrimaryPill(screen.getByTestId('tg-on'), PARAM_011);
+    expect(brandPillStyle.borderRadius).toBe(brandTokens.radiusPill);
   });
 });
 

@@ -2,7 +2,7 @@
 // 色・余白・角丸・フォントは Fluent のトークン（tokens.*）か、ここの spacing・brandTokens で指定し、値を直書きしない。
 // NFR-UX-004: Microsoft Surface の公開のブランド表現（SRC-009 の CSS から抽出した値。PARAM-011〜014・020〜024）を、
 // Fluent 2 の createLightTheme/createDarkTheme にカスタムのブランドランプとして渡して全アプリに効かせる。
-import { createDarkTheme, createLightTheme, tokens, type BrandVariants, type Theme } from '@fluentui/react-components';
+import { createCustomFocusIndicatorStyle, createDarkTheme, createLightTheme, tokens, type BrandVariants, type Theme } from '@fluentui/react-components';
 
 export const spacing = { xs: '4px', s: '8px', m: '16px', l: '24px', xl: '32px' } as const;
 
@@ -191,5 +191,13 @@ export const brandCardStyle = {
   boxShadow: tokens.shadow8,
 } as const;
 
-/** ピル形（角丸の半径が高さの半分以上）。主操作のボタン・トグルの選択中の項目に使う */
-export const brandPillStyle = { borderRadius: brandTokens.radiusPill } as const;
+/**
+ * ピル形（角丸の半径が高さの半分以上）。トグルの選択中の項目など、shape の API を持たない要素に使う。
+ * Fluent の部品はキーボードでフォーカスしたとき（[data-fui-focus-visible]）に大きさごとの角丸を付け直すため、
+ * フォーカス中の角丸もピル形にする選択子を含める（Fluent の部品の className に渡すと、部品のスタイルより後に合成されて勝つ）。
+ * Fluent の Button・ToggleButton には、これではなく標準の API の shape="circular" を使う（PrimaryButton・BrandToggleButton）。
+ */
+export const brandPillStyle = {
+  borderRadius: brandTokens.radiusPill,
+  ...createCustomFocusIndicatorStyle({ borderRadius: brandTokens.radiusPill }),
+} as const;
