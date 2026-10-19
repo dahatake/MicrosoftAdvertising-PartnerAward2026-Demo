@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Body1, Button, Caption1, Input, Label, Subtitle2, makeStyles, tokens } from '@fluentui/react-components';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
+import { PrimaryButton } from '../theme/BrandButton';
 import { kpisOfProject } from './progress';
 import { useDataset } from './store';
 import { baselineAssumptions, simulate, type Assumptions, type ForecastRow } from './whatif';
@@ -71,9 +72,9 @@ function WhatIfBody({ projectId }: { projectId: string }) {
         ))}
       </div>
       <div>
-        <Button appearance="primary" onClick={run} data-testid="whatif-run">
+        <PrimaryButton onClick={run} data-testid="whatif-run">
           {t('app2.whatifRun')}
-        </Button>
+        </PrimaryButton>
       </div>
       <div className={s.cols}>
         <div>

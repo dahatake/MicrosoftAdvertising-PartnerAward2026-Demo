@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Badge, Body1, Button, Caption1, Input, Label, Select, makeStyles, tokens } from '@fluentui/react-components';
 import { CheckmarkCircle16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
-import { spacing } from '../theme/theme';
+import { brandTokens, spacing } from '../theme/theme';
 import { PrimaryButton } from '../theme/BrandButton';
 import { AssetThumb } from './AssetThumb';
 import {
@@ -35,7 +35,8 @@ const useStyles = makeStyles({
     alignItems: 'center',
     gap: spacing.m,
     padding: spacing.s,
-    borderRadius: tokens.borderRadiusMedium,
+    // NFR-UX-004 AC-093: カード（一覧の行・詳細）の角丸は PARAM-024 の範囲
+    borderRadius: brandTokens.radiusCard,
     border: `1px solid ${tokens.colorNeutralStroke2}`,
   },
   info: { display: 'flex', flexDirection: 'column', gap: spacing.xs, minWidth: '160px', flexGrow: 1 },
@@ -178,9 +179,9 @@ function AssetRow({ asset, onError }: { asset: Asset; onError: (m: string | null
               </option>
             ))}
           </Select>
-          <Button appearance="primary" onClick={save} data-testid="asset-edit-save">
+          <PrimaryButton onClick={save} data-testid="asset-edit-save">
             {t('app2.save')}
-          </Button>
+          </PrimaryButton>
           <ErrorText message={editError} testId="asset-edit-error" />
         </div>
       )}
