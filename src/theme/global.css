@@ -1,4 +1,27 @@
-/* 全アプリ共通のグローバル規則（NFR-A11Y-002 AC-057 / NFR-UX-001 AC-064 / NFR-A11Y-001 AC-055） */
+/* 全アプリ共通のグローバル規則（NFR-A11Y-002 AC-057 / NFR-UX-001 AC-064 / NFR-A11Y-001 AC-055 / NFR-UX-004 AC-090） */
+
+/* NFR-UX-004 AC-090: 見出しのフォント指定（PARAM-013）。値はテーマ（src/theme/theme.ts の BRAND）が
+   FluentProvider の CSS 変数 --brandFontFamilyDisplay として配る。本文（PARAM-014）はテーマの fontFamilyBase。
+   Fluent の見出しの部品（Title1 など）の atomic class（詳細度 0,1,0）より強くするため :root を前に付ける。 */
+:root
+  :is(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    [role='heading'],
+    .fui-Display,
+    .fui-LargeTitle,
+    .fui-Title1,
+    .fui-Title2,
+    .fui-Title3,
+    .fui-Subtitle1,
+    .fui-Subtitle2
+  ) {
+  font-family: var(--brandFontFamilyDisplay, var(--fontFamilyBase, system-ui, sans-serif));
+}
 
 /* 画面幅 320px・拡大率 400% でも横スクロールを強いない（リフロー）。長い語は折り返す */
 html,
@@ -15,6 +38,14 @@ canvas,
 video,
 iframe {
   max-width: 100%;
+}
+
+/* OS のテーマの切替の間（ThemeProvider が data-theme-switching を付ける 2 フレーム）は遷移を止め、
+   前のテーマの色が混ざった中間の色を見せない（NFR-UX-001 のテーマ追従、NFR-UX-004 AC-089 の主色） */
+[data-theme-switching] *,
+[data-theme-switching] *::before,
+[data-theme-switching] *::after {
+  transition: none !important;
 }
 
 /* 「動きを減らす」: 画面の動き・遷移・CG のアニメーションは静止（動きの最大時間 0 ミリ秒: PARAM-007）。

@@ -19,7 +19,7 @@
     "commands": [
       {
         "name": "toolkit-unit",
-        "run": "python -m pytest -q tests/toolkit/test_clean_work.py"
+        "run": "python -m pytest -q tests/toolkit/test_clean_work.py tests/toolkit/test_integrate_select.py"
       },
       {
         "name": "build",
@@ -29,6 +29,14 @@
         "name": "unit",
         "run": "npm test"
       }
+    ]
+  },
+  "system_test": {
+    "_note": "serial_patterns はリストなので既定値（ebaklib.DEFAULT_CONFIG）を置き換える。既定の default_port も残す。Playwright のケースは同じ port 4317 の webServer と build を使うため直列にする（port の衝突と性能の計測のゆがみを防ぐ）。それ以外は jobs で並列。",
+    "jobs": "auto",
+    "serial_patterns": [
+      "npx playwright",
+      "default_port"
     ]
   },
   "models": {

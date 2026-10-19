@@ -37,7 +37,7 @@
 | NFR-UX-001 | 画面サイズ・設定への追従 | 承認済み | src/theme/global.css, src/main.tsx | src/shell/a11y.test.tsx | グローバル CSS, デザイン基盤 |
 | NFR-UX-002 | 状態表示とエラーからの復旧 | 承認済み | src/shell/AsyncBoundary.tsx, src/shell/Shell.tsx, src/view/DualView.tsx, src/narration/Narration.tsx | src/shell/status.test.tsx, src/narration/Narration.test.tsx | 状態表示, i18n 辞書 |
 | NFR-UX-003 | 用語と操作の一貫性 | 承認済み | src/i18n/locales/ja.ts | src/i18n/terminology.test.ts | i18n 辞書 |
-| NFR-UX-004 | Surface ブランドのビジュアル表現 | 承認済み | 未実装 | 未実装 | デザイン基盤, グローバル CSS, シェルの共通操作 |
+| NFR-UX-004 | Surface ブランドのビジュアル表現 | 承認済み | src/theme/theme.ts, src/theme/BrandButton.tsx, src/theme/ThemeProvider.tsx, src/theme/global.css, src/apps/App1.tsx, src/app2/PlanQuotePanel.tsx, src/app2/AssetPanel.tsx | src/theme/brand.test.tsx, tests/system/brand.spec.ts | デザイン基盤, グローバル CSS, シェルの共通操作 |
 | NFR-UX-005 | ロゴと商標の扱い | 承認済み | 未実装 | 未実装 | デザイン基盤 |
 | FR-019 | 素材の展開と KPI・利用状況の登録・更新 | 承認済み | src/app2/DeploymentPanel.tsx, src/app2/AssetPanel.tsx, src/app2/operations.ts, src/app2/relations.ts, src/apps/App2.tsx, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | src/app2/changes.test.tsx, tests/system/narration-app2.spec.ts | 制作プロジェクトの表示, 関係図, App2 データストア, 状態と業務操作, ワークスペース, デザイン基盤, i18n 辞書 |
 
@@ -56,10 +56,10 @@
 
 | 部品名 | ファイル | 用途 | 使っている要求 ID |
 |---|---|---|---|
-| デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx, src/app1/brand.ts | Fluent 2 テーマ（OS のライト/ダークに追従）とトークン（kindPalette: 種類の色、SURFACE_COLORS: 製品の色）。ブランドの主色のテーマ・フォント指定・面・角丸・ピル形のボタン・ヒーローとヘッダー帯の表現（NFR-UX-004）とワードマーク・ロゴの差し替え（NFR-UX-005）の基盤。以降の画面はこれを再利用する | FR-001, FR-003, FR-004, FR-005, FR-008, FR-009, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, FR-020, NFR-UX-001, NFR-UX-004, NFR-UX-005 |
+| デザイン基盤 | src/theme/theme.ts, src/theme/ThemeProvider.tsx, src/theme/BrandButton.tsx, src/app1/brand.ts | Fluent 2 テーマ（OS のライト/ダークに追従。主色 #0067B8/#2A66B2 からの 16 段のブランドランプ、本文 fontFamilyBase=PARAM-014）とトークン（spacing、kindPalette: 種類の色、SURFACE_COLORS: 製品の色、BRAND: ブランドの生の値、brandTokens: CSS 変数 --brand*（見出しのフォント・主色・明るい面・暗い面・光・カードの角丸・暗い面の上の文字））。再利用の部品: brandGlowBackground（暗い面と光のグラデーションの帯）、brandCardStyle（角丸・影のカード）、PrimaryButton（主色の主ボタン。shape="circular" でキーボードのフォーカス中もピル形）、BrandToggleButton（トグルの項目。選択中は主色・ピル形・aria-pressed）、brandPillStyle・useBrandStyles().pill（shape の API を持たない要素のピル形。フォーカス中の角丸も含む）。ワードマーク・ロゴの差し替え（NFR-UX-005）の基盤。以降の画面はこれを再利用する | FR-001, FR-003, FR-004, FR-005, FR-008, FR-009, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, FR-020, NFR-UX-001, NFR-UX-004, NFR-UX-005 |
 | シェルの共通操作 | src/shell/ShellTools.tsx | ヘッダーのカメラワーク（非モーダルのダイアログ）・レイアウト（メニュー: すべて既定に戻す）・素材登録（ダイアログ）。キーボードで開閉でき、Esc で閉じてフォーカスが戻る。data-testid: shell-camera/shell-layout/shell-register-asset | NFR-A11Y-001, NFR-UX-004 |
 | 状態表示 | src/shell/AsyncBoundary.tsx | AsyncBoundary（読み込み中は role=status、失敗は role=alert で原因と「再試行」。onRetry で再読み込み）、LoadingStatus、ErrorStatus。data-testid: status-loading/status-error/status-retry | NFR-UX-002 |
-| グローバル CSS | src/theme/global.css | 横スクロールを出さない（リフロー）と、prefers-reduced-motion で動きの時間を 0 にする規則。main.tsx で読み込む | NFR-A11Y-002, NFR-UX-001, NFR-UX-004 |
+| グローバル CSS | src/theme/global.css | 横スクロールを出さない（リフロー）と、prefers-reduced-motion で動きの時間を 0 にする規則、見出し（h1〜h6・Fluent の見出しの部品）のフォント指定 PARAM-013、OS のテーマの切替中に遷移を止める規則。main.tsx で読み込む | NFR-A11Y-002, NFR-UX-001, NFR-UX-004 |
 | i18n 辞書 | src/i18n/index.ts, src/i18n/useT.ts, src/i18n/locales/ja.ts, src/i18n/locales/en.ts, src/i18n/locales/zh.ts, src/i18n/locales/ko.ts | 文言は ja.ts にキーを足し、他 3 言語に同じキーを足す（欠落はテストで検出）。画面は useT() で参照 | FR-002, FR-006, FR-008, FR-010, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, FR-020, NFR-UX-002, NFR-UX-003 |
 | 設定ストア | src/settings/store.ts | 言語・表示方法・アプリを持ち localStorage（lang, viewMethod）に保存。useSettings()/updateSettings() | FR-001, FR-002, FR-003, FR-004, FR-005, FR-008, FR-009 |
 | アプリ登録簿 | src/apps/registry.ts | シェルのトグルと画面の対応。新しいアプリはここに 1 行足す | FR-001 |

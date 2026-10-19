@@ -5,6 +5,7 @@ import { Badge, Body1, Button, Caption1, Input, Label, Select, makeStyles, token
 import { CheckmarkCircle16Filled } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
+import { PrimaryButton } from '../theme/BrandButton';
 import { AssetThumb } from './AssetThumb';
 import {
   approveAsset,
@@ -242,9 +243,9 @@ export function AssetPanel() {
             ))}
           </Select>
         </div>
-        <Button appearance="primary" onClick={register} data-testid="asset-register">
+        <PrimaryButton onClick={register} data-testid="asset-register">
           {t('app2.register')}
-        </Button>
+        </PrimaryButton>
       </div>
       <ErrorText message={error} testId="asset-error" />
       <ErrorText message={opError} testId="asset-op-error" />
