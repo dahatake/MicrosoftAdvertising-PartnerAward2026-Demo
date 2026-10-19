@@ -212,9 +212,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 2D の初期表示\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "70f7945",
-      "last_run_at": "2026-10-17T02:14:16+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-007-202610170200.log",
+      "last_commit": "1691299",
+      "last_run_at": "2026-10-19T14:23:07+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-007-202610191421.log",
       "history": [
         {
           "at": "2026-10-16T13:28:37+09:00",
@@ -293,9 +293,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-002\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "70f7945",
-      "last_run_at": "2026-10-17T02:14:16+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-010-202610170200.log",
+      "last_commit": "1691299",
+      "last_run_at": "2026-10-19T14:23:07+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-010-202610191422.log",
       "history": [
         {
           "at": "2026-10-16T13:29:02+09:00",
@@ -1258,10 +1258,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-024 AC-098 基準\"",
       "canary": true,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "1691299",
+      "last_run_at": "2026-10-19T14:23:07+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-042-202610191422.log",
       "history": [
         {
           "at": "2026-10-19T12:53:51+09:00",
@@ -1433,10 +1433,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-026 AC-108\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "1691299",
+      "last_run_at": "2026-10-19T14:23:07+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-049-202610191422.log",
       "history": [
         {
           "at": "2026-10-19T12:54:04+09:00",
@@ -1458,10 +1458,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-026 AC-109 くわしく\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "1691299",
+      "last_run_at": "2026-10-19T14:23:07+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-050-202610191422.log",
       "history": [
         {
           "at": "2026-10-19T12:54:05+09:00",
@@ -1483,10 +1483,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/app2-layout-nav.spec.ts -g \"FR-026 AC-109 異常系\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "1691299",
+      "last_run_at": "2026-10-19T14:23:07+09:00",
+      "evidence": "work/runs/202610191235/logs/system-test/E2E-051-202610191422.log",
       "history": [
         {
           "at": "2026-10-19T12:54:07+09:00",
