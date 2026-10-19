@@ -206,9 +206,9 @@
       "command": "npx playwright test tests/system/nfr.spec.ts -g \"AC-059 2D の初期表示\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "70f7945",
-      "last_run_at": "2026-10-17T02:14:16+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-007-202610170200.log",
+      "last_commit": "100aac5",
+      "last_run_at": "2026-10-19T14:34:54+09:00",
+      "evidence": "work/runs/202610191228/logs/system-test/E2E-007-202610191433.log",
       "history": [
         {
           "at": "2026-10-16T13:28:37+09:00",
@@ -287,9 +287,9 @@
       "command": "npx playwright test tests/system/shell-app1.spec.ts -g \"FR-001 AC-002\"",
       "canary": true,
       "status": "pass",
-      "last_commit": "70f7945",
-      "last_run_at": "2026-10-17T02:14:16+09:00",
-      "evidence": "work/runs/202610170001/logs/system-test/E2E-010-202610170200.log",
+      "last_commit": "100aac5",
+      "last_run_at": "2026-10-19T14:34:54+09:00",
+      "evidence": "work/runs/202610191228/logs/system-test/E2E-010-202610191433.log",
       "history": [
         {
           "at": "2026-10-16T13:29:02+09:00",
@@ -1150,10 +1150,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/brand.spec.ts -g \"NFR-UX-004 AC-089 ライトのテーマ\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "100aac5",
+      "last_run_at": "2026-10-19T14:34:54+09:00",
+      "evidence": "work/runs/202610191228/logs/system-test/E2E-058-202610191434.log",
       "history": [
         {
           "at": "2026-10-19T13:12:59+09:00",
@@ -1175,10 +1175,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/brand.spec.ts -g \"NFR-UX-004 AC-089 ダークのテーマ\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "100aac5",
+      "last_run_at": "2026-10-19T14:34:54+09:00",
+      "evidence": "work/runs/202610191228/logs/system-test/E2E-059-202610191434.log",
       "history": [
         {
           "at": "2026-10-19T13:13:17+09:00",
@@ -1200,10 +1200,10 @@
       "layer": "e2e",
       "command": "npx playwright test tests/system/brand.spec.ts -g \"NFR-UX-004 AC-089 異常系\"",
       "canary": false,
-      "status": "not_run",
-      "last_commit": null,
-      "last_run_at": null,
-      "evidence": null,
+      "status": "pass",
+      "last_commit": "100aac5",
+      "last_run_at": "2026-10-19T14:34:54+09:00",
+      "evidence": "work/runs/202610191228/logs/system-test/E2E-060-202610191434.log",
       "history": [
         {
           "at": "2026-10-19T13:13:21+09:00",
