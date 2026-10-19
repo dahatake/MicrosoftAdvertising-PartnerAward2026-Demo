@@ -86,9 +86,9 @@ export function DualView({ items, kinds, selectedId, onSelect, label, testIds }:
     return (
       <li
         key={it.id}
-        role="option"
+        role="radio"
         tabIndex={0}
-        aria-selected={selected}
+        aria-checked={selected}
         data-item-id={it.id}
         data-selected={selected}
         data-kind={it.kind}
@@ -129,7 +129,7 @@ export function DualView({ items, kinds, selectedId, onSelect, label, testIds }:
             {groups.map((g) => (
               <div key={g} className={s.group}>
                 {g && <Subtitle2 as="h3">{g}</Subtitle2>}
-                <ul role="listbox" aria-label={g || label || t('view.items')} className={s.list} style={{ listStyle: 'none' }}>
+                <ul role="radiogroup" aria-label={g || label || t('view.items')} className={s.list} style={{ listStyle: 'none' }}>
                   {items.filter((it) => (it.group ?? '') === g).map(renderItem)}
                 </ul>
               </div>

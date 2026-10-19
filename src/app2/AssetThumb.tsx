@@ -1,6 +1,6 @@
 // 素材のサムネイル（AC-040）: 画像・動画の場所がない、または読み込めないときは、仮置きのプレースホルダーを表示し、壊れた画像を出さない。
 import { useEffect, useState } from 'react';
-import { Caption1, makeStyles, tokens } from '@fluentui/react-components';
+import { Caption1, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
 import { Image20Regular } from '@fluentui/react-icons';
 import { useT } from '../i18n/useT';
 import { spacing } from '../theme/theme';
@@ -20,6 +20,7 @@ const useStyles = makeStyles({
     overflow: 'hidden',
   },
   img: { width: '100%', height: '100%', objectFit: 'cover' },
+  frameCompact: { width: '96px', height: '54px', fontSize: tokens.fontSizeBase100 },
 });
 
 export interface AssetThumbProps {
@@ -27,23 +28,25 @@ export interface AssetThumbProps {
   src?: string | null;
   /** 代替テキスト（素材の名前） */
   alt: string;
+  /** 小さく表示する（1 画面に収める一覧向け。FR-024） */
+  compact?: boolean;
 }
 
-export function AssetThumb({ src, alt }: AssetThumbProps) {
+export function AssetThumb({ src, alt, compact }: AssetThumbProps) {
   const s = useStyles();
   const t = useT();
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [src]);
   if (!src || failed) {
     return (
-      <span className={s.frame} role="img" aria-label={`${alt}: ${t('app2.placeholder')}`} data-testid="asset-placeholder">
+      <span className={mergeClasses(s.frame, compact && s.frameCompact)} role="img" aria-label={`${alt}: ${t('app2.placeholder')}`} data-testid="asset-placeholder">
         <Image20Regular aria-hidden />
         <Caption1>{t('app2.placeholder')}</Caption1>
       </span>
     );
   }
   return (
-    <span className={s.frame}>
+    <span className={mergeClasses(s.frame, compact && s.frameCompact)}>
       <img className={s.img} src={src} alt={alt} data-testid="asset-image" onError={() => setFailed(true)} />
     </span>
   );

@@ -1,8 +1,10 @@
 // 展開の一覧と、選んだ展開の利用状況（実績値）・KPI の目標値の登録・更新（FR-019）。
 // 登録すると、制作プロジェクトの KPI の目標と現在値の表示（FR-013）と KPI の関係図に反映され、localStorage に保存される。
 import { useState } from 'react';
-import { Badge, Body1, Button, Caption1, Input, Label, Select, makeStyles, tokens } from '@fluentui/react-components';
+import { Badge, Body1, Button, Caption1, Input, Label, makeStyles, tokens } from '@fluentui/react-components';
+import { ChoiceButtons } from '../ui/ChoiceButtons';
 import { useT } from '../i18n/useT';
+import { Paged } from '../ui/Paged';
 import { spacing } from '../theme/theme';
 import { kpisOfDeployment, saveUsage } from './operations';
 import { stateCode, stateKey } from './states';
@@ -29,14 +31,14 @@ function UsageForm({ deploymentId }: { deploymentId: string }) {
   // 入力は、選んだ KPI の現在の値から始める（KPI を切り替えたら取り直す）
   return <UsageFields key={kpi?.id ?? 'none'} deploymentId={deploymentId} kpiId={kpi?.id} initialActual={kpi?.actual} initialTarget={kpi?.target} kpiSelect={
     <div className={s.field}>
-      <Label htmlFor="kpi-select-input">{t('app2.kpiSelect')}</Label>
-      <Select id="kpi-select-input" value={kpi?.id ?? ''} onChange={(_, d) => setKpiId(d.value)} select={{ 'data-testid': 'kpi-select' } as object}>
-        {kpis.map((k) => (
-          <option key={k.id} value={k.id}>
-            {k.metric}（{k.unit}）
-          </option>
-        ))}
-      </Select>
+      <Label>{t('app2.kpiSelect')}</Label>
+      <ChoiceButtons
+        label={t('app2.kpiSelect')}
+        testId="kpi-select"
+        value={kpi?.id ?? ''}
+        onChange={setKpiId}
+        options={kpis.map((k) => ({ value: k.id, label: `${k.metric}（${k.unit}）` }))}
+      />
     </div>
   } failText={failText} />;
 }
@@ -86,7 +88,8 @@ function UsageFields({
   );
 }
 
-export function DeploymentPanel() {
+/** mode: 'deploy'=展開の一覧だけ（FR-025 の「展開」）、'usage'=一覧と利用状況・KPI 目標の登録（「利用状況」。既定） */
+export function DeploymentPanel({ mode = 'usage' }: { mode?: 'deploy' | 'usage' } = {}) {
   const s = useStyles();
   const t = useT();
   const data = useDataset();
@@ -94,8 +97,9 @@ export function DeploymentPanel() {
   return (
     <div className={s.stack}>
       {data.deployments.length === 0 && <Body1 className={s.hint}>{t('app2.none')}</Body1>}
-      <div className={s.list} role="listbox" aria-label={t('app2.deployments')} data-testid="deployment-list">
-        {data.deployments.map((dep) => {
+      <Paged items={data.deployments} pageSize={4} testId="deployment">{(vis) => (
+      <div className={s.list} role="radiogroup" aria-label={t('app2.deployments')} data-testid="deployment-list">
+        {vis.map((dep) => {
           const asset = data.assets.find((a) => a.id === dep.assetId);
           const channel = data.channels.find((c) => c.id === dep.channelId);
           const usage = data.usages.find((u) => u.deploymentId === dep.id);
@@ -103,10 +107,10 @@ export function DeploymentPanel() {
           return (
             <Button
               key={dep.id}
-              role="option"
+              role="radio"
               className={s.item}
               appearance={dep.id === selectedId ? 'primary' : 'subtle'}
-              aria-selected={dep.id === selectedId}
+              aria-checked={dep.id === selectedId}
               data-testid="deployment-row"
               data-entity-id={dep.id}
               onClick={() => setSelectedId(dep.id)}
@@ -126,7 +130,8 @@ export function DeploymentPanel() {
           );
         })}
       </div>
-      {selectedId && data.deployments.some((d) => d.id === selectedId) ? (
+      )}</Paged>
+      {mode === 'deploy' ? null : selectedId && data.deployments.some((d) => d.id === selectedId) ? (
         <UsageForm key={selectedId} deploymentId={selectedId} />
       ) : (
         <Body1 className={s.hint}>{t('app2.selectDeployment')}</Body1>

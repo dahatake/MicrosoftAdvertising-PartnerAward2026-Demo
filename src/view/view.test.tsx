@@ -58,7 +58,7 @@ describe('FR-008 AC-023 AC-025 2D と 3D で同じ情報', () => {
     const { container } = wrap(<DualView items={items} kinds={kinds} selectedId="i2" />);
     const snap = () => ({
       ids: ids(container),
-      selected: container.querySelector('[data-item-id][aria-selected=true]')?.getAttribute('data-item-id'),
+      selected: container.querySelector('[data-item-id][aria-checked=true]')?.getAttribute('data-item-id'),
       labels: [...container.querySelectorAll('[data-item-id]')].map((e) => e.textContent),
       glyphs: [...container.querySelectorAll('[data-item-id] [aria-hidden]')].map((e) => (e as HTMLElement).style.cssText),
       legend: [...container.querySelectorAll('[data-legend-kind]')].map((e) => e.textContent),
