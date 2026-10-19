@@ -52,6 +52,16 @@ const useStyles = makeStyles({
     lineHeight: tokens.lineHeightBase300,
     fontWeight: tokens.fontWeightSemibold,
   },
+  // 架空の製品・非公式のデモの注記（NFR-UX-005 AC-117）。帯の中の 1 行の細い注記。狭い幅でだけ折り返す
+  notice: {
+    flexBasis: '100%',
+    margin: 0,
+    minWidth: 0,
+    overflowWrap: 'anywhere',
+    color: brandTokens.foregroundOnDarkMuted,
+    fontSize: tokens.fontSizeBase200,
+    lineHeight: tokens.lineHeightBase200,
+  },
   tabs: { flexWrap: 'wrap', gap: spacing.xs, minWidth: 0, maxWidth: '100%' },
   // トグルの項目: 暗い面の上の文字。未選択は透明の背景、選択中は主色のピル形（filled-circular と useBrandStyles().pill）
   tab: {
@@ -134,6 +144,9 @@ export function Shell() {
               </Tab>
             ))}
           </TabList>
+          <p role="note" data-testid="brand-notice" className={s.notice}>
+            {t('shell.brandNotice')}
+          </p>
         </div>
         <div className={s.toolbar}>
           <ViewModeSwitch />

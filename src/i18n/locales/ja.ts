@@ -4,6 +4,7 @@
 export const ja = {
   'app.title': 'MicrosoftAdvertising-PartnerAward2026-Demo',
   'shell.appSwitch': 'アプリの切替',
+  'shell.brandNotice': '架空の製品・非公式のデモです（仕様・ロゴ・動画は仮置きで、実在の Microsoft／Surface の公式サイトではありません）',
   'shell.app1': 'App1 広告キャンペーンサイト',
   'shell.app2': 'App2 広告素材管理',
   'shell.camera': 'カメラワーク',
