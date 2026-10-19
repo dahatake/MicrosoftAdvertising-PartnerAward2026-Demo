@@ -223,9 +223,8 @@ class LandLock:
 
 
 def land_tmp_path(primary: Path) -> Path:
-    rc, out = h.git(["rev-parse", "--git-common-dir"], primary)
-    d = Path(out.strip()) if rc == 0 and out.strip() else primary / ".git"
-    return (d if d.is_absolute() else primary / d) / "ebak-land-wt"
+    # primary 直下の work/（git 管理外）。親ディレクトリ探索で primary の node_modules が解決される。
+    return primary / "work" / "ebak-land-wt"
 
 
 def remove_land_tmp(primary: Path, tmp: Path) -> None:
