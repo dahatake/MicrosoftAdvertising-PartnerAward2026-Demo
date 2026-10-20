@@ -188,9 +188,6 @@ def select_cases(c: Ctx, q: dict, it: dict, base: str) -> List[dict]:
     data = h.load_ledger(c.root, c.cfg)
     integrated: Set[str] = {r for x in q.get("items", []) if x.get("status") == "done" for r in x.get("requirement_ids", [])}
     integrated |= set(it.get("requirement_ids", []))
-    # 同じ要求を AC の単位で複数の項目に分けたとき、まだ統合していない後続の項目の AC のケースは除く
-    pending_acs: Set[str] = {a for x in q.get("items", []) if x.get("status") != "done" and x.get("id") != it.get("id")
-                             for a in x.get("ac_ids", [])}
     # 既存の fail ケースは、この変更と無関係なら再実行しない（retry_failed=False。ID・command のファイル一致では選ぶ）
     picked = ledger.select_cases(c.root, c.cfg, data, "changed", base, retry_failed=False)
     picked += [x for x in data.get("cases", []) if x.get("canary") and x.get("status") != "blocked"]
@@ -199,7 +196,7 @@ def select_cases(c: Ctx, q: dict, it: dict, base: str) -> List[dict]:
         if x["id"] in seen or not x.get("command"):
             continue
         reqs = set(x.get("requirement_ids", []))
-        if x.get("canary") or (reqs <= integrated and not set(x.get("ac_ids", [])) & pending_acs):
+        if x.get("canary") or reqs <= integrated:
             out.append(x)
             seen.add(x["id"])
     return out
