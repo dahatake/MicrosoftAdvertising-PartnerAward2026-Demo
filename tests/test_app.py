@@ -434,6 +434,33 @@ class AppTest(unittest.TestCase):
                     scan(d)
         self.assertEqual(bad, [])
 
+    def test_hosted_mode_is_opt_in_and_guarded(self):
+        from app.server import make_server as mk
+        with self.assertRaises(SystemExit):
+            mk(port=0, db_path=":memory:", host="0.0.0.0")  # still refused without an explicit host allow-list
+        srv = mk(port=0, db_path=":memory:", host="127.0.0.1", remote_hosts=["demo.example.azurecontainerapps.io"])
+        port = srv.server_address[1]
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        try:
+            def req(path, host, method="GET", headers=None):
+                c = http.client.HTTPConnection("127.0.0.1", port, timeout=10)
+                c.request(method, path, None, {"Host": host, **(headers or {})})
+                r = c.getresponse(); body = r.read(); c.close()
+                return r.status, r.headers, body
+            self.assertEqual(req("/healthz", "10.0.0.7:8000")[0], 200)
+            s, h, _ = req("/api/users", "demo.example.azurecontainerapps.io")
+            self.assertEqual(s, 200)
+            self.assertIn("max-age", h["Strict-Transport-Security"])
+            self.assertEqual(req("/api/users", "evil.example.com")[0], 403)
+            self.assertEqual(req("/api/users", f"127.0.0.1:{port}")[0], 403)
+            self.assertEqual(req("/api/reconcile", "demo.example.azurecontainerapps.io", "POST", {"Origin": "https://evil.example.com", "X-User": "mgr1", "Content-Type": "application/json"})[0], 403)
+        finally:
+            srv.shutdown(); srv.server_close()
+
+    def test_local_mode_has_no_hsts_and_healthz(self):
+        self.assertEqual(self.call("GET", "/healthz")[0], 200)
+        self.assertEqual(self.call("GET", "/healthz")[1], {"status": "ok"})
+
     def test_language_switch_is_per_request_and_default_is_japanese(self):
         s, ja = self.call("GET", "/api/cases/3", "mgr1")
         s, en = self.call("GET", "/api/cases/3", "mgr1", headers={"X-Lang": "en"})

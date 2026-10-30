@@ -6,6 +6,7 @@ It is NOT authentication; the server must never be exposed beyond loopback.
 import argparse
 import json
 import math
+import os
 import re
 import sqlite3
 import threading
@@ -187,9 +188,14 @@ class Handler(BaseHTTPRequestHandler):
     server_version = "LocalOnly/1.0"
     conn = None
     allowed_hosts = set()
+    remote = False  # opt-in hosted mode (Azure): only for an instance behind an authenticating proxy
 
     def log_message(self, fmt, *args):
         pass
+
+    def log_request(self, code="-", size="-"):
+        if self.remote:  # one JSON line per request on stdout (collected by the platform); no query string, no body
+            print(json.dumps({"ts": datetime.now().isoformat(timespec="seconds"), "m": self.command, "p": self.path.split("?")[0], "s": str(code)}), flush=True)
 
     # ---- plumbing
     def _send(self, status, payload, ctype="application/json; charset=utf-8", path=""):
@@ -202,6 +208,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("X-Content-Type-Options", "nosniff")
             self.send_header("X-Frame-Options", "SAMEORIGIN")
             self.send_header("Referrer-Policy", "no-referrer")
+            if self.remote:
+                self.send_header("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
             self.send_header("Content-Security-Policy", csp_for(path))
             self.end_headers()
             self.wfile.write(body)
@@ -211,9 +219,9 @@ class Handler(BaseHTTPRequestHandler):
     def _guard(self):
         host = (self.headers.get("Host") or "").lower()
         if host not in self.allowed_hosts:
-            raise ApiError(403, "ローカルホスト以外のHostは許可されません")
+            raise ApiError(403, "許可されていないHostです")
         origin = self.headers.get("Origin")
-        if self.command != "GET" and origin and origin.lower() not in {f"http://{h}" for h in self.allowed_hosts}:
+        if self.command != "GET" and origin and origin.lower() not in {f"{s}://{h}" for h in self.allowed_hosts for s in (("https",) if self.remote else ("http",))}:
             raise ApiError(403, "許可されないOriginです")
 
     def _user(self, conn):
@@ -245,8 +253,10 @@ class Handler(BaseHTTPRequestHandler):
         self._too_large = n > MAX_BODY
         self._raw = self.rfile.read(n) if 0 < n <= MAX_BODY else b""
         try:
-            self._guard()
             url = urlparse(self.path)
+            if url.path == "/healthz" and self.command == "GET":  # liveness/readiness probes hit the pod IP, so no Host check; reveals nothing
+                return self._send(200, {"status": "ok"})
+            self._guard()
             if self.command == "GET" and not url.path.startswith("/api/"):
                 return self._static(url.path)
             if not url.path.startswith("/api/"):
@@ -652,27 +662,33 @@ class Handler(BaseHTTPRequestHandler):
         return {"id": cur.lastrowid, "duplicate": False}
 
 
-def make_server(port=8765, db_path=None, host="127.0.0.1"):
-    if host not in LOOPBACK:
-        raise SystemExit("セキュリティ上、ループバックアドレス以外にはバインドできません")
+def make_server(port=8765, db_path=None, host="127.0.0.1", remote_hosts=None):
+    """Loopback-only by default. Hosted mode needs an explicit host allow-list and must sit behind an authenticating proxy."""
+    remote = bool(remote_hosts)
+    if host not in LOOPBACK and not remote:
+        raise SystemExit("セキュリティ上、ループバックアドレス以外にはバインドできません（ホスト型の動作には APP_REMOTE_HOSTS が必要です）")
     conn = dbm.connect(db_path)
     seed(conn)
-    handler = type("BoundHandler", (Handler,), {"conn": conn})
+    handler = type("BoundHandler", (Handler,), {"conn": conn, "remote": remote})
     srv = ThreadingHTTPServer((host, port), handler)
     port = srv.server_address[1]
-    handler.allowed_hosts = {f"127.0.0.1:{port}", f"localhost:{port}", f"[::1]:{port}"}
+    handler.allowed_hosts = {h.strip().lower() for h in remote_hosts} if remote else {f"127.0.0.1:{port}", f"localhost:{port}", f"[::1]:{port}"}
     srv.daemon_threads = True
     return srv
 
 
 def main():
-    ap = argparse.ArgumentParser(description="ローカル専用: 案件ライフサイクル管理（デモ）")
+    ap = argparse.ArgumentParser(description="案件ライフサイクル管理（デモ）。既定はローカル専用")
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--db", default=None, help="SQLiteファイルのパス（既定: data/app.db）")
-    ap.add_argument("--host", default="127.0.0.1", help="ループバックのみ許可")
+    ap.add_argument("--host", default="127.0.0.1", help="既定はループバック。0.0.0.0 は APP_REMOTE_HOSTS 指定時のみ")
     a = ap.parse_args()
-    srv = make_server(a.port, a.db, a.host)
-    print(f"http://127.0.0.1:{srv.server_address[1]}/  (Ctrl+C で停止。外部ネットワークには公開されません)")
+    remote = [h for h in os.environ.get("APP_REMOTE_HOSTS", "").split(",") if h.strip()]
+    srv = make_server(a.port, a.db, a.host, remote)
+    if remote:
+        print(f"hosted mode: {a.host}:{srv.server_address[1]} allowed hosts={sorted(Handler.allowed_hosts)}", flush=True)
+    else:
+        print(f"http://127.0.0.1:{srv.server_address[1]}/  (Ctrl+C で停止。外部ネットワークには公開されません)")
     try:
         srv.serve_forever()
     except KeyboardInterrupt:

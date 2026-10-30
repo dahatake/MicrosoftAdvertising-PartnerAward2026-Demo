@@ -1,0 +1,12 @@
+**/__pycache__
+**/*.pyc
+data/
+tests/
+docs/
+infra/
+.git
+.gitignore
+.azure/
+README.md
+azure.yaml
+Dockerfile

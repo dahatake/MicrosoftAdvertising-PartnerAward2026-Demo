@@ -1,6 +1,6 @@
 # Campaign Flow — 広告作品ライフサイクル管理（ローカル専用デモ）
 
-[requirement-definition.md](docs/requirement-definition.md) のパイロット範囲を、**この PC の中だけで動く**形で実装したものです。外部サービス・クラウド・外部通信・CDN は一切使いません（d3.js も `app/static/vendor/` に同梱）。
+[requirement-definition.md](docs/requirement-definition.md) のパイロット範囲を、**この PC の中だけで動く**形で実装したものです。既定では外部サービス・クラウド・外部通信・CDN は一切使いません（d3.js も `app/static/vendor/` に同梱）。Azure へのデモ用デプロイ準備（オプトイン）は [Azure へのデプロイ](#azure-へのデプロイ) を参照してください。
 
 ## 起動
 
@@ -119,8 +119,8 @@ python -m unittest discover -s tests -t .
 
 ## ローカル専用であることの担保
 
-- `127.0.0.1` 以外へのバインドは起動時に拒否します（`--host` も同様）。
-- `Host` がローカルホスト以外の要求、別 `Origin` からの POST は拒否します。POST は `application/json` のみ。
+- 既定では `127.0.0.1` 以外へのバインドを起動時に拒否します（`--host` も同様）。Azure 向けのホスト型は、`APP_REMOTE_HOSTS`（許可する公開ホスト名）を明示した場合に限るオプトインです（[Azure へのデプロイ](#azure-へのデプロイ)）。
+- `Host` が許可リスト（既定はローカルホスト）以外の要求、別 `Origin` からの POST は拒否します。POST は `application/json` のみ。
 - 画面の CSP は `default-src 'self'`（外部リソースなし）。作品ページは別 CSP でネットワーク不可・サンドボックス。
 - 生成 AI・外部 API は使用しません。変更影響の候補は文字列一致によるルールベースです。
 
@@ -130,7 +130,74 @@ python -m unittest discover -s tests -t .
 
 1 本のライフサイクルを通して試す例：「新規案件」→ 営業で企画タスクを完了 → 分析に切り替えて分析タスクを完了 → 営業で「次のステージへ」→ …（制作で作品登録 → 法務で承認 → 媒体で配信計画・発注 → 経理で検収・請求 → 分析で成果記録）。`tests/test_app.py` の `test_full_lifecycle_across_departments` が同じ流れを自動検証しています。
 
-## 構成
+## アプリケーション構成
+
+### コンポーネント図
+
+```mermaid
+flowchart LR
+  user(["利用者（ブラウザ）"])
+
+  subgraph web["フロントエンド app/static （素の JavaScript・外部通信なし）"]
+    direction TB
+    shell["main.js<br/>ルーター・シェル・言語/テーマ"]
+    core["ui.js<br/>API クライアント・翻訳・ビューア"]
+    views["画面<br/>dashboard / case / ops / res / biz / biz2"]
+    charts["charts.js + vendor/d3.min.js<br/>チャート・関連図"]
+    fx["fx.js / art.js<br/>BGM・効果音・演出・SVG 画像"]
+    cre["creatives/*.html<br/>HTML5 広告作品 5 種<br/>（サンドボックス iframe）"]
+  end
+
+  subgraph srv["バックエンド app/ （Python 標準ライブラリ HTTP サーバー）"]
+    direction TB
+    api["server.py<br/>ルーティング・権限・Host/Origin ガード<br/>CSP・/healthz"]
+    wf["workflow.py<br/>7 ステージ・ゲート条件"]
+    rules["rules.py<br/>照合・例外検出・KPI"]
+    ops["ops.py<br/>リソース/タスク・将来シミュレータ<br/>AI 最適化（決定的）"]
+    biz["biz.py<br/>取引先・EVM・OKR・分析<br/>詳細カード・関連図"]
+    i18n["i18n.py + i18n/*.json<br/>日本語⇄英語"]
+    seed["seed.py / ops_data.py / biz_data.py<br/>架空デモデータ"]
+  end
+
+  db[("SQLite<br/>data/app.db")]
+
+  user --> shell
+  shell --> views
+  views --> core
+  views --> charts
+  views --> fx
+  views -. "iframe" .-> cre
+  core -- "REST/JSON<br/>X-User・X-Lang" --> api
+  api --> wf
+  api --> rules
+  api --> ops
+  api --> biz
+  api --> i18n
+  rules --> db
+  ops --> db
+  biz --> db
+  wf --> db
+  seed --> db
+```
+
+### Azure 上の構成（ホスト型・デモ用）
+
+```mermaid
+flowchart LR
+  user(["利用者"]) -->|HTTPS| ingress["Container Apps<br/>外部イングレス + 組み込み認証"]
+  entra["Microsoft Entra ID<br/>（単一テナント）"] -. "サインイン" .- ingress
+  subgraph cae["Container Apps 環境（Consumption）"]
+    app["campaign-flow コンテナ<br/>最小 1 / 最大 1 レプリカ<br/>SQLite は /tmp（再起動で再シード）"]
+  end
+  ingress --> app
+  acr["Azure Container Registry"] -->|"マネージド ID で pull"| app
+  app -->|"コンソールログ(JSON)"| law["Log Analytics"]
+  dev(["開発者 / azd"]) -->|"azd up<br/>リモートビルド"| acr
+```
+
+詳細な評価（Azure Well-Architected Framework との突合、ブロッカー、改善計画）は [docs/WAF-Analytics.md](docs/WAF-Analytics.md) を参照してください。
+
+### ファイル構成
 
 ```
 app/
@@ -142,9 +209,37 @@ app/
   biz.py / biz_data.py  取引先・プロジェクト(EVM)・KPI/OKR・分析・詳細カード・関連図（/api/biz/*）
   i18n.py       日本語→英語の翻訳（辞書＋テンプレート）。辞書は i18n/*.json
   db.py         SQLite スキーマと軽量マイグレーション
-  static/       UI（ui.js / charts.js / dashboard.js / case.js / main.js）、vendor/d3.min.js、creatives/
+  static/       UI（ui.js / charts.js / dashboard.js / case.js / main.js ほか）、vendor/d3.min.js、creatives/
 tests/test_app.py
+Dockerfile / .dockerignore / azure.yaml   コンテナ化と azd 設定
+infra/        Bicep（main.bicep・app.bicep・main.parameters.json）
+docs/         調査書・要求定義書・WAF-Analytics.md（Azure 向けアセスメント）
 ```
+
+## Azure へのデプロイ
+
+**デモ用途（架空データ）に限定**した準備です。本番運用には [docs/WAF-Analytics.md](docs/WAF-Analytics.md) のブロッカーの解消が必要です。既定のローカル動作は変わりません。
+
+前提：Azure CLI、Azure Developer CLI（azd）、サブスクリプション。Docker は不要（ACR でリモートビルド）。
+
+```powershell
+# 1) 組み込み認証用の Entra アプリ登録（単一テナント）。リダイレクト URI は手順 3 の後に追加します。
+$app = az ad app create --display-name campaign-flow-demo --sign-in-audience AzureADMyOrg | ConvertFrom-Json
+$secret = az ad app credential reset --id $app.appId --display-name demo --years 1 --query password -o tsv
+
+# 2) azd 環境に設定して一括デプロイ
+azd env new campaign-flow
+azd env set AUTH_CLIENT_ID $app.appId
+azd env set AUTH_CLIENT_SECRET $secret
+azd up
+
+# 3) 出力の SERVICE_WEB_REDIRECT_URI をアプリ登録のリダイレクト URI（Web）へ追加
+az ad app update --id $app.appId --web-redirect-uris (azd env get-value SERVICE_WEB_REDIRECT_URI)
+```
+
+- 初回の `azd provision` ではプレースホルダのイメージが起動するため、リビジョンは `azd deploy` が完了するまで正常になりません。
+- 認証なしの公開はできません（`authClientId` は必須）。ブラウザの「視点」切替は**認証ではありません**。サインインできる同一テナントの利用者は全員が全ペルソナを選べます。
+- 未検証事項：実際の Azure へのデプロイ・Docker イメージのビルドは、この環境では実行していません。Bicep のコンパイル（`az bicep build`）とホスト型モードの単体テストのみ確認済みです。
 
 ## 限界
 
