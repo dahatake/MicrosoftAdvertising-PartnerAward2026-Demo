@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<script>(function(){var D={"新型EV「EV-X」インタラクティブ体験（デモ・架空）":"New EV \"EV-X\" interactive experience (demo, fictional)","静けさの中に、加速がある。（ミナト自動車・架空）":"Acceleration, in silence. (Minato Motors, fictional)","ボディカラー":"Body color","バッテリー容量":"Battery capacity","走行速度":"Driving speed","推定航続距離（デモ計算）":"Estimated range (demo calculation)","試乗を予約":"Book a test drive","パールホワイト":"Pearl White","ミッドナイト":"Midnight","ソーラーレッド":"Solar Red","フォレスト":"Forest","ソニックブルー":"Sonic Blue","昼":"Day","夜":"Night"};var EN=/[?&]lang=en/.test(location.search);window.EN=EN;window.T=function(s){return EN&&D[s]||s};if(!EN)return;function w(n){if(n.nodeType===3){var t=n.nodeValue,k=t.trim();if(k&&D[k])n.nodeValue=t.replace(k,D[k])}else if(n.nodeType===1){["placeholder","title","aria-label"].forEach(function(a){var v=n.getAttribute&&n.getAttribute(a);if(v&&D[v])n.setAttribute(a,D[v])});for(var c=n.firstChild;c;c=c.nextSibling)w(c)}}document.addEventListener("DOMContentLoaded",function(){document.documentElement.lang="en";w(document.documentElement);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(w);if(m.type==="characterData")w(m.target)})}).observe(document.documentElement,{childList:true,subtree:true,characterData:true})})})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新型EV「EV-X」インタラクティブ体験（デモ・架空）</title>
+<style>
+:root{--c1:#e8eef7;--c2:#7d8ba3;--sky1:#0b1a33;--sky2:#2b4a86}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;font-family:"Segoe UI Variable","Yu Gothic UI",sans-serif;color:#fff;overflow:hidden;background:#000}
+.scene{position:fixed;inset:0;background:linear-gradient(180deg,var(--sky1),var(--sky2) 70%,#7aa0d8);transition:background 1s}
+.stars{position:absolute;inset:0;opacity:0;transition:opacity 1s}.night .stars{opacity:1}
+svg#sc{position:absolute;left:0;right:0;bottom:130px;width:100%;height:calc(100% - 200px)}
+.hd{position:absolute;left:5vw;top:5vh;z-index:3}
+.hd small{letter-spacing:.45em;opacity:.7;font-size:12px}
+.hd h1{font-size:clamp(40px,7vw,96px);font-weight:900;letter-spacing:-.02em;line-height:1;background:linear-gradient(90deg,#fff,#9cc7ff);-webkit-background-clip:text;color:transparent}
+.hd p{margin-top:8px;opacity:.85}
+.panel{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);width:min(1100px,94vw);display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:18px 22px;border-radius:24px;background:#ffffff1a;border:1px solid #fff3;backdrop-filter:blur(22px);z-index:4}
+.panel label{font-size:11px;letter-spacing:.2em;opacity:.7;display:block;margin-bottom:8px}
+.sw{display:flex;gap:10px}.sw button{width:34px;height:34px;border-radius:50%;border:2px solid #fff5;cursor:pointer;transition:.25s}.sw button.on{border-color:#fff;transform:scale(1.2);box-shadow:0 0 18px #fff8}
+.seg{display:flex;border:1px solid #fff4;border-radius:99px;overflow:hidden}.seg button{flex:1;padding:8px 0;background:none;border:0;color:#fff;cursor:pointer;font-size:13px}.seg button.on{background:#fff;color:#06121f;font-weight:700}
+input[type=range]{width:100%;accent-color:#7cc4ff}
+.v{font-size:34px;font-weight:800;font-variant-numeric:tabular-nums}.v small{font-size:13px;font-weight:500;opacity:.7;margin-left:4px}
+.row{display:flex;gap:10px;align-items:center}
+.cta{padding:11px 20px;border-radius:99px;border:0;background:linear-gradient(90deg,#7cc4ff,#6a5cff);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 24px #4a6cff66}
+.toast{position:absolute;left:50%;top:20vh;transform:translate(-50%,-10px);padding:14px 22px;border-radius:16px;background:#fffffff0;color:#06121f;font-weight:700;opacity:0;transition:.4s;z-index:9;pointer-events:none}.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){.panel{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="scene" id="scene"><canvas class="stars" id="st"></canvas></div>
+<div class="hd"><small>ALL-NEW ELECTRIC</small><h1>EV-X</h1><p>静けさの中に、加速がある。（ミナト自動車・架空）</p></div>
+<svg id="sc" viewBox="0 0 1000 420" preserveAspectRatio="xMidYMax meet">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" id="b1" stop-color="#e8eef7"/><stop offset="1" id="b2" stop-color="#7d8ba3"/></linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9fd0ff" stop-opacity=".85"/><stop offset="1" stop-color="#16304f"/></linearGradient>
+    <radialGradient id="beam" cx="0" cy=".5" r="1"><stop offset="0" stop-color="#fff7c2" stop-opacity=".95"/><stop offset="1" stop-color="#fff7c2" stop-opacity="0"/></radialGradient>
+  </defs>
+  <g id="far"></g><g id="near"></g>
+  <rect x="0" y="360" width="1000" height="60" fill="#10151f"/><rect x="0" y="360" width="1000" height="3" fill="#ffffff30"/>
+  <g id="dash"></g>
+  <ellipse cx="500" cy="372" rx="330" ry="14" fill="#000" opacity=".45"/>
+  <g id="car" transform="translate(110,95)">
+    <path id="beamp" d="M740 262 L1000 190 L1000 330 Z" fill="url(#beam)" opacity="0" style="transition:opacity .6s"/>
+    <path d="M60 250C60 215 95 205 155 195L275 145C305 130 335 123 385 123L525 123C575 125 605 145 645 180C705 190 745 205 750 240V262H60Z" fill="url(#body)"/>
+    <path d="M285 175L330 140L410 137V179Z" fill="url(#glass)"/><path d="M425 137H525C555 140 580 160 600 179H425Z" fill="url(#glass)"/>
+    <path d="M60 235H750" stroke="#ffffff55" stroke-width="2"/><path d="M200 205C300 190 480 190 640 205" stroke="#fff6" stroke-width="2" fill="none"/>
+    <rect x="735" y="228" width="16" height="7" rx="3" fill="#fff" id="hl"/><rect x="58" y="226" width="12" height="8" rx="3" fill="#ff3b4a"/>
+    <g id="w1" transform="translate(215,270)"><circle r="50" fill="#0b0e14"/><g class="wh"><circle r="38" fill="#2b3340"/><g stroke="#cfd8e6" stroke-width="5" stroke-linecap="round"><line y1="-34" y2="34"/><line x1="-34" x2="34"/><line x1="-24" y1="-24" x2="24" y2="24"/><line x1="24" y1="-24" x2="-24" y2="24"/></g><circle r="9" fill="#eee"/></g></g>
+    <g id="w2" transform="translate(590,270)"><circle r="50" fill="#0b0e14"/><g class="wh"><circle r="38" fill="#2b3340"/><g stroke="#cfd8e6" stroke-width="5" stroke-linecap="round"><line y1="-34" y2="34"/><line x1="-34" x2="34"/><line x1="-24" y1="-24" x2="24" y2="24"/><line x1="24" y1="-24" x2="-24" y2="24"/></g><circle r="9" fill="#eee"/></g></g>
+  </g>
+</svg>
+<div class="toast" id="toast"></div>
+<div class="panel">
+  <div><label>ボディカラー <span id="cn"></span></label><div class="sw" id="sw"></div></div>
+  <div><label>バッテリー容量</label><div class="seg" id="bat"></div></div>
+  <div><label>走行速度 <span id="spv">0</span> km/h</label><input id="sp" type="range" min="0" max="160" value="60"><div class="row" style="margin-top:8px"><div class="seg" style="flex:1" id="tod"></div></div></div>
+  <div><label>推定航続距離（デモ計算）</label><div class="row"><div class="v"><span id="rg">0</span><small>km</small></div><button class="cta" id="bk">試乗を予約</button></div></div>
+</div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s),NS="http://www.w3.org/2000/svg";
+const COL=[["パールホワイト","#f4f7fb","#8b97ad"],["ミッドナイト","#2a3555","#0a0f1e"],["ソーラーレッド","#ff6b6b","#8e1d2b"],["フォレスト","#5fbf94","#124a3a"],["ソニックブルー","#6cb8ff","#1b3d85"]];
+const BAT=[{k:60,t:"60 kWh",a:6.9},{k:75,t:"75 kWh",a:5.8},{k:90,t:"90 kWh",a:4.9}];
+let ci=0,bi=1,night=false,speed=60,pos=0,ang=0,shown=0;
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);p.append(e);return e}
+// skyline layers
+function skyline(g,n,h0,fill,seed){let x0=0,i=0;while(x0<2400){const w=40+((i*37+seed)%60),h=h0+((i*53+seed*3)%110);el("rect",{x:x0,y:360-h,width:w,height:h,fill},g);if(i%3===0)el("rect",{x:x0+w/2-3,y:360-h-14,width:6,height:14,fill},g);x0+=w+8;i++}}
+const far=$("#far"),near=$("#near");const fg=el("g",{},far),ng=el("g",{},near);skyline(fg,0,40,"#1a2a4c",5);skyline(ng,0,70,"#0f1a33",11);
+const dash=$("#dash");for(let i=0;i<20;i++)el("rect",{x:i*120,y:388,width:60,height:6,rx:3,fill:"#ffffff90"},dash);
+// controls
+COL.forEach((c,i)=>{const b=document.createElement("button");b.style.background=`linear-gradient(${c[1]},${c[2]})`;b.title=T(c[0]);b.onclick=()=>setC(i);$("#sw").append(b)});
+BAT.forEach((b,i)=>{const e=document.createElement("button");e.textContent=b.t;e.onclick=()=>{bi=i;ui()};$("#bat").append(e)});
+[["昼",false],["夜",true]].forEach(([t,v])=>{const e=document.createElement("button");e.textContent=t;e.onclick=()=>{night=v;ui()};$("#tod").append(e)});
+function setC(i){ci=i;ui()}
+function range(){const b=BAT[bi];return Math.round(b.k*b.a/(1+Math.pow(speed/130,2)*.55))}
+function ui(){
+  const c=COL[ci];$("#b1").setAttribute("stop-color",c[1]);$("#b2").setAttribute("stop-color",c[2]);$("#cn").textContent="— "+T(c[0]);
+  [...$("#sw").children].forEach((b,i)=>b.classList.toggle("on",i===ci));[...$("#bat").children].forEach((b,i)=>b.classList.toggle("on",i===bi));[...$("#tod").children].forEach((b,i)=>b.classList.toggle("on",(i===1)===night));
+  $("#scene").classList.toggle("night",night);const r=document.documentElement.style;
+  r.setProperty("--sky1",night?"#02040a":"#4a8cdc");r.setProperty("--sky2",night?"#0d1b3d":"#a8d4ff");$("#beamp").style.opacity=night?1:0;$("#hl").setAttribute("fill",night?"#fff7c2":"#fff");
+}
+$("#sp").oninput=e=>{speed=+e.target.value;$("#spv").textContent=speed};
+$("#bk").onclick=()=>{const t=$("#toast");t.textContent=EN?`Test-drive request received (demo): ${T(COL[ci][0])} / ${BAT[bi].t}`:`試乗予約を受け付けました（デモ）：${COL[ci][0]} / ${BAT[bi].t}`;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2600)};
+// stars
+const st=$("#st"),sx=st.getContext("2d");st.width=innerWidth;st.height=innerHeight;for(let i=0;i<140;i++){sx.fillStyle=`rgba(255,255,255,${.3+Math.random()*.7})`;sx.fillRect(Math.random()*st.width,Math.random()*st.height*.6,1+Math.random()*1.6,1+Math.random()*1.6)}
+// loop
+let last=performance.now();
+(function f(n){const dt=Math.min(.05,(n-last)/1000);last=n;pos+=speed*dt*2.2;ang+=speed*dt*7;
+  dash.setAttribute("transform",`translate(${-(pos%120)},0)`);ng.setAttribute("transform",`translate(${-(pos*.35%800)},0)`);fg.setAttribute("transform",`translate(${-(pos*.12%800)},0)`);
+  document.querySelectorAll(".wh").forEach(w=>w.setAttribute("transform",`rotate(${ang})`));
+  const bob=Math.sin(n/160)*Math.min(2.2,speed/70);$("#car").setAttribute("transform",`translate(110,${95+bob})`);
+  const tgt=range();shown+=(tgt-shown)*Math.min(1,dt*6);$("#rg").textContent=Math.round(shown);requestAnimationFrame(f)})(last);
+ui();
+</script>
+<script>if(/[?&]thumb/.test(location.search)){setTimeout(function(){var s=document.createElement("style");s.textContent="*{animation-play-state:paused!important;transition:none!important}";document.head.append(s);window.requestAnimationFrame=function(){return 0}},2200)}</script>
+</body>
+</html>

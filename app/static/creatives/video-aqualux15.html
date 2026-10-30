@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<script>(function(){var D={"AQUA-LUX 15秒ブランドムービー（デモ・架空）":"AQUA-LUX 15-second brand movie (demo, fictional)","DEMO · 架空ブランド":"DEMO · Fictional brand","再生/一時停止":"Play/Pause","シーク":"Seek","サウンド":"Sound","いつもの水に、":"Your everyday water,","透明感を、ひとさじ。":"with a spoonful of clarity.","シトラス":"Citrus","ミント":"Mint","ベリー":"Berry","のどごしは、微炭酸。":"Gently sparkling, smooth to sip.","NEW  2026.11.01  発売":"NEW  2026.11.01  ON SALE","公式サイトで先行予約 →":"Pre-order on the official site →"};var EN=/[?&]lang=en/.test(location.search);window.EN=EN;window.T=function(s){return EN&&D[s]||s};if(!EN)return;function w(n){if(n.nodeType===3){var t=n.nodeValue,k=t.trim();if(k&&D[k])n.nodeValue=t.replace(k,D[k])}else if(n.nodeType===1){["placeholder","title","aria-label"].forEach(function(a){var v=n.getAttribute&&n.getAttribute(a);if(v&&D[v])n.setAttribute(a,D[v])});for(var c=n.firstChild;c;c=c.nextSibling)w(c)}}document.addEventListener("DOMContentLoaded",function(){document.documentElement.lang="en";w(document.documentElement);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(w);if(m.type==="characterData")w(m.target)})}).observe(document.documentElement,{childList:true,subtree:true,characterData:true})})})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUA-LUX 15秒ブランドムービー（デモ・架空）</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#02060c;color:#fff;font-family:"Segoe UI Variable","Yu Gothic UI",sans-serif;overflow:hidden}
+.wrap{height:100%;display:grid;grid-template-rows:1fr auto;place-items:center}
+.screen{position:relative;width:min(100vw,calc((100vh - 64px)*16/9));aspect-ratio:16/9;box-shadow:0 30px 80px #000a;border-radius:8px;overflow:hidden;background:#000}
+canvas{width:100%;height:100%;display:block}
+.bar{width:min(100vw,calc((100vh - 64px)*16/9));display:flex;gap:12px;align-items:center;padding:10px 4px;height:64px}
+button{width:40px;height:40px;border-radius:50%;border:1px solid #fff4;background:#ffffff14;color:#fff;cursor:pointer;font-size:16px;backdrop-filter:blur(8px)}
+button:hover{background:#ffffff30}
+input[type=range]{flex:1;accent-color:#00c2ff;height:4px}
+.t{font-variant-numeric:tabular-nums;font-size:13px;opacity:.8;min-width:84px;text-align:right}
+.tag{position:absolute;left:12px;top:10px;font-size:11px;letter-spacing:.2em;opacity:.55}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="screen"><canvas id="c" width="1280" height="720"></canvas><div class="tag">DEMO · 架空ブランド</div></div>
+  <div class="bar"><button id="pp" aria-label="再生/一時停止">❚❚</button><input id="seek" type="range" min="0" max="15000" value="0" aria-label="シーク"><span class="t" id="tm">0.0 / 15.0s</span><button id="snd" aria-label="サウンド">🔇</button></div>
+</div>
+<script>
+"use strict";
+const D=15,cv=document.getElementById("c"),x=cv.getContext("2d"),W=1280,H=720;
+const rnd=i=>{const s=Math.sin(i*127.1+311.7)*43758.5453;return s-Math.floor(s)};
+const cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,lerp=(a,b,t)=>a+(b-a)*t;
+const seg=(t,a,b)=>cl((t-a)/(b-a));
+const BOT=new Path2D("M70 20h60v40c0 18 40 30 40 70v250c0 24-20 40-40 40H70c-20 0-40-16-40-40V130c0-40 40-52 40-70z");
+function bg(t,c1,c2){const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,c1);g.addColorStop(1,c2);x.fillStyle=g;x.fillRect(0,0,W,H)}
+function text(s,px,py,size,a,o={}){s=T(s);x.save();x.globalAlpha=cl(a);x.font=`${o.w||800} ${size}px "Yu Gothic UI","Segoe UI",sans-serif`;x.textAlign=o.al||"center";x.fillStyle=o.c||"#fff";x.shadowColor=o.sh||"#00c2ff88";x.shadowBlur=o.b??24;x.fillText(s,px,py);x.restore()}
+function kinetic(s,cx,cy,size,t,t0,step){
+  if(EN){s=T(s);const words=s.split(" "),sz=size*.8;x.save();x.font=`800 ${sz}px "Segoe UI",sans-serif`;const ws=words.map(q=>x.measureText(q+" ").width),total=ws.reduce((a,b)=>a+b,0);x.restore();let px=cx-total/2;
+    words.forEach((q,i)=>{const k=seg(t,t0+i*step*3,t0+i*step*3+.5),e=ease(k);x.save();x.font=`800 ${sz}px "Segoe UI",sans-serif`;x.textAlign="left";x.globalAlpha=cl(e);x.fillStyle="#fff";x.shadowColor="#00c2ff88";x.shadowBlur=24;x.fillText(q,px,cy+(1-e)*60);x.restore();px+=ws[i]});return}
+  const w=size*.98,n=s.length,x0=cx-(n*w)/2+w/2;for(let i=0;i<n;i++){const k=seg(t,t0+i*step,t0+i*step+.5),e=ease(k);text(s[i],x0+i*w,cy+(1-e)*60,size,e)}}
+function ripple(cx,cy,age,max){if(age<0||age>1)return;x.save();x.strokeStyle=`rgba(160,230,255,${.8*(1-age)})`;x.lineWidth=3*(1-age)+1;x.beginPath();x.ellipse(cx,cy,max*age,max*age*.28,0,0,7);x.stroke();x.restore()}
+function scene1(t){ // 0-3.8
+  bg(t,"#031428","#0a3a66");
+  for(let i=0;i<46;i++){const sp=.55+rnd(i)*.7,ph=rnd(i+99)*2,u=((t*sp+ph)%2)/2,px=120+rnd(i+7)*(W-240),py=-30+u*(H*.78);
+    x.fillStyle=`rgba(190,235,255,${.35+rnd(i+3)*.5})`;x.beginPath();x.ellipse(px,py,3+rnd(i+5)*3,9+rnd(i+8)*9,0,0,7);x.fill();
+    if(u>.985)ripple(px,H*.78,(u-.985)/.015,60)}
+  for(let k=0;k<6;k++)ripple(W/2+(k-2.5)*150,H*.8,((t*.7+k*.17)%1),150+k*20);
+  text("いつもの水に、",W/2,H*.42,86,seg(t,1.2,2.2)*(1-seg(t,3.2,3.8)),{});
+}
+function waves(t,lvl,cols){for(let k=0;k<cols.length;k++){x.beginPath();x.moveTo(0,H);for(let px=0;px<=W;px+=16){const y=lvl+Math.sin(px*.008+t*(1.2+k*.5)+k)*(26-k*5)+Math.sin(px*.021-t*1.7+k*2)*8;x.lineTo(px,y)}x.lineTo(W,H);x.closePath();x.fillStyle=cols[k];x.fill()}}
+function scene2(t,u){ // u = local seconds
+  bg(t,"#0a3a66","#2a1f8f");
+  waves(u,lerp(H+40,H*.38,ease(seg(u,0,1.8))),["rgba(0,194,255,.55)","rgba(106,92,255,.5)","rgba(255,255,255,.18)"]);
+  for(let i=0;i<30;i++){const v=((u*.25+rnd(i)*3)%1),px=rnd(i+2)*W,py=H-v*H*.9;x.strokeStyle="rgba(255,255,255,.55)";x.beginPath();x.arc(px+Math.sin(u*2+i)*14,py,3+rnd(i+9)*9,0,7);x.stroke()}
+  kinetic("透明感を、ひとさじ。",W/2,H*.3,76,u,.6,.12);
+}
+function bottle(cx,cy,s,t,lv){x.save();x.translate(cx-100*s,cy-220*s);x.scale(s,s);
+  x.save();x.clip(BOT);x.fillStyle="rgba(255,255,255,.1)";x.fillRect(0,0,200,440);
+  const g=x.createLinearGradient(0,100,0,440);g.addColorStop(0,"#00c2ff");g.addColorStop(1,"#6a5cff");x.fillStyle=g;
+  x.beginPath();x.moveTo(0,440);for(let px=0;px<=200;px+=6)x.lineTo(px,lv+Math.sin(px*.09+t*3)*5);x.lineTo(200,440);x.fill();
+  x.fillStyle="rgba(255,255,255,.93)";x.fillRect(30,235,140,100);x.fillStyle="#06121f";x.font="800 22px sans-serif";x.textAlign="center";x.fillText("AQUA-LUX",100,280);x.font="12px sans-serif";x.fillText("CITRUS",100,303);x.restore();
+  x.lineWidth=3;x.strokeStyle="rgba(255,255,255,.85)";x.stroke(BOT);x.fillStyle="rgba(255,255,255,.92)";x.fillRect(66,6,68,20);x.restore()}
+function scene3(t,u){ // 7.6-11.6
+  bg(t,"#2a1f8f","#07121f");
+  x.save();x.translate(W/2,H/2);x.rotate(u*.35);for(let i=0;i<14;i++){x.rotate(Math.PI*2/14);const gg=x.createLinearGradient(0,0,0,-700);gg.addColorStop(0,"rgba(0,194,255,.35)");gg.addColorStop(1,"transparent");x.fillStyle=gg;x.beginPath();x.moveTo(-18,0);x.lineTo(18,0);x.lineTo(60,-700);x.lineTo(-60,-700);x.fill()}x.restore();
+  const e=ease(seg(u,0,1.2));bottle(W/2,H/2+20+(1-e)*240,1.05+(1-e)*.3,t,lerp(380,170,e));
+  ["シトラス","ミント","ベリー"].forEach((f,i)=>{const k=ease(seg(u,1.3+i*.3,2+i*.3)),px=W/2+(i-1)*330+(i===1?0:0),py=H*.8;x.save();x.globalAlpha=k;x.fillStyle="rgba(255,255,255,.14)";x.strokeStyle="#fff6";x.beginPath();x.roundRect(px-90,py-24+ (1-k)*30,180,48,24);x.fill();x.stroke();x.restore();text(f,px,py+10+(1-k)*30,26,k,{b:0,w:700})});
+  text("のどごしは、微炭酸。",W/2,110,56,seg(u,.4,1.3),{});
+}
+function scene4(t,u){ // 11.6-15
+  bg(t,"#07121f","#06203a");
+  for(let i=0;i<70;i++){const a=rnd(i)*7,r=(u*80+rnd(i+1)*500)%520;x.fillStyle=`rgba(120,220,255,${.5*(1-r/520)})`;x.fillRect(W/2+Math.cos(a)*r*1.5,H/2+Math.sin(a)*r*.8,3,3)}
+  const e=ease(seg(u,0,.9));text("AQUA-LUX",W/2,H/2-10,150*(.8+.2*e),e,{sh:"#00c2ffcc",b:50});
+  text("NEW  2026.11.01  発売",W/2,H/2+70,38,seg(u,.7,1.4),{w:600,b:10});
+  const k=ease(seg(u,1.4,2)),p=.5+.5*Math.sin(u*5);x.save();x.globalAlpha=k;x.shadowColor="#00c2ff";x.shadowBlur=20+20*p;x.fillStyle="#fff";x.beginPath();x.roundRect(W/2-250,H*.74,500,76,38);x.fill();x.restore();text("公式サイトで先行予約 →",W/2,H*.74+49,32,k,{c:"#06121f",b:0});
+}
+function draw(t){
+  x.clearRect(0,0,W,H);
+  if(t<3.8)scene1(t);else if(t<7.6)scene2(t,t-3.8);else if(t<11.6)scene3(t,t-7.6);else scene4(t,t-11.6);
+  [3.8,7.6,11.6].forEach(b=>{const d=Math.abs(t-b);if(d<.25){x.fillStyle=`rgba(255,255,255,${.55*(1-d/.25)})`;x.fillRect(0,0,W,H)}});
+  const v=x.createRadialGradient(W/2,H/2,H*.4,W/2,H/2,H*.9);v.addColorStop(0,"transparent");v.addColorStop(1,"rgba(0,0,0,.45)");x.fillStyle=v;x.fillRect(0,0,W,H);
+  x.fillStyle="rgba(255,255,255,.9)";x.fillRect(0,H-5,W*(t/D),5);
+}
+// transport
+let t=/[?&]thumb/.test(location.search)?7.9:0,playing=true,last=performance.now(),dragging=false;
+const $=s=>document.querySelector(s),seek=$("#seek"),tm=$("#tm"),pp=$("#pp");
+function frame(n){const dt=(n-last)/1000;last=n;if(playing&&!dragging){t+=dt;if(t>=D)t=0}draw(t);if(!dragging)seek.value=t*1000;tm.textContent=t.toFixed(1)+" / "+D.toFixed(1)+"s";requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+pp.onclick=()=>{playing=!playing;pp.textContent=playing?"❚❚":"▶";audio()};
+seek.addEventListener("input",()=>{dragging=true;t=seek.value/1000});seek.addEventListener("change",()=>dragging=false);
+// optional synthesized sound (off by default)
+let ac,nodes=[],on=false;
+function audio(){nodes.forEach(n=>{try{n.stop()}catch(e){}});nodes=[];if(!on||!playing||!ac)return;
+  const m=ac.createGain();m.gain.value=.05;m.connect(ac.destination);
+  [220,277.2,329.6,440].forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=f;g.gain.value=.25/(i+1);o.connect(g).connect(m);o.start();nodes.push(o);
+    const l=ac.createOscillator(),lg=ac.createGain();l.frequency.value=.2+i*.07;lg.gain.value=.08;l.connect(lg).connect(g.gain);l.start();nodes.push(l)})}
+$("#snd").onclick=()=>{on=!on;$("#snd").textContent=on?"🔊":"🔇";if(on&&!ac){const C=window.AudioContext||window.webkitAudioContext;if(C)ac=new C()}audio()};
+</script>
+<script>if(/[?&]thumb/.test(location.search)){setTimeout(function(){var s=document.createElement("style");s.textContent="*{animation-play-state:paused!important;transition:none!important}";document.head.append(s);window.requestAnimationFrame=function(){return 0}},2200)}</script>
+</body>
+</html>

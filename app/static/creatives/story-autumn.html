@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<script>(function(){var D={"秋の味覚フェア 縦型ストーリー（デモ・架空）":"Autumn Flavors Fair vertical story (demo, fictional)","ハルノ":"Haruno","ハルノ食品（架空） · スポンサー":"Haruno Foods (fictional) · Sponsored","秋、":"Autumn","はじまる。":"begins.","ハルノ食品 秋の味覚フェア":"Haruno Foods Autumn Flavors Fair","11/1〜11/30":"Nov 1 – Nov 30","旬が、勢ぞろい。":"Peak flavors, all together.","ほくほく栗":"Fluffy chestnuts","契約農家の新栗":"New-season chestnuts from contract farms","蜜いもスイーツ":"Honey sweet-potato sweets","低温熟成で甘み2倍":"Slow-aged for twice the sweetness","柿とくるみの和菓子":"Persimmon and walnut wagashi","数量限定":"Limited quantity","フェア期間中、対象商品が":"During the fair, selected items are","最大・店頭 / オンライン共通":"up to · in store and online","家族で囲む、":"Gather the family,","旬のごちそう。":"a feast of the season.","近くの店舗で、":"At a store near you,","秋を味わおう":"taste autumn","店舗を探す":"Find a store","上にスワイプ（デモ）":"Swipe up (demo)","タップで送る · 長押しで一時停止 · ← → キー":"Tap to advance · Hold to pause · ← → keys","店舗検索へ（デモ）":"Store locator (demo)"};var EN=/[?&]lang=en/.test(location.search);window.T=function(s){return EN&&D[s]||s};if(!EN)return;function w(n){if(n.nodeType===3){var t=n.nodeValue,k=t.trim();if(k&&D[k])n.nodeValue=t.replace(k,D[k])}else if(n.nodeType===1){["placeholder","title","aria-label"].forEach(function(a){var v=n.getAttribute&&n.getAttribute(a);if(v&&D[v])n.setAttribute(a,D[v])});for(var c=n.firstChild;c;c=c.nextSibling)w(c)}}document.addEventListener("DOMContentLoaded",function(){document.documentElement.lang="en";w(document.documentElement);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(w);if(m.type==="characterData")w(m.target)})}).observe(document.documentElement,{childList:true,subtree:true,characterData:true})})})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>秋の味覚フェア 縦型ストーリー（デモ・架空）</title>
+<style>
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:radial-gradient(800px 600px at 50% 40%,#2c1c14,#0d0806);font-family:"Yu Gothic UI","Meiryo",sans-serif;color:#fff;user-select:none}
+body{display:grid;place-items:center}
+.phone{position:relative;height:min(96vh,900px);aspect-ratio:9/16;border-radius:28px;overflow:hidden;background:linear-gradient(170deg,#ff9a3c,#c8401a 55%,#5a150c);box-shadow:0 30px 80px #000c,0 0 0 8px #151515,0 0 0 10px #333}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+.bars{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:4px;z-index:5}
+.bars i{flex:1;height:3px;border-radius:3px;background:#fff4;overflow:hidden}.bars b{display:block;height:100%;width:0;background:#fff}
+.head{position:absolute;top:28px;left:14px;z-index:5;display:flex;gap:10px;align-items:center;font-size:13px;font-weight:700}
+.av{width:34px;height:34px;border-radius:50%;background:conic-gradient(#ffd166,#ff5c8a,#ffd166);display:grid;place-items:center;padding:2px}.av span{width:100%;height:100%;border-radius:50%;background:#7a1f12;display:grid;place-items:center;font-size:11px}
+.slide{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:70px 28px 90px;opacity:0;transform:scale(1.06);transition:opacity .5s,transform .8s;pointer-events:none}
+.slide.on{opacity:1;transform:none}
+.big{font-size:clamp(34px,8vh,64px);font-weight:900;line-height:1.15;text-shadow:0 6px 30px #0006}
+.sub{margin-top:14px;opacity:.9;font-size:clamp(14px,2.2vh,19px);line-height:1.8}
+.slide.on .pop{animation:pop .9s cubic-bezier(.2,1.5,.3,1) both}.slide.on .pop:nth-child(2){animation-delay:.15s}.slide.on .pop:nth-child(3){animation-delay:.3s}
+@keyframes pop{from{opacity:0;transform:translateY(40px) scale(.7)}}
+.cards{display:grid;gap:14px;margin-top:10px}
+.cd{display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:20px;background:#ffffff1f;border:1px solid #fff4;backdrop-filter:blur(12px);font-size:20px;font-weight:800;text-align:left}
+.cd em{font-style:normal;font-size:44px}.cd small{display:block;font-weight:500;font-size:13px;opacity:.85}
+.num{font-size:clamp(90px,22vh,190px);font-weight:900;line-height:1;background:linear-gradient(#fff,#ffd166);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 8px 24px #0007)}
+.stack{position:relative;height:240px;margin:6px auto}
+.stack div{position:absolute;left:50%;top:0;width:210px;height:220px;margin-left:-105px;border-radius:24px;display:grid;place-items:center;font-size:84px;box-shadow:0 20px 40px #0006;transition:transform .8s cubic-bezier(.2,.9,.3,1)}
+.slide.on .stack div:nth-child(1){transform:translateX(-90px) rotate(-12deg);background:#ffd166}.slide.on .stack div:nth-child(2){transform:translateY(-10px);background:#ff7a1a;z-index:2}.slide.on .stack div:nth-child(3){transform:translateX(90px) rotate(12deg);background:#c8401a}
+.stack div{transform:translateY(80px) scale(.6)}
+.cta{position:relative;z-index:6;margin:18px auto 0;display:inline-block;padding:15px 34px;border-radius:99px;background:#fff;color:#a8300f;font-weight:900;font-size:18px;pointer-events:auto;cursor:pointer;box-shadow:0 12px 30px #0006}
+.up{margin-top:30px;font-size:34px;animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-14px)}}
+.zone{position:absolute;top:70px;bottom:0;width:35%;z-index:4}.zl{left:0}.zr{right:0}
+.hint{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:11px;opacity:.6;z-index:5}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="phone" id="ph">
+  <canvas id="cv"></canvas>
+  <div class="bars" id="bars"></div>
+  <div class="head"><div class="av"><span>ハルノ</span></div>ハルノ食品（架空） · スポンサー</div>
+  <div class="slide"><div><div class="big pop">秋、<br>はじまる。</div><div class="sub pop">ハルノ食品 秋の味覚フェア<br>11/1〜11/30</div></div></div>
+  <div class="slide"><div><div class="big pop" style="font-size:clamp(28px,6vh,46px)">旬が、勢ぞろい。</div><div class="cards">
+    <div class="cd pop"><em>🌰</em><div>ほくほく栗<small>契約農家の新栗</small></div></div>
+    <div class="cd pop"><em>🍠</em><div>蜜いもスイーツ<small>低温熟成で甘み2倍</small></div></div>
+    <div class="cd pop"><em>🥮</em><div>柿とくるみの和菓子<small>数量限定</small></div></div></div></div></div>
+  <div class="slide"><div><div class="sub pop">フェア期間中、対象商品が</div><div class="num pop"><span id="n">0</span><span style="font-size:.4em">%OFF</span></div><div class="sub pop">最大・店頭 / オンライン共通</div></div></div>
+  <div class="slide"><div><div class="big pop" style="font-size:clamp(28px,6vh,48px)">家族で囲む、<br>旬のごちそう。</div><div class="stack pop"><div>🍂</div><div>🍁</div><div>🥧</div></div></div></div>
+  <div class="slide"><div><div class="big pop" style="font-size:clamp(30px,7vh,54px)">近くの店舗で、<br>秋を味わおう</div><div class="pop"><span class="cta" id="cta">店舗を探す</span></div><div class="up pop">↑</div><div class="sub pop">上にスワイプ（デモ）</div></div></div>
+  <div class="zone zl" id="zl"></div><div class="zone zr" id="zr"></div>
+  <div class="hint">タップで送る · 長押しで一時停止 · ← → キー</div>
+</div>
+<script>
+"use strict";
+const S=[...document.querySelectorAll(".slide")],DUR=4200,bars=document.getElementById("bars");
+S.forEach(()=>{const i=document.createElement("i");i.append(document.createElement("b"));bars.append(i)});
+let cur=-1,acc=0,paused=false,last=performance.now();
+function go(i){cur=(i+S.length)%S.length;acc=0;S.forEach((s,k)=>s.classList.toggle("on",k===cur));[...bars.children].forEach((b,k)=>b.firstChild.style.width=k<cur?"100%":"0");
+  if(cur===2){const n=document.getElementById("n"),t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/1400);n.textContent=Math.round(30*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0)}}
+const ph=document.getElementById("ph");
+const hold=()=>paused=true,rel=()=>paused=false;
+["pointerdown"].forEach(e=>ph.addEventListener(e,hold));["pointerup","pointerleave","pointercancel"].forEach(e=>ph.addEventListener(e,rel));
+document.getElementById("zl").onclick=()=>go(cur-1);document.getElementById("zr").onclick=()=>go(cur+1);
+addEventListener("keydown",e=>{if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+document.getElementById("cta").onclick=e=>{e.stopPropagation();e.target.textContent="店舗検索へ（デモ）"};
+// falling leaves
+const cv=document.getElementById("cv"),x=cv.getContext("2d");let W,H;
+const L=Array.from({length:34},(_,i)=>({x:Math.random(),y:Math.random(),s:8+Math.random()*16,v:.04+Math.random()*.09,r:Math.random()*6,w:Math.random()*2+1,h:Math.random()*40+20}));
+function rs(){const b=cv.getBoundingClientRect();W=cv.width=b.width;H=cv.height=b.height}rs();addEventListener("resize",rs);
+(function loop(n){const dt=n-last;last=n;if(!paused){acc+=dt;if(acc>=DUR)go(cur+1);const b=bars.children[cur];if(b)b.firstChild.style.width=(acc/DUR*100)+"%"}
+  x.clearRect(0,0,W,H);L.forEach(l=>{if(!paused){l.y+=l.v*dt/1000;l.r+=dt/700*l.w;if(l.y>1.05){l.y=-.05;l.x=Math.random()}}
+    x.save();x.translate(l.x*W+Math.sin(l.r)*20,l.y*H);x.rotate(l.r);x.fillStyle=`hsla(${l.h},95%,58%,.8)`;x.beginPath();x.moveTo(0,-l.s);x.quadraticCurveTo(l.s*.9,0,0,l.s);x.quadraticCurveTo(-l.s*.9,0,0,-l.s);x.fill();x.restore()});
+  requestAnimationFrame(loop)})(performance.now());
+go(0);
+</script>
+<script>if(/[?&]thumb/.test(location.search)){setTimeout(function(){var s=document.createElement("style");s.textContent="*{animation-play-state:paused!important;transition:none!important}";document.head.append(s);window.requestAnimationFrame=function(){return 0}},2200)}</script>
+</body>
+</html>

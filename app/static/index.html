@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Campaign Flow — 案件ライフサイクル（ローカル・デモ）</title>
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/ops.css">
+</head>
+<body>
+<div class="mica" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="shell">
+  <aside class="rail" id="rail" aria-label="主要ナビゲーション">
+    <a class="brand" href="#/dashboard" aria-label="Campaign Flow ホーム"><span class="logo"></span><b>Campaign Flow</b></a>
+    <nav id="nav"></nav>
+    <div class="rail-foot">ローカル専用 · 架空データ<br>127.0.0.1 のみで動作</div>
+  </aside>
+  <div class="col">
+    <header class="top" id="top">
+      <div class="crumbs" id="crumbs"></div>
+      <div class="actions">
+        <button class="pill green" id="pill" type="button" aria-label="アラート状態"><i></i>GREEN</button>
+        <div class="seg" id="lang" role="group" aria-label="言語 / Language"><button type="button" data-l="ja">日本語</button><button type="button" data-l="en">English</button></div>
+        <button class="btn icon" id="bgmBtn" type="button"></button>
+        <button class="btn icon" id="sfxBtn" type="button"></button>
+        <button class="btn accent" id="newCase"></button>
+        <button class="btn icon" id="theme" aria-label="テーマ切替" title="ライト／ダーク"></button>
+        <label class="persona"><span id="uav" class="uav"></span><span>視点</span><select id="user" aria-label="ユーザー切替"></select></label>
+      </div>
+    </header>
+    <main id="main" aria-live="polite"></main>
+    <footer class="foot">Fluent 2 の原則（Natural on every platform / Built for focus / One for all, all for one / Unmistakably Microsoft）に沿ったデモUI。ユーザー切替は権限分離の確認用で、認証ではありません。</footer>
+  </div>
+</div>
+<div id="toasts" role="status" aria-live="polite"></div>
+<div id="tip" role="tooltip"></div>
+<dialog id="dlg"><form method="dialog" id="dlgForm"></form></dialog>
+<div id="viewer" class="viewer" hidden></div>
+<script src="/vendor/d3.min.js"></script>
+<script src="/ui.js"></script>
+<script src="/art.js"></script>
+<script src="/fx.js"></script>
+<script src="/charts.js"></script>
+<script src="/dashboard.js"></script>
+<script src="/case.js"></script>
+<script src="/ops.js"></script>
+<script src="/res.js"></script>
+<script src="/biz.js"></script>
+<script src="/biz2.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>
