@@ -1,0 +1,15 @@
+{
+"ロール選択": "Select role", "ロールを選択": "Select a role", "ロール選択画面に戻る": "Back to role selection", "ロールを選択してください": "Choose your role",
+"選んだロールの視点で、同じデータを部署ごとの権限・画面で確認できます。いつでも上部の「ロール選択」から切り替えられます。": "See the same data through each department's permissions and screens. You can switch at any time from \"Select role\" at the top.",
+"これはデモ用の視点切替です。実際の認証ではありません。": "This is a demo perspective switch, not real authentication.",
+"キャンセル": "Cancel",
+"顧客との契約・変更を担当。案件の起案と承認依頼": "Handles customer contracts and changes; drafts campaigns and requests approvals",
+"A社の案件のみ閲覧できる営業（顧客スコープの確認用）": "Sales who can only see Company A's campaigns (to check customer scoping)",
+"配信計画・発注・運用。リソースの再配分": "Flight planning, ordering and operations; resource reallocation",
+"制作の進行と広告作品の登録。制作チームのリソース": "Production management and creative registration; production team resources",
+"検収・請求・入金の照合。請求差異の対応": "Reconciles acceptance, billing and payment; handles billing discrepancies",
+"広告作品の権利確認と承認、契約レビュー": "Rights checks and approval of creatives; contract review",
+"成果の記録と分析。KPI/OKRの確認": "Records and analyzes results; checks KPIs/OKRs",
+"全社の判断・承認。会社としての例外とAutopilot": "Company-wide decisions and approvals; company-level exceptions and Autopilot",
+"監査ログと全体の統制を閲覧（変更はできません）": "Views the audit log and overall controls (read-only)"
+}

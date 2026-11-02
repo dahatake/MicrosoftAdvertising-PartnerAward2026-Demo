@@ -126,7 +126,7 @@ python -m unittest discover -s tests -t .
 
 ## 使い方のヒント
 
-右上の「視点」でユーザーを切り替えると、役割と顧客の閲覧範囲による権限分離を確認できます（`sales2` は A 社のみ、`audit1` は監査ログのみ）。**これは認証ではありません**。
+アプリを開くと**ロール選択画面**が表示されます（オープニングの後）。ロールを選ぶと、その役割と顧客の閲覧範囲で画面が開き、上部バーの「ロール選択」からいつでも選択画面へ戻れます（Esc でキャンセル）。上部のプルダウンでも切り替えられます。`sales2` は A 社のみ、`audit1` は監査ログのみ閲覧できます。**これは認証ではありません**。
 
 1 本のライフサイクルを通して試す例：「新規案件」→ 営業で企画タスクを完了 → 分析に切り替えて分析タスクを完了 → 営業で「次のステージへ」→ …（制作で作品登録 → 法務で承認 → 媒体で配信計画・発注 → 経理で検収・請求 → 分析で成果記録）。`tests/test_app.py` の `test_full_lifecycle_across_departments` が同じ流れを自動検証しています。
 
@@ -220,26 +220,28 @@ docs/         調査書・要求定義書・WAF-Analytics.md（Azure 向けア�
 
 **デモ用途（架空データ）に限定**した準備です。本番運用には [docs/WAF-Analytics.md](docs/WAF-Analytics.md) のブロッカーの解消が必要です。既定のローカル動作は変わりません。
 
-前提：Azure CLI、Azure Developer CLI（azd）、サブスクリプション。Docker は不要（ACR でリモートビルド）。
+前提：Azure CLI、Azure Developer CLI（azd）、対象サブスクリプションの所有者相当の権限（リソース グループ作成とロール割り当てのため）。Docker は不要（ACR でリモートビルド）。
 
 ```powershell
-# 1) 組み込み認証用の Entra アプリ登録（単一テナント）。リダイレクト URI は手順 3 の後に追加します。
-$app = az ad app create --display-name campaign-flow-demo --sign-in-audience AzureADMyOrg | ConvertFrom-Json
-$secret = az ad app credential reset --id $app.appId --display-name demo --years 1 --query password -o tsv
-
-# 2) azd 環境に設定して一括デプロイ
-azd env new campaign-flow
-azd env set AUTH_CLIENT_ID $app.appId
-azd env set AUTH_CLIENT_SECRET $secret
-azd up
-
-# 3) 出力の SERVICE_WEB_REDIRECT_URI をアプリ登録のリダイレクト URI（Web）へ追加
-az ad app update --id $app.appId --web-redirect-uris (azd env get-value SERVICE_WEB_REDIRECT_URI)
+./infra/deploy.ps1 -SubscriptionId <サブスクリプションID> -TenantId <テナントID> -ContactEmail <予算アラートの送信先>
 ```
 
+スクリプトは、Entra アプリ登録（単一テナント）→ `azd up`（Japan East を優先し、使えなければ Japan West / East Asia / Southeast Asia の順に試行）→ リダイレクト URI の登録 → `/healthz` と未認証アクセスの確認まで行い、再実行しても安全です。手動で行う場合の要点は次のとおりです。
+
+```powershell
+azd env new campaignflow --subscription <サブスクリプションID>
+azd env set AZURE_LOCATION japaneast
+azd env set AUTH_CLIENT_ID <アプリ登録のクライアントID>
+azd env set AUTH_CLIENT_SECRET <クライアント シークレット>
+azd env set BUDGET_CONTACT_EMAIL <メール>
+azd up
+az ad app update --id <クライアントID> --web-redirect-uris (azd env get-value SERVICE_WEB_REDIRECT_URI)
+```
+
+- **予算**：リソース グループに月額 100,000（サブスクリプションの請求通貨。円建てなら 10 万円）の予算を作成し、実績 50%・80%・100% と予測 100% でメール通知します。想定コストは小規模（Container Apps 0.5 vCPU×1、ACR Basic、Log Analytics）で、予算を大きく下回る見込みですが、実額は未見積りです。
 - 初回の `azd provision` ではプレースホルダのイメージが起動するため、リビジョンは `azd deploy` が完了するまで正常になりません。
-- 認証なしの公開はできません（`authClientId` は必須）。ブラウザの「視点」切替は**認証ではありません**。サインインできる同一テナントの利用者は全員が全ペルソナを選べます。
-- 未検証事項：実際の Azure へのデプロイ・Docker イメージのビルドは、この環境では実行していません。Bicep のコンパイル（`az bicep build`）とホスト型モードの単体テストのみ確認済みです。
+- 認証なしの公開はできません（`authClientId` は必須）。「ロール選択」は**認証ではありません**。サインインできる同一テナントの利用者は全員が全ロールを選べます。
+- 未検証事項：Docker イメージのビルド、サインインの動作は、Azure 上では未確認です（ローカルでは Bicep のコンパイルとホスト型モードの単体テストのみ確認）。
 
 ## 限界
 

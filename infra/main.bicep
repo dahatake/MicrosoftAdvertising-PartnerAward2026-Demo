@@ -23,6 +23,15 @@ param authClientSecret string
 @description('Entra tenant that is allowed to sign in (single-tenant).')
 param authTenantId string = tenant().tenantId
 
+@description('Monthly budget for the resource group, in the billing currency of the subscription (100,000 = JPY 100,000 for a JPY account).')
+param monthlyBudget int = 100000
+
+@description('Email that receives budget alerts.')
+param budgetContactEmail string
+
+@description('First day of the current month (budget start). Must be the first of a month.')
+param budgetStartDate string = utcNow('yyyy-MM-01')
+
 var tags = { 'azd-env-name': environmentName, workload: 'campaign-flow-demo', dataClass: 'fictitious-demo' }
 
 resource rg 'Microsoft.Resources/resourceGroups@2024-03-01' = {
@@ -41,6 +50,9 @@ module app 'app.bicep' = {
     authClientId: authClientId
     authClientSecret: authClientSecret
     authTenantId: authTenantId
+    monthlyBudget: monthlyBudget
+    budgetContactEmail: budgetContactEmail
+    budgetStartDate: budgetStartDate
     tags: tags
   }
 }

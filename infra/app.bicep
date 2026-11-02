@@ -5,6 +5,9 @@ param authClientId string
 @secure()
 param authClientSecret string
 param authTenantId string
+param monthlyBudget int
+param budgetContactEmail string
+param budgetStartDate string
 param tags object
 
 var token = toLower(uniqueString(subscription().id, environmentName, location))
@@ -138,6 +141,23 @@ resource auth 'Microsoft.App/containerApps/authConfigs@2024-03-01' = {
       }
     }
     login: { preserveUrlFragmentsForLogins: true }
+  }
+}
+
+// Cost guard: alerts at 50% / 80% / 100% actual and 100% forecast of the monthly budget.
+resource budget 'Microsoft.Consumption/budgets@2023-11-01' = {
+  name: 'budget-${environmentName}'
+  properties: {
+    category: 'Cost'
+    amount: monthlyBudget
+    timeGrain: 'Monthly'
+    timePeriod: { startDate: budgetStartDate }
+    notifications: {
+      actual50: { enabled: true, operator: 'GreaterThan', threshold: 50, thresholdType: 'Actual', contactEmails: [ budgetContactEmail ] }
+      actual80: { enabled: true, operator: 'GreaterThan', threshold: 80, thresholdType: 'Actual', contactEmails: [ budgetContactEmail ] }
+      actual100: { enabled: true, operator: 'GreaterThan', threshold: 100, thresholdType: 'Actual', contactEmails: [ budgetContactEmail ] }
+      forecast100: { enabled: true, operator: 'GreaterThan', threshold: 100, thresholdType: 'Forecasted', contactEmails: [ budgetContactEmail ] }
+    }
   }
 }
 

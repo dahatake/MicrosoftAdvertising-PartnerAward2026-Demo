@@ -7,6 +7,7 @@
     "image": { "value": "${SERVICE_WEB_IMAGE_NAME=mcr.microsoft.com/azuredocs/containerapps-helloworld:latest}" },
     "authClientId": { "value": "${AUTH_CLIENT_ID}" },
     "authClientSecret": { "value": "${AUTH_CLIENT_SECRET}" },
-    "authTenantId": { "value": "${AZURE_TENANT_ID}" }
+    "authTenantId": { "value": "${AZURE_TENANT_ID}" },
+    "budgetContactEmail": { "value": "${BUDGET_CONTACT_EMAIL}" }
   }
 }

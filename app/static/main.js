@@ -56,6 +56,8 @@ function buildShell() {
   $(".rail-foot").replaceChildren(tr("ローカル専用 · 架空データ"), h("br"), tr("127.0.0.1 のみで動作"));
   $(".persona span:not(.uav)").textContent = tr("視点");
   $("#pill").setAttribute("aria-label", tr("アラート状態"));
+  $("#roleBtn").replaceChildren(ic("person", 15), tr("ロール選択"));
+  $("#roleBtn").setAttribute("title", tr("ロール選択画面に戻る"));
   $("#user").setAttribute("aria-label", tr("ユーザー切替"));
   $("#theme").setAttribute("aria-label", tr("テーマ切替")); $("#theme").setAttribute("title", tr("ライト／ダーク"));
   $(".foot").textContent = tr("Fluent 2 の原則（Natural on every platform / Built for focus / One for all, all for one / Unmistakably Microsoft）に沿ったデモUI。ユーザー切替は権限分離の確認用で、認証ではありません。");
@@ -65,9 +67,43 @@ function buildShell() {
 
 async function loadUsers() {
   const { users, roles } = await api("/api/users"), sel = $("#user");
+  A.state.users = users; A.state.roles = roles;
   sel.replaceChildren(...users.map((u) => h("option", { value: u.id }, `${A.state.lang === "ja" ? u.name.replace(/^\S+\s+/, "") : u.name}（${roles[u.role]}）`)));
   A.state.user = users.some((u) => u.id === A.state.user) ? A.state.user : users[0].id;
   sel.value = A.state.user;
+}
+
+/* Role picker: shown at start-up and whenever the user returns to it from the top bar. */
+const ROLE_INFO = {
+  sales1: "顧客との契約・変更を担当。案件の起案と承認依頼", sales2: "A社の案件のみ閲覧できる営業（顧客スコープの確認用）", media1: "配信計画・発注・運用。リソースの再配分",
+  prod1: "制作の進行と広告作品の登録。制作チームのリソース", fin1: "検収・請求・入金の照合。請求差異の対応", legal1: "広告作品の権利確認と承認、契約レビュー",
+  ana1: "成果の記録と分析。KPI/OKRの確認", mgr1: "全社の判断・承認。会社としての例外とAutopilot", audit1: "監査ログと全体の統制を閲覧（変更はできません）",
+};
+let pickerOpen = false;
+function closePicker() { const p = $("#rolepick"); if (p) { p.classList.add("out"); setTimeout(() => p.remove(), 450); } pickerOpen = false; document.body.classList.remove("noscroll"); }
+function showRolePicker({ first = false } = {}) {
+  return new Promise((resolve) => {
+    if (pickerOpen) return resolve(false);
+    pickerOpen = true; document.body.classList.add("noscroll");
+    const dlg = $("#dlg"); if (dlg.open) dlg.close(); const v = $("#viewer"); if (!v.hidden) { v.hidden = true; v.replaceChildren(); }
+    const users = A.state.users, roles = A.state.roles;
+    const pick = (u) => {
+      FX.init(); FX.sfx("success"); FX.ring(innerWidth / 2, innerHeight / 2); FX.burst(innerWidth / 2, innerHeight / 2, { n: 34, hue: 210, spread: 8 });
+      A.state.user = u.id; A.state.cs = null; sessionStorage.setItem("user", u.id); sessionStorage.setItem("roleChosen", "1");
+      $("#user").value = u.id; closePicker(); location.hash = "#/dashboard"; resolve(true);
+    };
+    const card = (u, i) => h("button", { type: "button", class: "rcard" + (u.id === A.state.user && !first ? " cur" : ""), style: `--i:${i}`, "data-tilt": "", onclick: () => pick(u) },
+      h("span", { class: "rav" }, userAvatar(u.id, 96)), h("b", {}, A.state.lang === "ja" ? u.name.replace(/^\S+\s+/, "") : u.name), h("span", { class: "chip" }, roles[u.role]), h("small", {}, ROLE_INFO[u.id] || ""));
+    const el = h("div", { id: "rolepick", role: "dialog", "aria-modal": "true", "aria-label": tr("ロールを選択") },
+      h("div", { class: "rp-in" }, h("div", { class: "kick" }, "CAMPAIGN FLOW"), h("h1", {}, "ロールを選択してください"),
+        h("p", {}, "選んだロールの視点で、同じデータを部署ごとの権限・画面で確認できます。いつでも上部の「ロール選択」から切り替えられます。"),
+        h("div", { class: "rgrid" }, users.map(card)),
+        h("p", { class: "mut", style: "font-size:12px;margin-top:18px" }, "これはデモ用の視点切替です。実際の認証ではありません。"),
+        first ? null : h("button", { class: "btn", type: "button", onclick: () => { closePicker(); resolve(false); } }, "キャンセル")));
+    trDom(el); document.body.append(el);
+    el.addEventListener("keydown", (e) => { if (e.key === "Escape" && !first) { closePicker(); resolve(false); } });
+    setTimeout(() => { const c = el.querySelector(".rcard.cur") || el.querySelector(".rcard"); c && c.focus({ preventScroll: true }); }, 500);
+  });
 }
 
 async function setLang(l) {
@@ -95,8 +131,10 @@ async function init() {
   buildShell();
   await loadUsers();
   A.state.creatives = (await api("/api/creatives")).creatives;
-  addEventListener("hashchange", () => { keepScroll = false; A.render(); });
-  FX.intro(() => {});
+  addEventListener("hashchange", () => { keepScroll = false; if (!pickerOpen) A.render(); });
+  $("#roleBtn").onclick = () => { FX.sfx("nav"); showRolePicker().then((ok) => ok && A.render()); };
+  await new Promise((r) => FX.intro(r));
+  if (!sessionStorage.getItem("roleChosen")) { await showRolePicker({ first: true }); }
   await A.render();
 }
 init().catch((e) => toast(e.message, "err"));
