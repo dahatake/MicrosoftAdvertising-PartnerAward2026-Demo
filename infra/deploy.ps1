@@ -20,23 +20,29 @@ $ErrorActionPreference = 'Stop'
 Set-Location (Split-Path $PSScriptRoot -Parent)
 
 function Step($m) { Write-Host "`n== $m" -ForegroundColor Cyan }
+function Check($what) { if ($LASTEXITCODE -ne 0) { throw "失敗しました: $what" } }
 
 Step 'サインイン'
 az account show --query id -o tsv 2>$null | Out-Null
 if ($LASTEXITCODE -ne 0) { az login --tenant $TenantId | Out-Null }
-az account set --subscription $SubscriptionId
+az account set --subscription $SubscriptionId; Check 'az account set'
 azd auth login --tenant-id $TenantId --check-status 2>$null | Out-Null
-if ($LASTEXITCODE -ne 0) { azd auth login --tenant-id $TenantId }
+if ($LASTEXITCODE -ne 0) { azd auth login --tenant-id $TenantId; Check 'azd auth login' }
 
 Step 'Entra アプリ登録（単一テナント）'
 $name = "campaign-flow-$EnvName"
 $appId = az ad app list --display-name $name --query '[0].appId' -o tsv
-if (-not $appId) { $appId = az ad app create --display-name $name --sign-in-audience AzureADMyOrg --query appId -o tsv }
-$secret = az ad app credential reset --id $appId --display-name azd --years 1 --query password -o tsv
+if (-not $appId) { $appId = az ad app create --display-name $name --sign-in-audience AzureADMyOrg --query appId -o tsv; Check 'az ad app create' }
+# 組み込み認証は response_type=code+id_token（ハイブリッド フロー）を使うため、ID トークンの発行を有効にしないとコールバックが 401 になる
+az ad app update --id $appId --enable-id-token-issuance true; Check 'az ad app update (id token)'
+# このテナントのポリシーでは資格情報の有効期間が短く制限される（90日は不可、30日は可）。期限切れ前に再実行してローテーションする。
+$end = (Get-Date).AddDays(30).ToString('yyyy-MM-dd')
+$secret = az ad app credential reset --id $appId --display-name azd --end-date $end --query password -o tsv; Check 'az ad app credential reset'
+if (-not $secret) { throw 'クライアント シークレットを作成できませんでした。' }
 
 Step 'azd 環境'
-azd env new $EnvName --subscription $SubscriptionId 2>$null
-azd env select $EnvName
+azd env list 2>$null | Select-String -SimpleMatch $EnvName -Quiet | ForEach-Object { if (-not $_) { azd env new $EnvName --subscription $SubscriptionId; Check 'azd env new' } }
+azd env select $EnvName; Check 'azd env select'
 azd env set AZURE_SUBSCRIPTION_ID $SubscriptionId
 azd env set AZURE_TENANT_ID $TenantId
 azd env set AUTH_CLIENT_ID $appId
