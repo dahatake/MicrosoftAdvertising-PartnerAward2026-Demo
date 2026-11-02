@@ -186,12 +186,22 @@ def csp_for(path):
 
 class Handler(BaseHTTPRequestHandler):
     server_version = "LocalOnly/1.0"
+    # HTTP/1.1 keep-alive: behind the Container Apps auth sidecar, HTTP/1.0 (one connection per response) made
+    # bursts of parallel requests fail intermittently with 500 before they ever reached this app.
+    protocol_version = "HTTP/1.1"
+    timeout = 30  # drop idle keep-alive connections so they do not pin a thread forever
     conn = None
     allowed_hosts = set()
     remote = False  # opt-in hosted mode (Azure): only for an instance behind an authenticating proxy
 
     def log_message(self, fmt, *args):
         pass
+
+    def handle(self):
+        try:
+            super().handle()
+        except (ConnectionError, TimeoutError):
+            pass  # the peer closed or reset a keep-alive connection; nothing to report
 
     def log_request(self, code="-", size="-"):
         if self.remote:  # one JSON line per request on stdout (collected by the platform); no query string, no body
@@ -251,6 +261,8 @@ class Handler(BaseHTTPRequestHandler):
         except ValueError:
             n = 0
         self._too_large = n > MAX_BODY
+        if self._too_large:
+            self.close_connection = True  # the unread body would corrupt the next request on a keep-alive connection
         self._raw = self.rfile.read(n) if 0 < n <= MAX_BODY else b""
         try:
             url = urlparse(self.path)
@@ -662,6 +674,11 @@ class Handler(BaseHTTPRequestHandler):
         return {"id": cur.lastrowid, "duplicate": False}
 
 
+class Server(ThreadingHTTPServer):
+    request_queue_size = 128  # default is 5: a page load opens a dozen connections at once
+    daemon_threads = True
+
+
 def make_server(port=8765, db_path=None, host="127.0.0.1", remote_hosts=None):
     """Loopback-only by default. Hosted mode needs an explicit host allow-list and must sit behind an authenticating proxy."""
     remote = bool(remote_hosts)
@@ -670,7 +687,7 @@ def make_server(port=8765, db_path=None, host="127.0.0.1", remote_hosts=None):
     conn = dbm.connect(db_path)
     seed(conn)
     handler = type("BoundHandler", (Handler,), {"conn": conn, "remote": remote})
-    srv = ThreadingHTTPServer((host, port), handler)
+    srv = Server((host, port), handler)
     port = srv.server_address[1]
     handler.allowed_hosts = {h.strip().lower() for h in remote_hosts} if remote else {f"127.0.0.1:{port}", f"localhost:{port}", f"[::1]:{port}"}
     srv.daemon_threads = True

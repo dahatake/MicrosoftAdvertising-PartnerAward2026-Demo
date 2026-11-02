@@ -1,10 +1,6 @@
 param location string
 param environmentName string
 param image string
-param authClientId string
-@secure()
-param authClientSecret string
-param authTenantId string
 param monthlyBudget int
 param budgetContactEmail string
 param budgetStartDate string
@@ -93,7 +89,6 @@ resource web 'Microsoft.App/containerApps@2024-03-01' = {
         allowInsecure: false
       }
       registries: [ { server: registry.properties.loginServer, identity: identity.id } ]
-      secrets: [ { name: 'microsoft-provider-authentication-secret', value: authClientSecret } ]
     }
     template: {
       containers: [
@@ -118,32 +113,6 @@ resource web 'Microsoft.App/containerApps@2024-03-01' = {
   }
 }
 
-// Built-in authentication (Entra ID, single tenant). Unauthenticated requests are redirected to sign-in.
-resource auth 'Microsoft.App/containerApps/authConfigs@2024-03-01' = {
-  parent: web
-  name: 'current'
-  properties: {
-    platform: { enabled: true }
-    globalValidation: {
-      unauthenticatedClientAction: 'RedirectToLoginPage'
-      redirectToProvider: 'azureactivedirectory'
-      excludedPaths: [ '/healthz' ]
-    }
-    identityProviders: {
-      azureActiveDirectory: {
-        enabled: true
-        registration: {
-          clientId: authClientId
-          clientSecretSettingName: 'microsoft-provider-authentication-secret'
-          openIdIssuer: '${environment().authentication.loginEndpoint}${authTenantId}/v2.0'
-        }
-        validation: { allowedAudiences: [ authClientId, 'api://${authClientId}' ] }
-      }
-    }
-    login: { preserveUrlFragmentsForLogins: true }
-  }
-}
-
 // Cost guard: alerts at 50% / 80% / 100% actual and 100% forecast of the monthly budget.
 resource budget 'Microsoft.Consumption/budgets@2023-11-01' = {
   name: 'budget-${environmentName}'
@@ -164,4 +133,3 @@ resource budget 'Microsoft.Consumption/budgets@2023-11-01' = {
 output registryEndpoint string = registry.properties.loginServer
 output registryName string = registry.name
 output uri string = 'https://${fqdn}'
-output redirectUri string = 'https://${fqdn}/.auth/login/aad/callback'

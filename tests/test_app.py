@@ -461,6 +461,56 @@ class AppTest(unittest.TestCase):
         self.assertEqual(self.call("GET", "/healthz")[0], 200)
         self.assertEqual(self.call("GET", "/healthz")[1], {"status": "ok"})
 
+    def test_keep_alive_and_parallel_burst_serves_every_static_file(self):
+        import pathlib
+        import concurrent.futures as cf
+        static = pathlib.Path(__file__).resolve().parent.parent / "app" / "static"
+        files = ["/"] + ["/" + p.relative_to(static).as_posix() for p in sorted(static.rglob("*")) if p.is_file() and "creatives" not in p.parts]
+        # one connection, several requests: needs HTTP/1.1 keep-alive
+        c = http.client.HTTPConnection("127.0.0.1", self.port, timeout=10)
+        for path in files[:4]:
+            c.request("GET", path, headers={"Host": f"127.0.0.1:{self.port}"})
+            r = c.getresponse(); r.read()
+            self.assertEqual((r.status, r.version), (200, 11), path)
+        c.close()
+
+        def fetch(path):
+            cc = http.client.HTTPConnection("127.0.0.1", self.port, timeout=20)
+            cc.request("GET", path, headers={"Host": f"127.0.0.1:{self.port}"})
+            r = cc.getresponse(); body = r.read(); cc.close()
+            return path, r.status, len(body)
+        with cf.ThreadPoolExecutor(max_workers=40) as ex:  # a browser opens a dozen at once; this is far harsher
+            results = list(ex.map(fetch, files * 6))
+        bad = [x for x in results if x[1] != 200 or x[2] == 0]
+        self.assertEqual(bad, [])
+
+    def test_script_loader_matches_files_and_index_has_no_stray_scripts(self):
+        import pathlib
+        import re
+        static = pathlib.Path(__file__).resolve().parent.parent / "app" / "static"
+        boot = (static / "boot.js").read_text(encoding="utf-8")
+        listed = re.findall(r'"(/[^"]+\.js)"', re.search(r"SCRIPTS = \[(.*?)\]", boot, re.S).group(1))
+        for src in listed:
+            self.assertTrue((static / src.lstrip("/")).is_file(), src)
+        on_disk = {"/" + p.relative_to(static).as_posix() for p in static.rglob("*.js") if "vendor" not in p.parts or p.name == "d3.min.js"}
+        self.assertEqual(set(listed), on_disk - {"/boot.js"})  # a script that exists but is not loaded would silently disappear
+        index = (static / "index.html").read_text(encoding="utf-8")
+        self.assertEqual(re.findall(r'<script[^>]*src="([^"]+)"', index), ["/boot.js"])
+        self.assertLess(listed.index("/ui.js"), listed.index("/ops.js"))
+        self.assertEqual(listed[-1], "/main.js")  # main.js starts the app, so it must come last
+
+    def test_every_script_parses_with_node(self):
+        import pathlib
+        import shutil
+        import subprocess
+        node = shutil.which("node")
+        if not node:
+            self.skipTest("node is not installed")
+        static = pathlib.Path(__file__).resolve().parent.parent / "app" / "static"
+        for p in sorted(static.glob("*.js")):
+            r = subprocess.run([node, "--check", str(p)], capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, f"{p.name}: {r.stderr[:300]}")
+
     def test_language_switch_is_per_request_and_default_is_japanese(self):
         s, ja = self.call("GET", "/api/cases/3", "mgr1")
         s, en = self.call("GET", "/api/cases/3", "mgr1", headers={"X-Lang": "en"})

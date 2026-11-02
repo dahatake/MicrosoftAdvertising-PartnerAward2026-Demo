@@ -226,3 +226,5 @@ html[data-theme=light] .sim{background:radial-gradient(1200px 700px at 80% -10%,
 @keyframes rip{to{transform:scale(18);opacity:0}}
 #main{animation:pagein .6s var(--ease)}@keyframes pagein{from{opacity:.0;filter:blur(8px);transform:translateY(10px)}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+#boot{position:fixed;inset:auto 0 40% 0;text-align:center;z-index:5;font-size:14px;color:var(--fg2)}#boot.bad{color:var(--bad);font-weight:600}#boot .btn{margin-top:10px}

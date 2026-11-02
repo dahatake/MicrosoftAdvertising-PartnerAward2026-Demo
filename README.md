@@ -184,8 +184,7 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  user(["利用者"]) -->|HTTPS| ingress["Container Apps<br/>外部イングレス + 組み込み認証"]
-  entra["Microsoft Entra ID<br/>（単一テナント）"] -. "サインイン" .- ingress
+  user(["利用者（認証なし）"]) -->|HTTPS| ingress["Container Apps<br/>外部イングレス（認証なし）"]
   subgraph cae["Container Apps 環境（Consumption）"]
     app["campaign-flow コンテナ<br/>最小 1 / 最大 1 レプリカ<br/>SQLite は /tmp（再起動で再シード）"]
   end
@@ -209,7 +208,7 @@ app/
   biz.py / biz_data.py  取引先・プロジェクト(EVM)・KPI/OKR・分析・詳細カード・関連図（/api/biz/*）
   i18n.py       日本語→英語の翻訳（辞書＋テンプレート）。辞書は i18n/*.json
   db.py         SQLite スキーマと軽量マイグレーション
-  static/       UI（ui.js / charts.js / dashboard.js / case.js / main.js ほか）、vendor/d3.min.js、creatives/
+  static/       UI（boot.js[再試行つきローダー] / ui.js / charts.js / dashboard.js / case.js / main.js ほか）、vendor/d3.min.js、creatives/
 tests/test_app.py
 Dockerfile / .dockerignore / azure.yaml   コンテナ化と azd 設定
 infra/        Bicep（main.bicep・app.bicep・main.parameters.json）
@@ -226,25 +225,20 @@ docs/         調査書・要求定義書・WAF-Analytics.md（Azure 向けア�
 ./infra/deploy.ps1 -SubscriptionId <サブスクリプションID> -TenantId <テナントID> -ContactEmail <予算アラートの送信先>
 ```
 
-スクリプトは、Entra アプリ登録（単一テナント）→ `azd up`（Japan East を優先し、使えなければ Japan West / East Asia / Southeast Asia の順に試行）→ リダイレクト URI の登録 → `/healthz` と未認証アクセスの確認まで行い、再実行しても安全です。手動で行う場合の要点は次のとおりです。
+スクリプトは、`azd up`（Japan East を優先し、使えなければ Japan West / East Asia / Southeast Asia の順に試行）→ `/healthz` とトップページの疎通確認まで行い、再実行しても安全です。手動で行う場合は次のとおりです。
 
 ```powershell
 azd env new campaignflow --subscription <サブスクリプションID>
 azd env set AZURE_LOCATION japaneast
-azd env set AUTH_CLIENT_ID <アプリ登録のクライアントID>
-azd env set AUTH_CLIENT_SECRET <クライアント シークレット>
 azd env set BUDGET_CONTACT_EMAIL <メール>
 azd up
-az ad app update --id <クライアントID> --web-redirect-uris (azd env get-value SERVICE_WEB_REDIRECT_URI)
 ```
 
-- **予算**：リソース グループに月額 100,000（サブスクリプションの請求通貨。円建てなら 10 万円）の予算を作成し、実績 50%・80%・100% と予測 100% でメール通知します。想定コストは小規模（Container Apps 0.5 vCPU×1、ACR Basic、Log Analytics）で、予算を大きく下回る見込みですが、実額は未見積りです。
+- **認証機能はありません**（2026-11-03 に削除）。URL を知っていれば誰でもアクセスでき、「ロール選択」は認証ではありません。誰でも任意のロール（業務責任者を含む）でデータを更新でき、`/api/ops/reset` でデモデータを初期化することも可能です。**架空データ専用**で、実データは載せないでください。コンテナーを再起動すると初期データに戻ります。
+- **予算**：リソース グループに月額 100,000（サブスクリプションの請求通貨。円建てなら 10 万円）の予算を作成し、実績 50%・80%・100% と予測 100% でメール通知します。想定コストは小規模（Container Apps 0.5 vCPU×1、ACR Basic、Log Analytics）で、予算を大きく下回る見込みですが、実額は未見積りです。公開状態のため、不正なアクセスでコストが増えた場合もこの通知で気づけます（自動停止はしません）。
 - 初回の `azd provision` ではプレースホルダのイメージが起動するため、リビジョンは `azd deploy` が完了するまで正常になりません。
-- 認証なしの公開はできません（`authClientId` は必須）。「ロール選択」は**認証ではありません**。サインインできる同一テナントの利用者は全員が全ロールを選べます。
-- クライアント シークレットの有効期間はテナントのポリシーで 30 日以内に制限される場合があります（`deploy.ps1` は 30 日で発行）。期限前に再実行してローテーションしてください。
-- アプリ登録で「ID トークンの発行」を有効にする必要があります（組み込み認証がハイブリッド フローを使うため。無効だと `/.auth/login/aad/callback` が HTTP 401 になる）。`deploy.ps1` が設定します。
-- 実績（2026-11-02）：`0e930937-…`（テナント `16b3c013-…`）の Japan East にデプロイ済み。`/healthz` は 200、未認証は 401／Entra のサインイン画面へ誘導を確認。サインイン後の画面表示は未確認です。
-
+- 以前に組み込み認証つきでデプロイしていた環境は、Bicep の差分デプロイでは認証設定が消えません。`deploy.ps1` が `az containerapp auth update --enabled false` で無効化します。
+- 実績（2026-11-03）：`0e930937-…`（テナント `16b3c013-…`）の Japan East。認証なしで `/healthz`・トップページ・API が 200、ロール選択後の 14 画面でデータ表示とスクリプトエラー 0 を確認。
 ## 限界
 
 - 外部システム連携、成果指標の自動取込、通知、月次レポート、効果測定の対照群設計は含みません。成果データは手入力または架空データです。
