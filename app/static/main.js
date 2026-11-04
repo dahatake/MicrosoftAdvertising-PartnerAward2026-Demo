@@ -54,11 +54,9 @@ function buildShell() {
   $("#sfxBtn").setAttribute("aria-label", tr("効果音")); $("#sfxBtn").title = tr("効果音のオン／オフ");
   setSoundIcons();
   $(".rail-foot").replaceChildren(tr("ローカル専用 · 架空データ"), h("br"), tr("127.0.0.1 のみで動作"));
-  $(".persona span:not(.uav)").textContent = tr("視点");
   $("#pill").setAttribute("aria-label", tr("アラート状態"));
   $("#roleBtn").replaceChildren(ic("person", 15), tr("ロール選択"));
   $("#roleBtn").setAttribute("title", tr("ロール選択画面に戻る"));
-  $("#user").setAttribute("aria-label", tr("ユーザー切替"));
   $("#theme").setAttribute("aria-label", tr("テーマ切替")); $("#theme").setAttribute("title", tr("ライト／ダーク"));
   $(".foot").textContent = tr("Fluent 2 の原則（Natural on every platform / Built for focus / One for all, all for one / Unmistakably Microsoft）に沿ったデモUI。ユーザー切替は権限分離の確認用で、認証ではありません。");
   document.querySelectorAll("#lang button").forEach((b) => { const on = b.dataset.l === A.state.lang; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
@@ -66,11 +64,9 @@ function buildShell() {
 }
 
 async function loadUsers() {
-  const { users, roles } = await api("/api/users"), sel = $("#user");
+  const { users, roles } = await api("/api/users");
   A.state.users = users; A.state.roles = roles;
-  sel.replaceChildren(...users.map((u) => h("option", { value: u.id }, `${A.state.lang === "ja" ? u.name.replace(/^\S+\s+/, "") : u.name}（${roles[u.role]}）`)));
   A.state.user = users.some((u) => u.id === A.state.user) ? A.state.user : users[0].id;
-  sel.value = A.state.user;
 }
 
 /* Role picker: shown at start-up and whenever the user returns to it from the top bar. */
@@ -90,7 +86,7 @@ function showRolePicker({ first = false } = {}) {
     const pick = (u) => {
       FX.init(); FX.sfx("success"); FX.ring(innerWidth / 2, innerHeight / 2); FX.burst(innerWidth / 2, innerHeight / 2, { n: 34, hue: 210, spread: 8 });
       A.state.user = u.id; A.state.cs = null; sessionStorage.setItem("user", u.id); sessionStorage.setItem("roleChosen", "1");
-      $("#user").value = u.id; closePicker(); location.hash = "#/dashboard"; resolve(true);
+      closePicker(); location.hash = "#/dashboard"; resolve(true);
     };
     const card = (u, i) => h("button", { type: "button", class: "rcard" + (u.id === A.state.user && !first ? " cur" : ""), style: `--i:${i}`, "data-tilt": "", onclick: () => pick(u) },
       h("span", { class: "rav" }, userAvatar(u.id, 96)), h("b", {}, A.state.lang === "ja" ? u.name.replace(/^\S+\s+/, "") : u.name), h("span", { class: "chip" }, roles[u.role]), h("small", {}, ROLE_INFO[u.id] || ""));
@@ -127,7 +123,6 @@ async function init() {
   $("#pill").onclick = () => { location.hash = "#/tasks"; };
   $("#newCase").onclick = () => A.newCase();
   document.querySelectorAll("#lang button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.l)));
-  $("#user").addEventListener("change", () => { A.state.user = $("#user").value; sessionStorage.setItem("user", A.state.user); A.state.cs = null; FX.sfx("success"); FX.ring(innerWidth - 120, 40); location.hash = "#/dashboard"; A.render(); });
   buildShell();
   await loadUsers();
   A.state.creatives = (await api("/api/creatives")).creatives;
